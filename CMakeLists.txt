@@ -14,6 +14,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick)
 
 set(PROJECT_SOURCES
         main.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/components/notchedrectangle.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/components/notchedrectangle.h
         qml.qrc
 )
 
@@ -28,22 +30,22 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
-        add_library(TestSpritedAnimation SHARED
+        add_library(MathQuize SHARED
             ${PROJECT_SOURCES}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
-        add_executable(TestSpritedAnimation
+        add_executable(MathQuize
           ${PROJECT_SOURCES}
         )
     endif()
 endif()
 
-target_link_libraries(TestSpritedAnimation
+target_link_libraries(MathQuize
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
 
-set_target_properties(TestSpritedAnimation PROPERTIES
+set_target_properties(MathQuize PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -51,7 +53,7 @@ set_target_properties(TestSpritedAnimation PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-install(TARGETS TestSpritedAnimation
+install(TARGETS MathQuize
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 

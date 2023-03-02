@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "src/components/notchedrectangle.h"
+
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -20,6 +22,7 @@ int main(int argc, char *argv[])
 		Qt::QueuedConnection);
 
 	qmlRegisterSingletonType(QUrl("qrc:/Constant.qml"), "Constant", 1, 0, "Constant");
+	qmlRegisterType<NotchedRectangle>("Notched", 1, 0, "NotchedRectangle");
 
 	engine.load(url);
 

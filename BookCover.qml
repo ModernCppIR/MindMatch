@@ -1,11 +1,14 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.0
 import Constant 1.0
 
 Item {
 
     id:root
+
+    signal clicked
     //    property string bookName
     //    property string operation: "+"
     property color operationColor : "#222"
@@ -19,8 +22,6 @@ Item {
     property int logoSize : parent ? parent.width/8 : 0
 
 
-    property bool completed: achievedStars == totalStars
-
     height:500
     property color secondBackgroundColor: "#ffffff"
     property color firstBackgroundColor: "#ffffff"
@@ -28,38 +29,46 @@ Item {
     //    anchors.right: parent ?  parent.right : undefined
     //    anchors.leftMargin: 50
     //    anchors.rightMargin: 50
+Button{
+    anchors.fill: parent
 
-    Rectangle{
+    onClicked:{
+        root.clicked()
+    }
+
+    background: Rectangle{
         id:button_back
+
         anchors.fill: parent
-        color:"#fffbf3"
+        color:"#f3fbff"
         radius: 20
 
-        layer.enabled: true
-        layer.effect: DropShadow {
-            transparentBorder: true
-            horizontalOffset: 0
-            verticalOffset: 0
-            color: "#608da2"
-            samples: 7
-            radius: 8
-            spread: 0.0
-        }
 
 
         RadialGradient  {
-            anchors.fill: completed? button_back: undefined
-            source:completed? button_back: undefined
+            anchors.fill:button_back
+
+            source: button_back
             angle: 45
             verticalRadius: 300
             horizontalRadius: 300
-            horizontalOffset:-root.width/2
-            verticalOffset: -root.height/2
+            horizontalOffset:-button_back.width/2
+            verticalOffset: -button_back.height/2
             gradient: Gradient {
-                GradientStop { position: 0; color: Constant.gold }
-                GradientStop { position: 1; color: Constant.orange }
+                GradientStop { position: 0; color: "#e3e3e3"}
+                GradientStop { position: 1; color: "#e3e3e3" }
             }
         }
+//        layer.enabled: true
+//        layer.effect: DropShadow {
+//            transparentBorder: true
+//            horizontalOffset: 0
+//            verticalOffset: 0
+//            color: Qt.darker("#608da2")
+//            samples: 7
+//            radius: 8
+//            spread: 0.0
+//        }
 
     }
 
@@ -70,7 +79,7 @@ Item {
             text: bookName
             font.pixelSize: 60
             font.bold: true
-            color:"#454545"
+            color:Constant.darkTextColor
 
             Layout.alignment: Qt.AlignCenter
             verticalAlignment: Qt.AlignVCenter
@@ -113,10 +122,10 @@ Item {
                 }
 
                 text:thousandSeparator(achievedScore)
-                color:"#454545"
+                color: "#454545"
                 font.pixelSize: 45
 
-                Layout.leftMargin:10
+                Layout.leftMargin:20
                 Layout.alignment: Qt.AlignVCenter
 
                 verticalAlignment: Qt.AlignVCenter
@@ -148,7 +157,7 @@ Item {
                 text: achievedStars +"/"+totalStars
                 color:"#454545"
 
-                Layout.leftMargin:10
+                Layout.leftMargin:20
                 Layout.alignment: Qt.AlignVCenter
 
                 font.pixelSize: 75
@@ -180,4 +189,5 @@ Item {
 
 
     }
+}
 }

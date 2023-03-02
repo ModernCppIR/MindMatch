@@ -1,11 +1,33 @@
 pragma Singleton
 
+import QtQuick.Controls.Material 2.15
 import QtQuick 2.15
 
 QtObject {
 
-    property color orange: "#f58a0f"
-    property color gold: "#efe721"
-    property color lightblue: "#59e4ee"
-    property color darkblue: "#08d2f6"
+    property color orange: "#FF9800"
+    property color gold: "#FFEB3B"
+
+//    property color lightblue: "#4DD0E1"
+//    property color darkblue: "#2196F3"
+//    property color bluegray: "#92afc5"
+    property color lightblue: "#65e5f1"
+    property color darkblue: "#06d1f7"
+    property color bluegray: "#92afc5"
+
+    property color darkTextColor: "#454545"
+    property color lightTextColor: "#FFF"
+
+    // from greenhouse
+    property color primaryColor : "#4CAF50"
+    property color darkPrimaryColor : "#388E3C"
+    property color lightPrimaryColor : "#C8E6C9"
+    property color primaryTextColor : "#212121"
+    property color secondaryTextColor : "#757575"
+    property color accentColor : "#8BC34A"
+    property color textIconColor : "#FFFFFF"
+    property color dividerColor : "#FFFFFF"
+    property color backgroundColor : "#fff"
+
+    property int cornerRadius: 100
 }

@@ -12,5 +12,11 @@
         <file>RotatedHexagon.qml</file>
         <file>gif/18551-cup-of-tea.gif</file>
         <file>Constant.qml</file>
+        <file>qml/components/BottomNavigationBar.qml</file>
+        <file>fonts/otfs/Font Awesome 6 Brands-Regular-400.otf</file>
+        <file>fonts/otfs/Font Awesome 6 Free-Regular-400.otf</file>
+        <file>fonts/otfs/Font Awesome 6 Free-Solid-900.otf</file>
+        <file>qml/pages/BookChapters.qml</file>
+        <file>qml/pages/ButtonZoo.qml</file>
     </qresource>
 </RCC>

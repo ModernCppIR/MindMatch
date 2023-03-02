@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Shapes 1.15
-//import QtGraphicalEffects 1.15
 
 Item {
     id:root
@@ -31,18 +30,9 @@ Item {
             fillGradient:         LinearGradient  {
                 x1: 0; y1: 0
                 x2: width; y2: height
-//                anchors.fill: completed? button_back: undefined
-//                source:completed? button_back : undefined
-//                 angle: 45
-//                 verticalRadius: 300
-//                 horizontalRadius: 300
-//                 horizontalOffset:-shapeRoot.width/2
-//                 verticalOffset: -shapeRoot.height/2
-//                gradient: Gradient {
-                    GradientStop { position: 0; color: fColor != tColor ? fColor : Constant.gold }
-                    GradientStop { position: 1; color: fColor != tColor ? fColor : Constant.orange }
-                }
-//            }
+                GradientStop { position: 0; color: fColor != tColor ? fColor : Constant.gold }
+                GradientStop { position: 1; color: fColor != tColor ? fColor : Constant.orange }
+            }
         }
     }
 }

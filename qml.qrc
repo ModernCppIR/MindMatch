@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>DragTest.qml</file>
+        <file>GeneralButton.qml</file>
+        <file>BookList.qml</file>
+        <file>BookCover.qml</file>
+        <file>img/diamond.png</file>
+        <file>img/star.png</file>
+        <file>img/addition.png</file>
+        <file>Hexagon.qml</file>
+        <file>RotatedHexagon.qml</file>
+        <file>gif/18551-cup-of-tea.gif</file>
+        <file>Constant.qml</file>
+    </qresource>
+</RCC>

@@ -45,12 +45,7 @@ Item {
              horizontalRadius: 300
              horizontalOffset:-rect.width/2
              verticalOffset: -rect.height/2
-//                    start: Qt.point(0, 0)
-//                    end: Qt.point(button_back.width/2, button_back.height)
-            gradient: Gradient {
-                GradientStop { position: 0; color: Constant.lightblue  }
-                GradientStop { position: 1; color: Constant.darkblue }
-            }
+            gradient: Constant.blueGradient
         }
 
         RoundButton {
@@ -60,7 +55,6 @@ Item {
             z:5
             width: buttonRadius * 2
             height: width
-//            palette.button: Constant.gold
             palette.shadow: "#222"
 
             property double centerX: parent.width / 2
@@ -95,14 +89,9 @@ Item {
                         anchors.fill: currentButtonActive
                         source: currentButtonActive
                          angle: 45
-//                         verticalRadius: 300
-//                         horizontalRadius: 300
                          horizontalOffset:-currentButtonActive.width/2
                          verticalOffset: -currentButtonActive.height/2
-                        gradient: Gradient {
-                            GradientStop { position: 0; color: Constant.gold }
-                            GradientStop { position: 1; color: Constant.orange }
-                        }
+                        gradient: Constant.goldGradient
                     }
                 }
 

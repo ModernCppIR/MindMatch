@@ -4,6 +4,8 @@ import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.0
 import Constant 1.0
 
+import "js/Utilities.js" as Utilities
+
 Item {
 
     id:root
@@ -40,25 +42,25 @@ Button{
         id:button_back
 
         anchors.fill: parent
-        color:"#f3fbff"
+        color:"#FFF"
         radius: 20
 
 
 
-        RadialGradient  {
-            anchors.fill:button_back
+//        RadialGradient  {
+//            anchors.fill:button_back
 
-            source: button_back
-            angle: 45
-            verticalRadius: 300
-            horizontalRadius: 300
-            horizontalOffset:-button_back.width/2
-            verticalOffset: -button_back.height/2
-            gradient: Gradient {
-                GradientStop { position: 0; color: "#e3e3e3"}
-                GradientStop { position: 1; color: "#e3e3e3" }
-            }
-        }
+//            source: button_back
+//            angle: 45
+//            verticalRadius: 300
+//            horizontalRadius: 300
+//            horizontalOffset:-button_back.width/2
+//            verticalOffset: -button_back.height/2
+//            gradient: Gradient {
+//                GradientStop { position: 0; color: "#FFF"}
+//                GradientStop { position: 1; color: "#FFF" }
+//            }
+//        }
 //        layer.enabled: true
 //        layer.effect: DropShadow {
 //            transparentBorder: true
@@ -79,7 +81,7 @@ Button{
             text: bookName
             font.pixelSize: 60
             font.bold: true
-            color:Constant.darkTextColor
+            color: Constant.darkTextColor
 
             Layout.alignment: Qt.AlignCenter
             verticalAlignment: Qt.AlignVCenter
@@ -117,11 +119,9 @@ Button{
 
             Text{
                 id:scoreText
-                function thousandSeparator(input){
-                    return input.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-                }
 
-                text:thousandSeparator(achievedScore)
+
+                text: Utilities.thousandSeparator(achievedScore)
                 color: "#454545"
                 font.pixelSize: 45
 
@@ -155,7 +155,7 @@ Button{
             Text{
 
                 text: achievedStars +"/"+totalStars
-                color:"#454545"
+                color: Constant.darkTextColor
 
                 Layout.leftMargin:20
                 Layout.alignment: Qt.AlignVCenter
@@ -176,7 +176,7 @@ Button{
                 edgeSize: logoSize
                 Component.onCompleted: logoSize
                 Layout.rightMargin:10
-                fColor:"#e0f0fc"
+                fColor:Qt.lighter(Constant.lightblue)//"#e0f0fc"
                 Image{
                     source: "qrc:/img/star.png"
                     sourceSize: Qt.size(parent.width*0.8,parent.width*0.8)

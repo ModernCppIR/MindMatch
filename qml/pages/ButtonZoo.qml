@@ -18,11 +18,7 @@ Item {
                 source: backRect
                 start: Qt.point(0, backRect.height/2)
                 end: Qt.point(backRect.width, backRect.height/2)
-                gradient: Gradient {
-                    GradientStop { position: 0; color: Constant.lightblue }
-                    GradientStop { position: 0.5; color: "#5ae9f9" }
-                    GradientStop { position: 1; color:  Constant.darkblue }
-                }
+                gradient: Constant.blueGradient
             }
         }
 

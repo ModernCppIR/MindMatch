@@ -10,7 +10,18 @@ Page {
         id:backRect
         anchors.fill: parent
         color:"#f0f9fd"
-        radius: 20
+
+
+        RadialGradient  {
+            anchors.fill:backRect
+            source: backRect
+            angle: 45
+            verticalRadius: 300
+            horizontalRadius: 300
+            horizontalOffset:-backRect.width/2
+            verticalOffset: -backRect.height/2
+            gradient: Constant.blueGradient
+        }
     }
 
     ListModel{

@@ -43,13 +43,10 @@ Button {
              angle: 45
              verticalRadius: 300
              horizontalRadius: 300
-             horizontalOffset:-root.width/2
-             verticalOffset: -root.height/2
-//                    start: Qt.point(0, 0)
-//                    end: Qt.point(button_back.width/2, button_back.height)
+             horizontalOffset:-button_back.width/2
+             verticalOffset: -button_back.height/2
             gradient: Gradient {
                 GradientStop { position: 0; color: firstBackgroundColor }
-//                GradientStop { position: 0.5; color: orange }
                 GradientStop { position: 1; color: secondBackgroundColor }
             }
         }

@@ -4,6 +4,8 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 
+import "../../js/Utilities.js" as Utilities
+
 Page {
 
     Rectangle
@@ -50,7 +52,7 @@ Page {
         delegate: RoundButton{
 
             id: chapterButton
-height:70
+            implicitHeight:70
             text:chapterName
             //Text.horizontalAlignment: Qt.AlignRight
             width : parent? parent.width - 40 : 0
@@ -73,36 +75,35 @@ height:70
 
             contentItem:
                 RowLayout{
-//                implicitHeight: chapterButton.implicitHeight
-//                implicitWidth: chapterButton.implicitWidth
+                //                implicitHeight: chapterButton.implicitHeight
+                //                implicitWidth: chapterButton.implicitWidth
+                anchors.fill: parent
+
                 ColumnLayout{
                     RowLayout{
-                        Image{
-                            source: "qrc:/img/star.png"
-                            sourceSize: Qt.size(starSize,starSize)
-                        }
-                        Image{
-                            source: "qrc:/img/star.png"
-                            sourceSize: Qt.size(starSize,starSize)
-                        }
-                        Image{
-                            source: "qrc:/img/star.png"
-                            sourceSize: Qt.size(starSize,starSize)
+                        Repeater{
+                            model:3
+                            Image{
+                                Layout.leftMargin: 5
+                                source: achievedStars > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
+                                sourceSize: Qt.size(starSize,starSize)
+                            }
+
                         }
                     }
                     Text{
-                        text:"79,563"
+                        text: Utilities.thousandSeparator(achievedScore)
                         Layout.alignment: Qt.AlignCenter
 
                     }
                 }
 
-            Text{
-                text:   chapterButton.text
-                Layout.rightMargin: 10
-                Layout.alignment: Qt.AlignRight
+                Text{
+                    text:   chapterButton.text
+                    Layout.rightMargin: 10
+                    Layout.alignment: Qt.AlignRight
 
-            }
+                }
             }
 
 

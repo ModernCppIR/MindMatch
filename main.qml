@@ -6,6 +6,7 @@ import QtGraphicalEffects 1.0
 import Qt.labs.lottieqt 1.0
 
 import './qml/components'
+import './qml/pages'
 
 ApplicationWindow
 {
@@ -16,6 +17,20 @@ ApplicationWindow
     height: 900
     width: 420
     color: "white"
+//    background: Rectangle{
+//        id:mainWindowBackRect
+//        anchors.fill: parent
+//    RadialGradient  {
+//        anchors.fill:mainWindowBackRect
+//        source: mainWindowBackRect
+//        angle: 45
+//        verticalRadius: 300
+//        horizontalRadius: 300
+//        horizontalOffset:-mainWindowBackRect.width/2
+//        verticalOffset: -mainWindowBackRect.height/2
+//        gradient: Constant.blueGradient
+//    }
+//    }
 
     FontLoader {
         id: fontLoader
@@ -25,6 +40,8 @@ ApplicationWindow
 
 
     header: ToolBar {
+
+        id: mainMenuBar
 
         Button{
             anchors.fill: parent
@@ -45,10 +62,7 @@ ApplicationWindow
                     horizontalRadius: 300
                     horizontalOffset:-headerBackgroundRect.width/2
                     verticalOffset: -headerBackgroundRect.height/2
-                    gradient: Gradient {
-                        GradientStop { position: 0; color: Constant.lightblue}
-                        GradientStop { position: 1; color: Constant.darkblue }
-                    }
+                    gradient: Constant.blueGradient
                 }
             }
         }
@@ -61,14 +75,15 @@ ApplicationWindow
 
         onCurrentIndexChanged: {
             //            stackView.replace(getPage(currentIndex))
-            stackView.push("qml/pages/BookChapters.qml")
+//            stackView.push("qml/pages/BookChapters.qml")
+//            stackView.push("qml/pages/QuestionPage.qml")
         }
     }
 
     StackView {
         id: stackView
         anchors.fill: parent
-        initialItem: BookList {}
+        initialItem: QuestionPage {}
     }
 
 

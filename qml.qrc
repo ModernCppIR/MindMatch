@@ -18,5 +18,10 @@
         <file>fonts/otfs/Font Awesome 6 Free-Solid-900.otf</file>
         <file>qml/pages/BookChapters.qml</file>
         <file>qml/pages/ButtonZoo.qml</file>
+        <file>qml/pages/ChapterGameMode.qml</file>
+        <file>qml/pages/QuestionPage.qml</file>
+        <file>img/star_off.png</file>
+        <file>js/Utilities.js</file>
+        <file>lottie/114864-green-calculator.json</file>
     </qresource>
 </RCC>

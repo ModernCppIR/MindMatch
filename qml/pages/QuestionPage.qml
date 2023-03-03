@@ -5,11 +5,18 @@ import QtGraphicalEffects 1.0
 
 import Constant 1.0
 
+import "../components"
+
 Item {
     id:root
 
     property int remainingStars : 3
     property int starSize : root.width/12
+
+    property bool isMusicOff: false
+
+    property string questionStr : "Question"
+    property var answersArray  : ["Answer 1", "Answer 2", "Answer 3", "Answer 4"]
 
     Component.onCompleted:  {
 
@@ -19,7 +26,7 @@ Item {
 
     Rectangle{
         anchors.fill: parent
-        color: Constant.lightBackground
+        color: Constant.lightBackgroundColor
     }
 
 
@@ -56,11 +63,43 @@ Item {
             anchors.fill: parent
             RowLayout
             {
-                Button {
+                RoundButton {
+                    id: backButton
                     text: qsTr("<")
+                    font.pixelSize: 30
+                    Layout.leftMargin: 5
+                    Layout.topMargin: 5
+
+                    onClicked: console.log("cliecked")
+
+                    contentItem: Text
+                    {
+                        text: "\uf0d9"
+                        font.family: fontLoader.name
+                        font.pixelSize: 20
+                        font.styleName: "Solid"
+                        anchors.verticalCenter:parent.verticalCenter
+                        width: 45
+                        height: 45
+                        anchors.centerIn: parent
+                        color: Constant.darkTextColor
+                        antialiasing:true
+                        verticalAlignment:Qt.AlignVCenter
+                        horizontalAlignment:Qt.AlignHCenter
+                    }
                     implicitHeight: 50
                     implicitWidth:implicitHeight
+
+                    background: Rectangle {
+                        id: currentButtonActive
+                        implicitWidth: backButton.implicitWidth
+                        implicitHeight: backButton.implicitHeight
+                        opacity: enabled ? 1 : 0.3
+                        radius: backButton.radius
+                        color: Constant.whiteColor
+                    }
                 }
+
                 Item{
                     Layout.fillWidth: true
                 }
@@ -72,10 +111,58 @@ Item {
                 Item{
                     Layout.fillWidth: true
                 }
-                Button{
+
+                RoundButton{
+                    id:voiceButton
                     implicitHeight: 50
                     implicitWidth:implicitHeight
+                    palette.shadow: "#222"
+                    palette.button: Constant.lightBackgroundColor
+                    Layout.rightMargin: 5
+                    Layout.topMargin: 5
+
+                    onClicked:
+                    {
+                        isMusicOff = !isMusicOff;
+                    }
+
+                    contentItem: Text
+                    {
+                        text: isMusicOff? "\uf6a9": "\uf028"
+                        font.family: fontLoader.name
+                        font.pixelSize: 20
+                        font.styleName: "Solid"
+                        anchors.verticalCenter:parent.verticalCenter
+                        width: 45
+                        height: 45
+                        anchors.centerIn: parent
+                        color: isMusicOff ? Constant.bluegrayTextColor : Constant.whiteColor
+                        antialiasing:true
+
+                        verticalAlignment:Qt.AlignVCenter
+                        horizontalAlignment:Qt.AlignHCenter
+                    }
+
+                    background: Rectangle {
+                        id: voiceButtonBackRect
+                        implicitWidth: voiceButton.implicitWidth
+                        implicitHeight: voiceButton.implicitHeight
+                        opacity: enabled ? 1 : 0.3
+                        radius: voiceButton.radius
+
+                        RadialGradient  {
+                            anchors.fill: voiceButtonBackRect
+                            source: voiceButtonBackRect
+                            angle: 45
+                            horizontalOffset:-voiceButtonBackRect.width/2
+                            verticalOffset: -voiceButtonBackRect.height/2
+                            gradient: isMusicOff ? Constant.lightBackgroundGradient : Constant.blueGradient
+                        }
+                    }
                 }
+
+
+
             }
             RowLayout
             {
@@ -86,9 +173,11 @@ Item {
                 Repeater{
                     model:3
                     Image{
+                        property double scale : index == 1? 1.3 : 1
                         Layout.leftMargin: 5
+                        Layout.bottomMargin: index == 1 ? 10 : 0
                         source: remainingStars > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
-                        sourceSize: Qt.size(starSize,starSize)
+                        sourceSize: Qt.size(starSize*scale ,starSize*scale)
                     }
                 }
                 Item{
@@ -104,7 +193,7 @@ Item {
                 verticalAlignment: Qt.AlignVCenter
                 horizontalAlignment: Qt.AlignHCenter
             }
-            ProgressBar {
+            BlueProgressBar {
                 value: 0.5
                 Layout.fillWidth: true
                 Layout.leftMargin: 10
@@ -139,7 +228,7 @@ Item {
         Repeater{
             model:4
             Label{
-                text:"answer: " + index
+                text: answersArray[index]
 
                 Layout.margins: 5
                 Layout.fillWidth:  true

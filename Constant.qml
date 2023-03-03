@@ -10,7 +10,8 @@ QtObject {
 //    property color darkblue: "#2196F3"
 //    property color bluegray: "#92afc5"
 
-    property color lightBackground: "#f3fbff"
+    property color whiteColor: "#FFF"
+    property color lightBackgroundColor: "#f3fbff"
 
     property color lightblue: "#65e5f1"
     property color darkblue: "#06d1f7"
@@ -28,6 +29,10 @@ QtObject {
     property var goldGradient : Gradient {
         GradientStop { position: 0; color: Constant.gold }
         GradientStop { position: 1; color: Constant.orange }
+    }
+    property var lightBackgroundGradient : Gradient {
+        GradientStop { position: 0; color: Constant.lightBackgroundColor }
+        GradientStop { position: 1; color: Constant.lightblue }
     }
 
     // from greenhouse

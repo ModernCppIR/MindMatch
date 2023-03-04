@@ -23,7 +23,7 @@ Rectangle {
     ColumnLayout
     {
         anchors.fill: parent
-
+        spacing: 15
         Card{
             id:infoCard
             Layout.fillHeight: true
@@ -48,14 +48,13 @@ Rectangle {
                 horizontalRadius: 300
                 horizontalOffset:-infoRect.width/2
                 verticalOffset: -infoRect.height/2
-                gradient: Gradient {
-                    GradientStop { position: 0; color: Constant.gold }
-                    GradientStop { position: 1; color: Constant.orange }
-                }
+                gradient:Constant.goldGradient
             }
 
             ColumnLayout{
                 anchors.fill: parent
+
+                // NOTE chapter title
                 Label{
                     text:qsTr("فصل اول")
                     font.pixelSize: Constant.h5FontSize
@@ -68,6 +67,8 @@ Rectangle {
                     verticalAlignment:Qt.AlignVCenter
                     horizontalAlignment:Qt.AlignHCenter
                 }
+
+                // NOTE stars
                 RowLayout
                 {
                     Layout.fillWidth: true
@@ -137,11 +138,10 @@ Rectangle {
             Layout.leftMargin: 50
             Layout.rightMargin: 50
             Layout.fillWidth: true
-
-
         }
+
         GeneralButton{
-            text: qsTr("آموزش بازی")
+            text: qsTr("آموزش مرحله بعد")
             firstBackgroundColor: Constant.whiteColor
             secondBackgroundColor: Constant.whiteColor
             fontColor: Constant.bluegray
@@ -151,17 +151,6 @@ Rectangle {
             Layout.rightMargin: 50
             Layout.bottomMargin:  50
             Layout.fillWidth: true
-
-            layer.enabled: true
-            layer.effect: DropShadow {
-                transparentBorder: true
-                horizontalOffset: 0
-                verticalOffset: 0
-                color: Constant.shadowColor
-                samples: 8
-                radius: 8
-                spread: 0.0
-            }
         }
     }
 

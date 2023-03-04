@@ -12,32 +12,16 @@ ApplicationWindow
 {
     id:mainWindow
     //    flags: Qt.FramelessWindowHint
-
+    title:"مسابقه ذهن"
     visible: true
     height: 900
     width: 420
-    color: "white"
-//        background: Rectangle{
-//            id:mainWindowBackRect
-//            anchors.fill: parent
-//        RadialGradient  {
-//            anchors.fill:mainWindowBackRect
-//            source: mainWindowBackRect
-//            angle: 45
-//            verticalRadius: 300
-//            horizontalRadius: 300
-//            horizontalOffset:-mainWindowBackRect.width/2
-//            verticalOffset: -mainWindowBackRect.height/2
-//            gradient: Constant.blueGradient
-//        }
-//        }
+    color: Constant.whiteColor
 
     FontLoader {
         id: fontLoader
         source: "qrc:/fonts/otfs/Font Awesome 6 Free-Solid-900.otf"
-
     }
-
 
     header: ToolBar {
 
@@ -45,7 +29,7 @@ ApplicationWindow
 
         Button{
             anchors.fill: parent
-            text:"Menu"
+            text:"منوی بالا"
             font.bold:true
 
             onClicked: drawer.open()
@@ -83,18 +67,18 @@ ApplicationWindow
     StackView {
         id: stackView
         anchors.fill: parent
-        initialItem: StorySuccessPage{
+        initialItem: BookList{
 
 
         }
-//        initialItem: CountdownPage {
+        //        initialItem: CountdownPage {
 
-//            onDone:
-//            {
-//                console.log("ountdown done");
-//                stackView.push("qrc:/qml/pages/QuestionPage.qml")
-//            }
-//        }
+        //            onDone:
+        //            {
+        //                console.log("ountdown done");
+        //                stackView.push("qrc:/qml/pages/QuestionPage.qml")
+        //            }
+        //        }
     }
 
 

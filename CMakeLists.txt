@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(MathQuize VERSION 0.1 LANGUAGES CXX)
+project(MindMatch VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -13,15 +13,16 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick)
 
 set(PROJECT_SOURCES
-        main.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/components/notchedrectangle.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/components/notchedrectangle.h
-        StoryGameSession.h
-        StoryGameSession.cpp
-        StringQuestionAnswer.h
-        StringAnswer.h
-
-        qml.qrc
+    main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/components/notchedrectangle.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/components/notchedrectangle.h
+    StoryGameSession.h
+    StoryGameSession.cpp
+    StringQuestionAnswer.h
+    StringAnswer.h
+    Statistics.h
+    Statistics.cpp
+    qml.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -38,17 +39,17 @@ else()
         add_library(MathQuize SHARED
             ${PROJECT_SOURCES}
         )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(MathQuize
-          ${PROJECT_SOURCES}
-        )
-    endif()
+    # Define properties for Android with Qt 5 after find_package() calls as:
+    #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+else()
+    add_executable(MathQuize
+        ${PROJECT_SOURCES}
+    )
+endif()
 endif()
 
 target_link_libraries(MathQuize
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+    PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
 
 set_target_properties(MathQuize PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

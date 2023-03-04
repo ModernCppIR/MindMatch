@@ -82,7 +82,7 @@ Item {
                     implicitWidth: fab.implicitWidth
                     implicitHeight: fab.implicitHeight
                     opacity: enabled ? 1 : 0.3
-                    border.color: fab.down ? "#17a81a" : "#21be2b"
+                    border.color: "transparent"
                     border.width: 1
                     radius: fab.radius
                     RadialGradient  {

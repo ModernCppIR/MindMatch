@@ -23,14 +23,8 @@ Item {
 
     property int logoSize : parent ? parent.width/8 : 0
 
-
     height:500
-    property color secondBackgroundColor: "#ffffff"
-    property color firstBackgroundColor: "#ffffff"
-    //    anchors.left: parent ? parent.left : undefined
-    //    anchors.right: parent ?  parent.right : undefined
-    //    anchors.leftMargin: 50
-    //    anchors.rightMargin: 50
+
     Button{
         anchors.fill: parent
 
@@ -77,6 +71,8 @@ Item {
         ColumnLayout{
             anchors.fill: parent
 
+            spacing:20
+
             Text{
                 text: bookName
                 font.pixelSize: Constant.h2FontSize
@@ -94,7 +90,6 @@ Item {
                     Layout.rightMargin:10
 
                     Text{
-
                         text: operationString
                         color: Constant.whiteColor
                         anchors.centerIn: parent
@@ -115,79 +110,25 @@ Item {
                 Layout.fillHeight:true
             }
 
-            RowLayout{
-
-                Text{
-                    id:scoreText
-
-
-                    text: Utilities.thousandSeparator(achievedScore)
-                    color: "#454545"
-                    font.pixelSize: Constant.h3FontSize
-
-                    Layout.leftMargin:20
-                    Layout.alignment: Qt.AlignVCenter
-
-                    verticalAlignment: Qt.AlignVCenter
-                    horizontalAlignment: Qt.AlignHCenter
-                }
-                Item{
-                    Layout.fillWidth: true
-                }
-                Image{
-                    id:scoreImage
-                    Layout.rightMargin:10
-                    source: "qrc:/img/diamond.png"
-                    sourceSize: Qt.size(logoSize*2*0.8,logoSize*2*0.8)
-
-                    layer.enabled: true
-                    layer.effect: DropShadow {
-                        transparentBorder: true
-                        horizontalOffset: 0
-                        verticalOffset: 0
-                        color: Qt.darker("#608da2")
-                        samples: 7
-                        radius: 8
-                        spread: 0.0
-                    }
-                }
+            IconicLabel{
+                backgroundGradient:Constant.blueGradient
+                text: Utilities.thousandSeparator(achievedScore)
+                iconSrc: "qrc:/img/diamond.png"
+                implicitHeight: 100
+                Layout.fillWidth: true
+                Layout.leftMargin: 20
+                Layout.rightMargin: 20
             }
-            RowLayout{
 
-                Layout.bottomMargin: 10
-
-                Text{
-
-                    text: achievedStars +"/"+totalStars
-                    color: Constant.darkTextColor
-
-                    Layout.leftMargin:20
-                    Layout.alignment: Qt.AlignVCenter
-
-                    font.pixelSize: Constant.h1FontSize
-
-                    verticalAlignment: Qt.AlignVCenter
-                    horizontalAlignment: Qt.AlignHCenter
-                }
-                Item{
-                    Layout.fillWidth: true
-                }
-                Image{
-                    Layout.rightMargin:10
-                    source: "qrc:/img/star.png"
-                    sourceSize: Qt.size(logoSize*2*0.8,logoSize*2*0.8)
-
-                    layer.enabled: true
-                    layer.effect: DropShadow {
-                        transparentBorder: true
-                        horizontalOffset: 0
-                        verticalOffset: 0
-                        color: Qt.darker("#608da2")
-                        samples: 7
-                        radius: 8
-                        spread: 0.0
-                    }
-                }
+            IconicLabel{
+                backgroundGradient: achievedStars == totalStars ? Constant.goldGradient : Constant.whiteGradient
+                text: achievedStars +"/"+totalStars
+                iconSrc: "qrc:/img/star.png"
+                implicitHeight: 100
+                Layout.fillWidth: true
+                Layout.leftMargin: 20
+                Layout.rightMargin: 20
+                Layout.bottomMargin: 20
             }
         }
     }

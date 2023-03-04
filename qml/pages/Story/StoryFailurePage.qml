@@ -10,19 +10,25 @@ import Constant 1.0
 
 Rectangle {
 
+    id:root
+
+    property int starSize : root.width/12
+
     Component.onCompleted: {
         navigationBar.visible = true
         mainMenuBar.visible = true
     }
 
     color:"transparent"
-    id:root
 
     ColumnLayout
     {
         anchors.fill: parent
+        spacing: 15
 
         Card{
+            id: infoCard
+
             Layout.fillHeight: true
             Layout.leftMargin: 35
             Layout.rightMargin: 35
@@ -30,13 +36,79 @@ Rectangle {
             Layout.bottomMargin: 50
             Layout.fillWidth: true
 
+            // NOTE workaround for conflicting gradient and shadow
+            Rectangle{
+                id: infoRect
+                anchors.fill: parent
+                radius:infoCard.radius
+            }
+                    RadialGradient  {
+                        anchors.fill:infoRect
+                        source: infoRect
+                        angle: 45
+                        verticalRadius: 300
+                        horizontalRadius: 300
+                        horizontalOffset:-infoRect.width/2
+                        verticalOffset: -infoRect.height/2
+                        gradient: Constant.blueGradient
+                    }
+
             ColumnLayout{
                 anchors.fill: parent
+
+                // NOTE chapter title
+                Label{
+                    text:qsTr("فصل اول")
+                    font.pixelSize: Constant.h5FontSize
+                    font.bold: true
+                    color: Constant.darkTextColor
+
+                    Layout.topMargin: 20
+                    Layout.fillWidth: true
+
+                    verticalAlignment:Qt.AlignVCenter
+                    horizontalAlignment:Qt.AlignHCenter
+                }
+
+                // stars
+                RowLayout
+                {
+                    Layout.fillWidth: true
+                    Item{
+                        Layout.fillWidth: true
+                    }
+                    Repeater{
+                        model:3
+                        Image{
+                            property double scale : index == 1? 1.3 : 1
+                            Layout.leftMargin: 5
+                            Layout.bottomMargin: index == 1 ? 10 : 0
+                            source: 0 > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
+                            sourceSize: Qt.size(starSize*scale ,starSize*scale)
+
+                            layer.enabled: true
+                            layer.effect: DropShadow {
+                                transparentBorder: true
+                                horizontalOffset: 0
+                                verticalOffset: 0
+                                color: Constant.shadowColor
+                                samples: 8
+                                radius: 8
+                                spread: 0.0
+                            }
+                        }
+                    }
+                    Item{
+                        Layout.fillWidth: true
+
+                    }
+                }
+
                 Label{
                     text:qsTr("متاسفانه باختی")
-                    font.pixelSize: Constant.h4FontSize
+                    font.pixelSize: Constant.h3FontSize
                     font.bold: true
-                    color:Constant.darkTextColor
+                    color:Constant.whiteColor
 
                     Layout.topMargin: 20
                     Layout.fillWidth: true
@@ -71,7 +143,7 @@ Rectangle {
 
         }
         GeneralButton{
-            text: qsTr("آموزش بازی")
+            text: qsTr("آموزش این مرحله")
             firstBackgroundColor: Constant.whiteColor
             secondBackgroundColor: Constant.whiteColor
             fontColor: Constant.bluegray

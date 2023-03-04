@@ -125,10 +125,10 @@ void StoryGameSession::createDummyQuestionForTest()
 
 		newQUestion.question = QString::number(i) + " Q";
 
-		newQUestion.answers[0] = {QString::number(i) + " A", 1, 0};
-		newQUestion.answers[1] = {QString::number(i) + " A", 0, 0};
-		newQUestion.answers[2] = {QString::number(i) + " A", 0, 0};
-		newQUestion.answers[3] = {QString::number(i) + " A", 0, 0};
+		newQUestion.answers[0] = {QString::number(0) + " A", 1, 0};
+		newQUestion.answers[1] = {QString::number(1) + " A", 0, 0};
+		newQUestion.answers[2] = {QString::number(2) + " A", 0, 0};
+		newQUestion.answers[3] = {QString::number(3) + " A", 0, 0};
 
 		m_questions.push_back(newQUestion);
 	}

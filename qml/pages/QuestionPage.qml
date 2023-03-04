@@ -18,6 +18,7 @@ Item {
     property int currentQuestionIndex : 6
 //    property var answersArray  : ["Answer 1", "Answer 2", "Answer 3", "Answer 4"]
     property bool correctAnswerSelected:false
+    property bool matchFailed: false
 
     Component.onCompleted:  {
 
@@ -116,7 +117,7 @@ Item {
                     Layout.fillWidth: true
                 }
                 Label {
-                    text: qsTr("فصل اول")
+                    text: qsTr("جمع / فصل اول")
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
                 }
@@ -238,9 +239,7 @@ Item {
         }
     }
 
-    GridLayout{
-
-        columns:2
+    ColumnLayout{
 
         anchors{
             top: parent.verticalCenter
@@ -273,6 +272,7 @@ Item {
 
             Button{
                 text: context
+
                 property bool doneQuestion : isSelected && isCorrect;
 
                 Layout.margins: 5
@@ -280,7 +280,7 @@ Item {
                 Layout.fillHeight: true
 
                 onClicked: {
-                    if(!correctAnswerSelected)
+                    if(!correctAnswerSelected && !matchFailed && !isSelected)
                     {
                         storyGameSession.answerSelected(index);
                     }
@@ -307,10 +307,24 @@ Item {
                 }
 
                 background:Rectangle{
+                    id: answerBackRect
                     implicitHeight: 70
                     implicitWidth:root.width - 20
                     radius:10
-                    color:isSelected? isCorrect ?"green":"red" : "white"
+                    color: isSelected ? isCorrect ? Constant.greenColor : Constant.redColor : Constant.whiteColor
+
+                    RadialGradient  {
+                        anchors.fill:  answerBackRect
+                        source: answerBackRect
+//                        visible: isSelected && isCorrect
+                        angle: 45
+                        verticalRadius: 300
+                        horizontalRadius: 300
+                        horizontalOffset: - answerBackRect.width/2
+                        verticalOffset: - answerBackRect.height/2
+                        gradient: isSelected && isCorrect ? Constant.greenGradient : isSelected ? Constant.redGradient : Constant.whiteGradient
+                    }
+
                 }
             }
 
@@ -328,6 +342,7 @@ Connections{
     function onFailed()
     {
         console.log("failed")
+        matchFailed = true;
         failedTimer.start();
     }
 }

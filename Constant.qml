@@ -18,12 +18,14 @@ QtObject {
 
     property color whiteColor: "#FFF"
     property color redColor: "#F44336"
+    property color greenColor: "#4CAF50"
+    property color lightGreenColor: "#8BC34A"
     property color lightBackgroundColor: "#f3fbff"
 
     property color shadowColor:Qt.darker("#aa608da2")
 
-    property color lightblue: "#65e5f1"
-    property color darkblue: "#06d1f7"
+    property color lightblue: "#00BCD4"
+    property color darkblue: "#2196F3"
     property color bluegray: "#92afc5"
 
     property color darkTextColor: "#454545"
@@ -35,9 +37,25 @@ QtObject {
         GradientStop { position: 0; color: Constant.lightblue}
         GradientStop { position: 1; color: Constant.darkblue }
     }
+    property var darkBlueGradient :  Gradient {
+        GradientStop { position: 0; color: "#03A9F4"}
+        GradientStop { position: 1; color: "#2196F3"  }
+    }
     property var goldGradient : Gradient {
         GradientStop { position: 0; color: Constant.gold }
         GradientStop { position: 1; color: Constant.orange }
+    }
+    property var redGradient : Gradient {
+        GradientStop { position: 0; color: Constant.orange }
+        GradientStop { position: 1; color: Constant.redColor }
+    }
+    property var greenGradient : Gradient {
+        GradientStop { position: 0; color:  Constant.lightGreenColor}
+        GradientStop { position: 1; color: Constant.greenColor }
+    }
+    property var whiteGradient : Gradient {
+        GradientStop { position: 0; color: Constant.whiteColor }
+        GradientStop { position: 1; color: Constant.whiteColor }
     }
     property var lightBackgroundGradient : Gradient {
         GradientStop { position: 0; color: Constant.lightBackgroundColor }

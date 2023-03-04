@@ -6,9 +6,9 @@ import Constant 1.0
 Button {
     id:root
 
-    property color firstBackgroundColor:Constant.gold
-    property color secondBackgroundColor:Constant.orange
-    property color fontColor: "#fff"
+    property color firstBackgroundColor: Constant.gold
+    property color secondBackgroundColor: Constant.orange
+    property color fontColor: Constant.whiteColor
     property double buttonRadius: 20
     property int fontPixelSize: 20
 
@@ -22,16 +22,16 @@ Button {
         color:fontColor
         font.bold:true
         font.pixelSize: fontPixelSize
-//        LinearGradient  {
-//            anchors.fill: text
-//            source: text
-//            start: Qt.point(text.width/2, 0)
-//            end: Qt.point(text.width/2, text.height)
-//            gradient: Gradient {
-//                GradientStop { position: 0; color: "#fff" }
-//                GradientStop { position: 1; color: "#222" }
-//            }
-//        }
+        //        LinearGradient  {
+        //            anchors.fill: text
+        //            source: text
+        //            start: Qt.point(text.width/2, 0)
+        //            end: Qt.point(text.width/2, text.height)
+        //            gradient: Gradient {
+        //                GradientStop { position: 0; color: Constant.whiteColor }
+        //                GradientStop { position: 1; color: "#222" }
+        //            }
+        //        }
     }
 
     background: Rectangle{
@@ -40,15 +40,26 @@ Button {
         RadialGradient  {
             anchors.fill: button_back
             source: button_back
-             angle: 45
-             verticalRadius: 300
-             horizontalRadius: 300
-             horizontalOffset:-button_back.width/2
-             verticalOffset: -button_back.height/2
+            angle: 45
+            verticalRadius: 300
+            horizontalRadius: 300
+            horizontalOffset:-button_back.width/2
+            verticalOffset: -button_back.height/2
             gradient: Gradient {
                 GradientStop { position: 0; color: firstBackgroundColor }
                 GradientStop { position: 1; color: secondBackgroundColor }
             }
         }
+    }
+
+    layer.enabled: true
+    layer.effect: DropShadow {
+        transparentBorder: true
+        horizontalOffset: 0
+        verticalOffset: 0
+        color: Constant.shadowColor
+        samples: 8
+        radius: 8
+        spread: 0.0
     }
 }

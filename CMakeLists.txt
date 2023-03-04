@@ -16,6 +16,11 @@ set(PROJECT_SOURCES
         main.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/components/notchedrectangle.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/components/notchedrectangle.h
+        StoryGameSession.h
+        StoryGameSession.cpp
+        StringQuestionAnswer.h
+        StringAnswer.h
+
         qml.qrc
 )
 

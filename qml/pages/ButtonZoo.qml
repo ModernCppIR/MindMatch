@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.0
 
+import "../components"
 import "../.."
 
 Item {
@@ -41,8 +42,8 @@ Item {
             }
             GeneralButton{
                 text: "Click Me!"
-                firstBackgroundColor: "#fff"
-                secondBackgroundColor: "#fff"
+                firstBackgroundColor: Constant.whiteColor
+                secondBackgroundColor: Constant.whiteColor
                 fontColor: "#92afc5"
 
                 height:70
@@ -54,8 +55,8 @@ Item {
             }
             GeneralButton{
                 text: ""
-    //            firstBackgroundColor: "#fff"
-    //            secondBackgroundColor: "#fff"
+    //            firstBackgroundColor: Constant.whiteColor
+    //            secondBackgroundColor: Constant.whiteColor
     //            fontColor: "#92afc5"
 
                 height:350
@@ -80,7 +81,7 @@ Item {
 
                     firstBackgroundColor:  Constant.lightblue
                     secondBackgroundColor: Constant.darkblue
-                    fontColor: "#FFF"
+                    fontColor: Constant.whiteColor
 
                     height:70
                     anchors.top: parent.top

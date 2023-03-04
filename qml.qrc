@@ -2,8 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>DragTest.qml</file>
-        <file>BookList.qml</file>
-        <file>BookCover.qml</file>
         <file>img/diamond.png</file>
         <file>img/star.png</file>
         <file>img/addition.png</file>
@@ -13,6 +11,7 @@
         <file>qml/components/GeneralButton.qml</file>
         <file>qml/components/Hexagon.qml</file>
         <file>qml/components/RotatedHexagon.qml</file>
+	<file>qml/components/BookCover.qml</file>
         <file>fonts/otfs/Font Awesome 6 Brands-Regular-400.otf</file>
         <file>fonts/otfs/Font Awesome 6 Free-Regular-400.otf</file>
         <file>fonts/otfs/Font Awesome 6 Free-Solid-900.otf</file>
@@ -26,5 +25,10 @@
         <file>qml/pages/CountdownPage.qml</file>
         <file>gif/countdown.gif</file>
         <file>lottie/countdown.json</file>
+        <file>qml/pages/Story/StorySuccessPage.qml</file>
+        <file>qml/pages/Story/StoryFailurePage.qml</file>
+	<file>qml/pages/Story/BookList.qml</file>
+        <file>qml/components/Card.qml</file>
+        <file>fonts/ttf/Vazirmatn-VariableFont_wght.ttf</file>
     </qresource>
 </RCC>

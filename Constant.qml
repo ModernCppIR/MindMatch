@@ -10,8 +10,17 @@ QtObject {
 //    property color darkblue: "#2196F3"
 //    property color bluegray: "#92afc5"
 
+    property int h1FontSize: 75
+    property int h2FontSize: 60
+    property int h3FontSize: 45
+    property int h4FontSize: 35
+    property int h5FontSize: 20
+
     property color whiteColor: "#FFF"
+    property color redColor: "#F44336"
     property color lightBackgroundColor: "#f3fbff"
+
+    property color shadowColor:Qt.darker("#aa608da2")
 
     property color lightblue: "#65e5f1"
     property color darkblue: "#06d1f7"

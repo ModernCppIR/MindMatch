@@ -6,6 +6,7 @@ import QtGraphicalEffects 1.0
 
 import './qml/components'
 import './qml/pages'
+import './qml/pages/Story'
 
 ApplicationWindow
 {
@@ -16,20 +17,20 @@ ApplicationWindow
     height: 900
     width: 420
     color: "white"
-    //    background: Rectangle{
-    //        id:mainWindowBackRect
-    //        anchors.fill: parent
-    //    RadialGradient  {
-    //        anchors.fill:mainWindowBackRect
-    //        source: mainWindowBackRect
-    //        angle: 45
-    //        verticalRadius: 300
-    //        horizontalRadius: 300
-    //        horizontalOffset:-mainWindowBackRect.width/2
-    //        verticalOffset: -mainWindowBackRect.height/2
-    //        gradient: Constant.blueGradient
-    //    }
-    //    }
+//        background: Rectangle{
+//            id:mainWindowBackRect
+//            anchors.fill: parent
+//        RadialGradient  {
+//            anchors.fill:mainWindowBackRect
+//            source: mainWindowBackRect
+//            angle: 45
+//            verticalRadius: 300
+//            horizontalRadius: 300
+//            horizontalOffset:-mainWindowBackRect.width/2
+//            verticalOffset: -mainWindowBackRect.height/2
+//            gradient: Constant.blueGradient
+//        }
+//        }
 
     FontLoader {
         id: fontLoader
@@ -82,14 +83,18 @@ ApplicationWindow
     StackView {
         id: stackView
         anchors.fill: parent
-        initialItem: CountdownPage {
+        initialItem: StorySuccessPage{
 
-            onDone:
-            {
-                console.log("ountdown done");
-                stackView.push("qml/pages/QuestionPage.qml")
-            }
+
         }
+//        initialItem: CountdownPage {
+
+//            onDone:
+//            {
+//                console.log("ountdown done");
+//                stackView.push("qrc:/qml/pages/QuestionPage.qml")
+//            }
+//        }
     }
 
 

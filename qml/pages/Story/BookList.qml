@@ -3,25 +3,28 @@ import QtQuick.Controls 2.15
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 
+import Constant 1.0
+
+import "../../components"
 Page {
 
     Rectangle
     {
         id:backRect
         anchors.fill: parent
-        color:"#f0f9fd"
+        color: Constant.whiteColor
 
 
-        RadialGradient  {
-            anchors.fill:backRect
-            source: backRect
-            angle: 45
-            verticalRadius: 300
-            horizontalRadius: 300
-            horizontalOffset:-backRect.width/2
-            verticalOffset: -backRect.height/2
-            gradient: Constant.blueGradient
-        }
+//        RadialGradient  {
+//            anchors.fill:backRect
+//            source: backRect
+//            angle: 45
+//            verticalRadius: 300
+//            horizontalRadius: 300
+//            horizontalOffset:-backRect.width/2
+//            verticalOffset: -backRect.height/2
+//            gradient: Constant.blueGradient
+//        }
     }
 
     ListModel{

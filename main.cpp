@@ -1,6 +1,11 @@
+#include <QFontDatabase>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <QQmlPropertyMap>
+#include <QTimer>
 
+#include "StoryGameSession.h"
 #include "src/components/notchedrectangle.h"
 
 int main(int argc, char *argv[])
@@ -9,6 +14,17 @@ int main(int argc, char *argv[])
 	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 	QGuiApplication app(argc, argv);
+
+	if (-1 == QFontDatabase::addApplicationFont(":/fonts/ttf/Vazirmatn-VariableFont_wght.ttf"))
+	{
+		qCritical() << "couldn't add application font";
+	}
+
+	QFont nokiaFont;
+	nokiaFont.setFamily("Vazirmatn");
+	app.setFont(nokiaFont);
+
+	StoryGameSession sgs;
 
 	QQmlApplicationEngine engine;
 	const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -23,6 +39,12 @@ int main(int argc, char *argv[])
 
 	qmlRegisterSingletonType(QUrl("qrc:/Constant.qml"), "Constant", 1, 0, "Constant");
 	qmlRegisterType<NotchedRectangle>("Notched", 1, 0, "NotchedRectangle");
+
+	QQmlPropertyMap ownerData;
+	ownerData.insert("name", QVariant(QString("John Smith")));
+	ownerData.insert("phone", QVariant(QString("555-5555")));
+
+	engine.rootContext()->setContextProperty("storyGameSession", &sgs);
 
 	engine.load(url);
 

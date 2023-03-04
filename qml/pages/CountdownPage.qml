@@ -34,7 +34,7 @@ Label{
             if (status === LottieAnimation.Ready) {
                 // any acvities needed before
                 // playing starts go here
-                frameRate = 25;
+//                frameRate = 25;
                 gotoAndPlay(0);
             }
         }

@@ -12,7 +12,7 @@ Page {
     {
         id:backRect
         anchors.fill: parent
-        color:"#FFF"
+        color:Constant.whiteColor
         radius: 20
     }
 
@@ -59,7 +59,7 @@ Page {
             anchors.left: parent ? parent.left : undefined
             anchors.leftMargin: 20
             radius: 10
-            palette.button:"#FFF"
+            palette.button:Constant.whiteColor
             layer.enabled: true
             layer.effect: DropShadow {
                 transparentBorder: true

@@ -10,23 +10,37 @@ import "../components"
 Item {
     id:root
 
-    property int remainingStars : 3
+//    property int remainingStars : 3
     property int starSize : root.width/12
 
-    property bool isMusicOff: false
-
-    property string questionStr : "Question"
-    property var answersArray  : ["Answer 1", "Answer 2", "Answer 3", "Answer 4"]
+    property string questionStr : "2 + 3 = ?"
+    property int totoalQuestionsCount : 16
+    property int currentQuestionIndex : 6
+//    property var answersArray  : ["Answer 1", "Answer 2", "Answer 3", "Answer 4"]
+    property bool correctAnswerSelected:false
 
     Component.onCompleted:  {
 
         navigationBar.visible = false
         mainMenuBar.visible = false
+        storyGameSession.start()
     }
 
     Rectangle{
+        id:questuionPageBackRect
         anchors.fill: parent
         color: Constant.lightBackgroundColor
+
+        //        LinearGradient{
+        //            anchors.fill: questuionPageBackRect
+        //            source: questuionPageBackRect
+        //            gradient: Gradient {
+        //                GradientStop { position: 0 ; color: Constant.whiteColor }
+        //                GradientStop { position: 1 -  storyGameSession.remainingTime/100 ; color: Constant.whiteColor }
+        //                GradientStop { position: 1 -  storyGameSession.remainingTime/100+ 0.01 ; color: storyGameSession.remainingTime/100 < 0.3 ? "red":  Constant.lightblue }
+        //                GradientStop { position: 1; color: storyGameSession.remainingTime/100 < 0.3 ? "red" :Constant.lightblue }
+        //            }
+        //        }
     }
 
 
@@ -46,7 +60,7 @@ Item {
             transparentBorder: true
             horizontalOffset: 0
             verticalOffset: 0
-            color: Qt.darker("#aa608da2")
+            color: Constant.shadowColor
             samples: 8
             radius: 8
             spread: 0.0
@@ -65,8 +79,6 @@ Item {
             {
                 RoundButton {
                     id: backButton
-                    text: qsTr("<")
-                    font.pixelSize: 30
                     Layout.leftMargin: 5
                     Layout.topMargin: 5
 
@@ -76,7 +88,7 @@ Item {
                     {
                         text: "\uf0d9"
                         font.family: fontLoader.name
-                        font.pixelSize: 20
+                        font.pixelSize: Constant.h5FontSize
                         font.styleName: "Solid"
                         anchors.verticalCenter:parent.verticalCenter
                         width: 45
@@ -123,20 +135,20 @@ Item {
 
                     onClicked:
                     {
-                        isMusicOff = !isMusicOff;
+                        storyGameSession.muted = !storyGameSession.muted;
                     }
 
                     contentItem: Text
                     {
-                        text: isMusicOff? "\uf6a9": "\uf028"
+                        text: storyGameSession.muted? "\uf6a9": "\uf028"
                         font.family: fontLoader.name
-                        font.pixelSize: 20
+                        font.pixelSize: Constant.h5FontSize
                         font.styleName: "Solid"
                         anchors.verticalCenter:parent.verticalCenter
                         width: 45
                         height: 45
                         anchors.centerIn: parent
-                        color: isMusicOff ? Constant.bluegrayTextColor : Constant.whiteColor
+                        color: storyGameSession.muted ? Constant.bluegrayTextColor : Constant.whiteColor
                         antialiasing:true
 
                         verticalAlignment:Qt.AlignVCenter
@@ -156,7 +168,7 @@ Item {
                             angle: 45
                             horizontalOffset:-voiceButtonBackRect.width/2
                             verticalOffset: -voiceButtonBackRect.height/2
-                            gradient: isMusicOff ? Constant.lightBackgroundGradient : Constant.blueGradient
+                            gradient: storyGameSession.muted ? Constant.lightBackgroundGradient : Constant.blueGradient
                         }
                     }
                 }
@@ -176,8 +188,19 @@ Item {
                         property double scale : index == 1? 1.3 : 1
                         Layout.leftMargin: 5
                         Layout.bottomMargin: index == 1 ? 10 : 0
-                        source: remainingStars > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
+                        source: storyGameSession.starCount > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
                         sourceSize: Qt.size(starSize*scale ,starSize*scale)
+
+                        layer.enabled: true
+                        layer.effect: DropShadow {
+                            transparentBorder: true
+                            horizontalOffset: 0
+                            verticalOffset: 0
+                            color: Constant.shadowColor
+                            samples: 8
+                            radius: 8
+                            spread: 0.0
+                        }
                     }
                 }
                 Item{
@@ -186,7 +209,7 @@ Item {
                 }
             }
             Label{
-                text:"6/19"
+                text: currentQuestionIndex+"/"+totoalQuestionsCount
 
                 Layout.fillWidth: true
 
@@ -194,7 +217,9 @@ Item {
                 horizontalAlignment: Qt.AlignHCenter
             }
             BlueProgressBar {
-                value: 0.5
+                from: 0
+                to: 100
+                value: storyGameSession.remainingTime
                 Layout.fillWidth: true
                 Layout.leftMargin: 10
                 Layout.rightMargin: 10
@@ -202,7 +227,7 @@ Item {
             }
 
             Label{
-                text:"2 + 3 = ?"
+                text:questionStr
 
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -225,19 +250,51 @@ Item {
             margins: 20
         }
 
+        Timer{
+            id:nextQuestionTimer
+            interval:500
+            onTriggered: {
+                storyGameSession.gotoNextQuestion();
+                correctAnswerSelected = false;
+            }
+        }
+        Timer{
+            id:failedTimer
+            interval:500
+            onTriggered: {
+                stackView.push("qrc:/qml/pages/Story/StoryFailurePage.qml")
+                storyGameSession.leaveMatch();
+
+            }
+        }
+
         Repeater{
-            model:4
-            Label{
-                text: answersArray[index]
+            model:storyGameSession
+
+            Button{
+                text: context
+                property bool doneQuestion : isSelected && isCorrect;
 
                 Layout.margins: 5
                 Layout.fillWidth:  true
                 Layout.fillHeight: true
 
-                verticalAlignment: Qt.AlignVCenter
-                horizontalAlignment: Qt.AlignHCenter
+                onClicked: {
+                    if(!correctAnswerSelected)
+                    {
+                        storyGameSession.answerSelected(index);
+                    }
 
-
+                }
+                onDoneQuestionChanged:
+                {
+                    console.log("onDoneQuestionChanged: ", doneQuestion)
+                    if(doneQuestion == true)
+                    {
+                        correctAnswerSelected = true;
+                        nextQuestionTimer.start();
+                    }
+                }
                 layer.enabled: true
                 layer.effect: DropShadow {
                     transparentBorder: true
@@ -253,6 +310,7 @@ Item {
                     implicitHeight: 70
                     implicitWidth:root.width - 20
                     radius:10
+                    color:isSelected? isCorrect ?"green":"red" : "white"
                 }
             }
 
@@ -260,6 +318,18 @@ Item {
     }
 
 
-
+Connections{
+    target : storyGameSession
+    function onSuccessed()
+    {
+        console.log("successed")
+        stackView.push("qrc:/qml/pages/Story/StorySuccessPage.qml")
+    }
+    function onFailed()
+    {
+        console.log("failed")
+        failedTimer.start();
+    }
+}
 
 }

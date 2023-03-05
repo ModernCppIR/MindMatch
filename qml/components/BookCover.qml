@@ -109,6 +109,7 @@ Item {
 
             IconicLabel{
 				backgroundGradient: achievedScore == 0  ? Constant.whiteGradient  : Constant.blueGradient
+				textColor: achievedScore == 0 ? Constant.darkTextColor : Constant.lightTextColor
                 text: Utilities.thousandSeparator(achievedScore)
                 iconSrc: "qrc:/img/diamond.png"
                 implicitHeight: 100

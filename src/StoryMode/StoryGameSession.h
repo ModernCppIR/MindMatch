@@ -1,7 +1,7 @@
 #ifndef STORYGAMESESSION_H
 #define STORYGAMESESSION_H
 
-#include "StringQuestionAnswer.h"
+#include "StringQuestion.h"
 
 #include <QAbstractListModel>
 #include <QTimer>
@@ -85,11 +85,10 @@ private:
 	int m_currentQuestion = 0;
 	bool m_muted = false;
 
-	QVector<StringQuestionAnswer> m_questions;
+	QVector<StringQuestion> m_questions;
 
 	QVector<int> roleVector;
 
-	// QAbstractItemModel interface
 	QString m_questionString;
 
 	double m_remainingTime = 100;

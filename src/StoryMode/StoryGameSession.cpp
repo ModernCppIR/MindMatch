@@ -4,9 +4,8 @@
 
 StoryGameSession::StoryGameSession(QObject *parent)
 	: QAbstractListModel{parent}
+	, roleVector{CustomRolesEnum::Context, CustomRolesEnum::IsSelected, CustomRolesEnum::IsCorrect}
 {
-	roleVector << CustomRolesEnum::Context << CustomRolesEnum::IsSelected
-			   << CustomRolesEnum::IsCorrect;
 
 	createDummyQuestionForTest();
 
@@ -121,7 +120,7 @@ void StoryGameSession::createDummyQuestionForTest()
 {
 	for (int i = 0; i < 10; ++i)
 	{
-		StringQuestionAnswer newQUestion;
+		StringQuestion newQUestion;
 
 		newQUestion.question = QString::number(i) + " Q";
 

@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.12
 
@@ -63,20 +64,26 @@ ApplicationWindow
 		}
 	}
 
-		StackView {
-			id: stackView
-			anchors.fill: parent
-			initialItem: BookList{
+	StackView {
+		id: stackView
+		anchors.fill: parent
+		initialItem: BookList{
 
 
-			}
-	//				initialItem: CountdownPage {
-
-	//					onDone:
-	//					{
-	//						console.log("ountdown done");
-	//						stackView.push("qrc:/qml/pages/QuestionPage.qml")
-	//					}
-	//				}
 		}
+		//				initialItem: CountdownPage {
+
+		//					onDone:
+		//					{
+		//						console.log("ountdown done");
+		//						stackView.push("qrc:/qml/pages/QuestionPage.qml")
+		//					}
+		//				}
+	}
+
+
+
+
+
+
 }

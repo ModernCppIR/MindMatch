@@ -12,6 +12,7 @@ Item{
     id: root
     property string text : ""
     property string iconSrc: ""
+	property color textColor: Constant.darkTextColor
     property Gradient backgroundGradient: Constant.blueGradient
 
     Card {
@@ -45,7 +46,7 @@ Item{
             anchors.verticalCenter: parent.verticalCenter
 
             text: root.text
-            color: "#454545"
+			color: textColor
             font.pixelSize: Constant.h4FontSize
 
             Layout.leftMargin:20

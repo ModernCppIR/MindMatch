@@ -5,7 +5,7 @@
 #include <QQmlPropertyMap>
 #include <QTimer>
 
-#include "StoryGameSession.h"
+#include "src/StoryMode/StoryGameSession.h"
 #include "src/components/notchedrectangle.h"
 
 int main(int argc, char *argv[])
@@ -39,10 +39,6 @@ int main(int argc, char *argv[])
 
 	qmlRegisterSingletonType(QUrl("qrc:/Constant.qml"), "Constant", 1, 0, "Constant");
 	qmlRegisterType<NotchedRectangle>("Notched", 1, 0, "NotchedRectangle");
-
-	QQmlPropertyMap ownerData;
-	ownerData.insert("name", QVariant(QString("John Smith")));
-	ownerData.insert("phone", QVariant(QString("555-5555")));
 
 	engine.rootContext()->setContextProperty("storyGameSession", &sgs);
 

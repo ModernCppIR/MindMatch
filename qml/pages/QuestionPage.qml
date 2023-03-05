@@ -7,344 +7,380 @@ import Constant 1.0
 
 import "../components"
 
-Item {
-    id:root
+Item
+{
+	id:root
 
-//    property int remainingStars : 3
-    property int starSize : root.width/12
+	property int starSize : root.width/12
 
-    property string questionStr : "2 + 3 = ?"
-    property int totoalQuestionsCount : 16
-    property int currentQuestionIndex : 6
-//    property var answersArray  : ["Answer 1", "Answer 2", "Answer 3", "Answer 4"]
-    property bool correctAnswerSelected:false
-    property bool matchFailed: false
+	property string questionStr : "2 + 3 = ?"
+	property int totoalQuestionsCount : 16
+	property int currentQuestionIndex : 6
+	property bool correctAnswerSelected:false
+	property bool matchFailed: false
 
-    Component.onCompleted:  {
+	Component.onCompleted:  {
 
-        navigationBar.visible = false
-        mainMenuBar.visible = false
-        storyGameSession.start()
-    }
+		navigationBar.visible = false
+		mainMenuBar.visible = false
+		storyGameSession.start()
+	}
 
-    Rectangle{
-        id:questuionPageBackRect
-        anchors.fill: parent
-        color: Constant.lightBackgroundColor
-
-        //        LinearGradient{
-        //            anchors.fill: questuionPageBackRect
-        //            source: questuionPageBackRect
-        //            gradient: Gradient {
-        //                GradientStop { position: 0 ; color: Constant.whiteColor }
-        //                GradientStop { position: 1 -  storyGameSession.remainingTime/100 ; color: Constant.whiteColor }
-        //                GradientStop { position: 1 -  storyGameSession.remainingTime/100+ 0.01 ; color: storyGameSession.remainingTime/100 < 0.3 ? "red":  Constant.lightblue }
-        //                GradientStop { position: 1; color: storyGameSession.remainingTime/100 < 0.3 ? "red" :Constant.lightblue }
-        //            }
-        //        }
-    }
+	Rectangle
+	{
+		id:questuionPageBackRect
+		anchors.fill: parent
+		RadialGradient
+		{
+			anchors.fill: questuionPageBackRect
+			source: questuionPageBackRect
+			gradient: Constant.blueGradient
+		}
+	}
 
 
 
-    Label{
-        id: questionCard
-        anchors{
-            top: parent.top
-            left: parent.left
-            right: parent.right
-            bottom: parent.verticalCenter
-            margins: 20
-        }
+	Label
+	{
+		id: questionCard
 
-        layer.enabled: true
-        layer.effect: DropShadow {
-            transparentBorder: true
-            horizontalOffset: 0
-            verticalOffset: 0
-            color: Constant.shadowColor
-            samples: 8
-            radius: 8
-            spread: 0.0
-        }
-        background:Rectangle{
-            implicitHeight: root.implicitHeight
-            implicitWidth:root.implicitWidth
-            radius:10
-        }
+		anchors{
+			top: parent.top
+			left: parent.left
+			right: parent.right
+			bottom: parent.verticalCenter
+			margins: 20
+		}
 
+		layer.enabled: true
+		layer.effect: DropShadow
+		{
+			transparentBorder: true
+			horizontalOffset: 0
+			verticalOffset: 0
+			color: Constant.shadowColor
+			samples: 8
+			radius: 8
+			spread: 0.0
+		}
 
-        ColumnLayout
-        {
-            anchors.fill: parent
-            RowLayout
-            {
-                RoundButton {
-                    id: backButton
-                    Layout.leftMargin: 5
-                    Layout.topMargin: 5
-
-                    onClicked: console.log("cliecked")
-
-                    contentItem: Text
-                    {
-                        text: "\uf0d9"
-                        font.family: fontLoader.name
-                        font.pixelSize: Constant.h5FontSize
-                        font.styleName: "Solid"
-                        anchors.verticalCenter:parent.verticalCenter
-                        width: 45
-                        height: 45
-                        anchors.centerIn: parent
-                        color: Constant.darkTextColor
-                        antialiasing:true
-                        verticalAlignment:Qt.AlignVCenter
-                        horizontalAlignment:Qt.AlignHCenter
-                    }
-                    implicitHeight: 50
-                    implicitWidth:implicitHeight
-
-                    background: Rectangle {
-                        id: currentButtonActive
-                        implicitWidth: backButton.implicitWidth
-                        implicitHeight: backButton.implicitHeight
-                        opacity: enabled ? 1 : 0.3
-                        radius: backButton.radius
-                        color: Constant.whiteColor
-                    }
-                }
-
-                Item{
-                    Layout.fillWidth: true
-                }
-                Label {
-                    text: qsTr("جمع / فصل اول")
-                    verticalAlignment: Qt.AlignVCenter
-                    horizontalAlignment: Qt.AlignHCenter
-                }
-                Item{
-                    Layout.fillWidth: true
-                }
-
-                RoundButton{
-                    id:voiceButton
-                    implicitHeight: 50
-                    implicitWidth:implicitHeight
-                    palette.shadow: "#222"
-                    palette.button: Constant.lightBackgroundColor
-                    Layout.rightMargin: 5
-                    Layout.topMargin: 5
-
-                    onClicked:
-                    {
-                        storyGameSession.muted = !storyGameSession.muted;
-                    }
-
-                    contentItem: Text
-                    {
-                        text: storyGameSession.muted? "\uf6a9": "\uf028"
-                        font.family: fontLoader.name
-                        font.pixelSize: Constant.h5FontSize
-                        font.styleName: "Solid"
-                        anchors.verticalCenter:parent.verticalCenter
-                        width: 45
-                        height: 45
-                        anchors.centerIn: parent
-                        color: storyGameSession.muted ? Constant.bluegrayTextColor : Constant.whiteColor
-                        antialiasing:true
-
-                        verticalAlignment:Qt.AlignVCenter
-                        horizontalAlignment:Qt.AlignHCenter
-                    }
-
-                    background: Rectangle {
-                        id: voiceButtonBackRect
-                        implicitWidth: voiceButton.implicitWidth
-                        implicitHeight: voiceButton.implicitHeight
-                        opacity: enabled ? 1 : 0.3
-                        radius: voiceButton.radius
-
-                        RadialGradient  {
-                            anchors.fill: voiceButtonBackRect
-                            source: voiceButtonBackRect
-                            angle: 45
-                            horizontalOffset:-voiceButtonBackRect.width/2
-                            verticalOffset: -voiceButtonBackRect.height/2
-                            gradient: storyGameSession.muted ? Constant.lightBackgroundGradient : Constant.blueGradient
-                        }
-                    }
-                }
+		background:Rectangle
+		{
+			implicitHeight: root.implicitHeight
+			implicitWidth:root.implicitWidth
+			radius:10
+		}
 
 
+		ColumnLayout
+		{
+			anchors.fill: parent
+			RowLayout
+			{
+				RoundButton
+				{
+					id: backButton
+					Layout.leftMargin: 5
+					Layout.topMargin: 5
 
-            }
-            RowLayout
-            {
-                Layout.fillWidth: true
-                Item{
-                    Layout.fillWidth: true
-                }
-                Repeater{
-                    model:3
-                    Image{
-                        property double scale : index == 1? 1.3 : 1
-                        Layout.leftMargin: 5
-                        Layout.bottomMargin: index == 1 ? 10 : 0
-                        source: storyGameSession.starCount > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
-                        sourceSize: Qt.size(starSize*scale ,starSize*scale)
+					onClicked: console.log("cliecked")
 
-                        layer.enabled: true
-                        layer.effect: DropShadow {
-                            transparentBorder: true
-                            horizontalOffset: 0
-                            verticalOffset: 0
-                            color: Constant.shadowColor
-                            samples: 8
-                            radius: 8
-                            spread: 0.0
-                        }
-                    }
-                }
-                Item{
-                    Layout.fillWidth: true
+					contentItem: Text
+					{
+						text: "\uf0d9"
+						font.family: fontLoader.name
+						font.pixelSize: Constant.h5FontSize
+						font.styleName: "Solid"
+						anchors.verticalCenter:parent.verticalCenter
+						width: 45
+						height: 45
+						anchors.centerIn: parent
+						color: Constant.darkTextColor
+						antialiasing:true
+						verticalAlignment:Qt.AlignVCenter
+						horizontalAlignment:Qt.AlignHCenter
+					}
+					implicitHeight: 50
+					implicitWidth:implicitHeight
 
-                }
-            }
-            Label{
-                text: currentQuestionIndex+"/"+totoalQuestionsCount
+					background: Rectangle
+					{
+						id: currentButtonActive
+						implicitWidth: backButton.implicitWidth
+						implicitHeight: backButton.implicitHeight
+						opacity: enabled ? 1 : 0.3
+						radius: backButton.radius
+						color: Constant.whiteColor
+					}
+				}
 
-                Layout.fillWidth: true
+				Item
+				{
+					Layout.fillWidth: true
+				}
+				Label
+				{
+					text: qsTr("جمع / فصل اول")
+					verticalAlignment: Qt.AlignVCenter
+					horizontalAlignment: Qt.AlignHCenter
+				}
+				Item
+				{
+					Layout.fillWidth: true
+				}
 
-                verticalAlignment: Qt.AlignVCenter
-                horizontalAlignment: Qt.AlignHCenter
-            }
-            BlueProgressBar {
-                from: 0
-                to: 100
-                value: storyGameSession.remainingTime
-                Layout.fillWidth: true
-                Layout.leftMargin: 10
-                Layout.rightMargin: 10
+				RoundButton
+				{
+					id:voiceButton
+					implicitHeight: 50
+					implicitWidth:implicitHeight
+					palette.shadow: "#222"
+					palette.button: Constant.lightBackgroundColor
+					Layout.rightMargin: 5
+					Layout.topMargin: 5
 
-            }
+					onClicked:
+					{
+						storyGameSession.muted = !storyGameSession.muted;
+					}
 
-            Label{
-                text:questionStr
+					contentItem:
+						Text
+					{
+						text: storyGameSession.muted? "\uf6a9": "\uf028"
+						font.family: fontLoader.name
+						font.pixelSize: Constant.h5FontSize
+						font.styleName: "Solid"
+						anchors.verticalCenter:parent.verticalCenter
+						width: 45
+						height: 45
+						anchors.centerIn: parent
+						color: storyGameSession.muted ? Constant.bluegrayTextColor : Constant.whiteColor
+						antialiasing:true
 
-                Layout.fillHeight: true
-                Layout.fillWidth: true
+						verticalAlignment:Qt.AlignVCenter
+						horizontalAlignment:Qt.AlignHCenter
+					}
 
-                verticalAlignment: Qt.AlignVCenter
-                horizontalAlignment: Qt.AlignHCenter
-            }
-        }
-    }
+					background: Rectangle
+					{
+						id: voiceButtonBackRect
+						implicitWidth: voiceButton.implicitWidth
+						implicitHeight: voiceButton.implicitHeight
+						opacity: enabled ? 1 : 0.3
+						radius: voiceButton.radius
 
-    ColumnLayout{
+						RadialGradient
+						{
+							anchors.fill: voiceButtonBackRect
+							source: voiceButtonBackRect
+							angle: 45
+							horizontalOffset:-voiceButtonBackRect.width/2
+							verticalOffset: -voiceButtonBackRect.height/2
+							gradient: storyGameSession.muted ? Constant.lightBackgroundGradient : Constant.blueGradient
+						}
+					}
+				}
+			}
 
-        anchors{
-            top: parent.verticalCenter
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-            margins: 20
-        }
+			RowLayout
+			{
+				Layout.fillWidth: true
+				Item
+				{
+					Layout.fillWidth: true
+				}
 
-        Timer{
-            id:nextQuestionTimer
-            interval:500
-            onTriggered: {
-                storyGameSession.gotoNextQuestion();
-                correctAnswerSelected = false;
-            }
-        }
-        Timer{
-            id:failedTimer
-            interval:500
-            onTriggered: {
-                stackView.push("qrc:/qml/pages/Story/StoryFailurePage.qml")
-                storyGameSession.leaveMatch();
+				Repeater
+				{
+					model:3
 
-            }
-        }
+					Image
+					{
+						property double scale : index == 1? 1.3 : 1
+						Layout.leftMargin: 5
+						Layout.bottomMargin: index == 1 ? 10 : 0
+						source: storyGameSession.starCount > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
+						sourceSize: Qt.size(starSize*scale ,starSize*scale)
 
-        Repeater{
-            model:storyGameSession
+						layer.enabled: true
+						layer.effect: DropShadow {
+							transparentBorder: true
+							horizontalOffset: 0
+							verticalOffset: 0
+							color: Constant.shadowColor
+							samples: 8
+							radius: 8
+							spread: 0.0
+						}
+					}
+				}
 
-            Button{
-                text: context
+				Item
+				{
+					Layout.fillWidth: true
+				}
+			}
 
-                property bool doneQuestion : isSelected && isCorrect;
+			Label
+			{
+				text: currentQuestionIndex+"/"+totoalQuestionsCount
 
-                Layout.margins: 5
-                Layout.fillWidth:  true
-                Layout.fillHeight: true
+				Layout.fillWidth: true
 
-                onClicked: {
-                    if(!correctAnswerSelected && !matchFailed && !isSelected)
-                    {
-                        storyGameSession.answerSelected(index);
-                    }
+				verticalAlignment: Qt.AlignVCenter
+				horizontalAlignment: Qt.AlignHCenter
+			}
 
-                }
-                onDoneQuestionChanged:
-                {
-                    console.log("onDoneQuestionChanged: ", doneQuestion)
-                    if(doneQuestion == true)
-                    {
-                        correctAnswerSelected = true;
-                        nextQuestionTimer.start();
-                    }
-                }
-                layer.enabled: true
-                layer.effect: DropShadow {
-                    transparentBorder: true
-                    horizontalOffset: 0
-                    verticalOffset: 0
-                    color: Qt.darker("#aa608da2")
-                    samples: 8
-                    radius: 8
-                    spread: 0.0
-                }
+			BlueProgressBar
+			{
+				from: 0
+				to: 100
+				value: storyGameSession.remainingTime
+				Layout.fillWidth: true
+				Layout.leftMargin: 10
+				Layout.rightMargin: 10
 
-                background:Rectangle{
-                    id: answerBackRect
-                    implicitHeight: 70
-                    implicitWidth:root.width - 20
-                    radius:10
-                    color: isSelected ? isCorrect ? Constant.greenColor : Constant.redColor : Constant.whiteColor
+			}
 
-                    RadialGradient  {
-                        anchors.fill:  answerBackRect
-                        source: answerBackRect
-//                        visible: isSelected && isCorrect
-                        angle: 45
-                        verticalRadius: 300
-                        horizontalRadius: 300
-                        horizontalOffset: - answerBackRect.width/2
-                        verticalOffset: - answerBackRect.height/2
-                        gradient: isSelected && isCorrect ? Constant.greenGradient : isSelected ? Constant.redGradient : Constant.whiteGradient
-                    }
+			Label
+			{
+				text: questionStr
+				font.pixelSize: Constant.h3FontSize
+				font.bold: true
+				color: Constant.darkTextColor
 
-                }
-            }
+				verticalAlignment: Qt.AlignVCenter
+				horizontalAlignment: Qt.AlignHCenter
 
-        }
-    }
+				Layout.fillHeight: true
+				Layout.fillWidth: true
+			}
+		}
+	}
+
+	ColumnLayout
+	{
+		anchors{
+			top: parent.verticalCenter
+			left: parent.left
+			right: parent.right
+			bottom: parent.bottom
+			margins: 20
+		}
+
+		Timer{
+			id:nextQuestionTimer
+			interval:500
+			onTriggered: {
+				storyGameSession.gotoNextQuestion();
+				correctAnswerSelected = false;
+			}
+		}
+
+		Timer
+		{
+			id:failedTimer
+			interval:500
+			onTriggered: {
+				stackView.push("qrc:/qml/pages/Story/StoryFailurePage.qml")
+				storyGameSession.leaveMatch();
+
+			}
+		}
+
+		Repeater
+		{
+
+			model:storyGameSession
+
+			Button
+			{
+				id: answerButton
+
+				property bool doneQuestion : isSelected && isCorrect;
+
+				text: context
+
+				Layout.margins: 5
+				Layout.fillWidth:  true
+				Layout.fillHeight: true
+
+				onClicked: {
+					if(!correctAnswerSelected && !matchFailed && !isSelected)
+					{
+						storyGameSession.answerSelected(index);
+					}
+				}
+
+				onDoneQuestionChanged:
+				{
+					console.log("onDoneQuestionChanged: ", doneQuestion)
+					if(doneQuestion == true)
+					{
+						correctAnswerSelected = true;
+						nextQuestionTimer.start();
+					}
+				}
+				layer.enabled: true
+				layer.effect: DropShadow {
+					transparentBorder: true
+					horizontalOffset: 0
+					verticalOffset: 0
+					color: Qt.darker("#aa608da2")
+					samples: 8
+					radius: 8
+					spread: 0.0
+				}
+
+				contentItem:Label{
+					text: answerButton.text
+					font.pixelSize: Constant.h3FontSize
+					color: Constant.darkTextColor
+					font.bold: true
+					verticalAlignment: Qt.AlignVCenter
+					horizontalAlignment: Qt.AlignHCenter
+				}
+
+				background:Rectangle{
+					id: answerBackRect
+					implicitHeight: 70
+					implicitWidth:root.width - 20
+					radius:10
+					color: isSelected ? isCorrect ? Constant.greenColor : Constant.redColor : Constant.whiteColor
+
+					RadialGradient  {
+						anchors.fill:  answerBackRect
+						source: answerBackRect
+						//                        visible: isSelected && isCorrect
+						angle: 45
+						verticalRadius: 300
+						horizontalRadius: 300
+						horizontalOffset: - answerBackRect.width/2
+						verticalOffset: - answerBackRect.height/2
+						gradient: isSelected && isCorrect ? Constant.greenGradient : isSelected ? Constant.redGradient : Constant.whiteGradient
+					}
+
+				}
+			}
+
+		}
+	}
 
 
-Connections{
-    target : storyGameSession
-    function onSuccessed()
-    {
-        console.log("successed")
-        stackView.push("qrc:/qml/pages/Story/StorySuccessPage.qml")
-    }
-    function onFailed()
-    {
-        console.log("failed")
-        matchFailed = true;
-        failedTimer.start();
-    }
-}
+	Connections{
+		target : storyGameSession
+		function onSuccessed()
+		{
+			console.log("successed")
+			stackView.push("qrc:/qml/pages/Story/StorySuccessPage.qml")
+		}
+		function onFailed()
+		{
+			console.log("failed")
+			matchFailed = true;
+			failedTimer.start();
+		}
+	}
 
 }

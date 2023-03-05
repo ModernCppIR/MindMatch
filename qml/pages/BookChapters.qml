@@ -4,6 +4,8 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 
+import Constant 1.0
+
 import "../../js/Utilities.js" as Utilities
 
 Page {
@@ -35,6 +37,36 @@ Page {
             achievedStars:1
             achievedScore:93625
         }
+		ListElement{
+			chapterName:"فصل چهارم"
+			achievedStars:0
+			achievedScore:0
+		}
+		ListElement{
+			chapterName:"فصل پنجم"
+			achievedStars:0
+			achievedScore:0
+		}
+		ListElement{
+			chapterName:"فصل ششم"
+			achievedStars:0
+			achievedScore:0
+		}
+		ListElement{
+			chapterName:"فصل هفتم"
+			achievedStars:0
+			achievedScore:0
+		}
+		ListElement{
+			chapterName:"فصل هشتم"
+			achievedStars:0
+			achievedScore:0
+		}
+		ListElement{
+			chapterName:"فصل نهم"
+			achievedStars:0
+			achievedScore:0
+		}
 
 
     }

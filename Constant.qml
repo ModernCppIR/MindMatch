@@ -31,6 +31,7 @@ QtObject {
     property color darkTextColor: "#454545"
     property color lightTextColor: "#FFF"
     property color bluegrayTextColor: "#8eafc6"
+    property color darkBluegrayTextColor: "#c0e1f8"
 
 
     property var blueGradient :  Gradient {

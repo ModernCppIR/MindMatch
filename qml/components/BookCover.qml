@@ -11,11 +11,8 @@ Item {
     id:root
 
     signal clicked
-    //    property string bookName
-    //    property string operation: "+"
     property color operationColor : "#222"
     required property int achievedScore
-    //    property int achievedStars: 27
     required property int achievedStars
     required property string operationString
     required property string bookName
@@ -75,7 +72,7 @@ Item {
 
             Text{
                 text: bookName
-                font.pixelSize: Constant.h2FontSize
+				font.pixelSize: Constant.h2FontSize
                 font.bold: true
                 color: Constant.darkTextColor
 
@@ -90,13 +87,13 @@ Item {
                     Layout.rightMargin:10
 
                     Text{
-                        text: operationString
+						text: operationString
                         color: Constant.whiteColor
                         anchors.centerIn: parent
                         anchors.verticalCenterOffset: 10
                         font {
                             bold: true
-                            pixelSize: 100
+							pixelSize: Constant.h2FontSize
                         }
                         verticalAlignment: Qt.AlignVCenter
                         horizontalAlignment: Qt.AlignHCenter
@@ -111,7 +108,7 @@ Item {
             }
 
             IconicLabel{
-                backgroundGradient:Constant.blueGradient
+				backgroundGradient: achievedScore == 0  ? Constant.whiteGradient  : Constant.blueGradient
                 text: Utilities.thousandSeparator(achievedScore)
                 iconSrc: "qrc:/img/diamond.png"
                 implicitHeight: 100

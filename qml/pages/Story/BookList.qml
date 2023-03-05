@@ -33,22 +33,28 @@ Page {
             bookName:"جمع"
             achievedStars:25
             achievedScore:123569
-            operationString:"+"
+			operationString: "\uf067"
 
         }
         ListElement{
             bookName:"تفریق"
             achievedStars:27
             achievedScore:67291
-            operationString:"-"
+			operationString: "\uf068"
 
         }
         ListElement{
             bookName:"ضرب"
             achievedStars:5
             achievedScore:93625
-            operationString:"x"
+			operationString: "\uf00d"
         }
+		ListElement{
+			bookName:"تقسیم"
+			achievedStars:0
+			achievedScore:0
+			operationString: "\uf529"
+		}
 
 
     }

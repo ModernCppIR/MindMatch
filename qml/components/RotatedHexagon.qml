@@ -6,7 +6,7 @@ import Constant 1.0
 Item {
     id:root
 
-    property double edgeSize: 10
+	property double edgeSize: 50
     property double h: Math.sqrt(Math.pow(edgeSize,2) - Math.pow(edgeSize/2 , 2))
     property color fColor:"transparent"
     property color tColor:"transparent"

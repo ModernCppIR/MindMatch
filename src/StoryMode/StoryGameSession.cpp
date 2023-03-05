@@ -89,7 +89,7 @@ void StoryGameSession::gotoNextQuestion()
 	if (m_currentQuestion < m_questions.size() - 1)
 	{
 		m_currentQuestion++;
-		setQuestionString(m_questions[m_currentQuestion].question);
+		setQuestionString(m_questions[m_currentQuestion].title);
 	}
 	else
 	{
@@ -118,11 +118,12 @@ void StoryGameSession::answerSelected(int index)
 
 void StoryGameSession::createDummyQuestionForTest()
 {
+	// TODO remove it
 	for (int i = 0; i < 10; ++i)
 	{
 		StringQuestion newQUestion;
 
-		newQUestion.question = QString::number(i) + " Q";
+		newQUestion.title = QString::number(i) + " Q";
 
 		newQUestion.answers[0] = {QString::number(0) + " A", 1, 0};
 		newQUestion.answers[1] = {QString::number(1) + " A", 0, 0};

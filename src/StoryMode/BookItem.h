@@ -10,7 +10,8 @@
 struct BookItem
 {
 	QString name;
-	int stars;
+	int totalStars;
+	int achievedStars;
 	int score;
 	QStringList operationList;
 

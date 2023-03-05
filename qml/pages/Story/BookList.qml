@@ -27,37 +27,37 @@ Page {
 //        }
     }
 
-    ListModel{
-        id:booksModel
-        ListElement{
-            bookName:"جمع"
-            achievedStars:25
-            achievedScore:123569
-			operationString: "\uf067"
+//    ListModel{
+//        id:booksModel
+//        ListElement{
+//            bookName:"جمع"
+//            achievedStars:25
+//            achievedScore:123569
+//			operationString: "\uf067"
 
-        }
-        ListElement{
-            bookName:"تفریق"
-            achievedStars:27
-            achievedScore:67291
-			operationString: "\uf068"
+//        }
+//        ListElement{
+//            bookName:"تفریق"
+//            achievedStars:27
+//            achievedScore:67291
+//			operationString: "\uf068"
 
-        }
-        ListElement{
-            bookName:"ضرب"
-            achievedStars:5
-            achievedScore:93625
-			operationString: "\uf00d"
-        }
-		ListElement{
-			bookName:"تقسیم"
-			achievedStars:0
-			achievedScore:0
-			operationString: "\uf529"
-		}
+//        }
+//        ListElement{
+//            bookName:"ضرب"
+//            achievedStars:5
+//            achievedScore:93625
+//			operationString: "\uf00d"
+//        }
+//		ListElement{
+//			bookName:"تقسیم"
+//			achievedStars:0
+//			achievedScore:0
+//			operationString: "\uf529"
+//		}
 
 
-    }
+//    }
 
     ListView
     {

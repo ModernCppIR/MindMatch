@@ -15,7 +15,8 @@ public:
 	enum BookRolesEnum
 	{
 		Name = Qt::UserRole + 1,
-		BookStars,
+		AchievedStars,
+		TotalStars,
 		BookScore,
 		OperationList,
 	};

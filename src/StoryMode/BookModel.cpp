@@ -20,8 +20,12 @@ QVariant BookModel::data(const QModelIndex &index, int role) const
 	case Name:
 		retValue = m_books[index.row()].name;
 		break;
-	case BookStars:
-		retValue = m_books[index.row()].stars;
+	case AchievedStars:
+		retValue = m_books[index.row()].achievedStars;
+
+		break;
+	case TotalStars:
+		retValue = m_books[index.row()].totalStars;
 
 		break;
 	case BookScore:
@@ -43,7 +47,8 @@ QHash<int, QByteArray> BookModel::roleNames() const
 {
 	QHash<int, QByteArray> myRoleNames;
 	myRoleNames[Name] = "name";
-	myRoleNames[BookStars] = "stars";
+	myRoleNames[AchievedStars] = "achievedStars";
+	myRoleNames[TotalStars] = "totalStars";
 	myRoleNames[BookScore] = "score";
 	myRoleNames[OperationList] = "operationList";
 

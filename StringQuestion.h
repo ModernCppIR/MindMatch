@@ -8,7 +8,7 @@
 
 struct StringQuestion
 {
-	QString question;
+	QString title;
 
 	std::array<StringAnswer, 4> answers;
 };

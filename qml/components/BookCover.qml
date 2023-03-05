@@ -8,126 +8,144 @@ import "../../js/Utilities.js" as Utilities
 
 Item {
 
-    id:root
+	id:root
 
-    signal clicked
-    property color operationColor : "#222"
-    required property int achievedScore
-    required property int achievedStars
-    required property string operationString
-    required property string bookName
-    property int totalStars: 27
+	signal clicked
+	property color operationColor : "#222"
+	//    required property int achievedScore
+	//    required property int achievedStars
+	//    required property string operationString
+	//    required property string bookName
+	//    property int totalStars: 27
 
-    property int logoSize : parent ? parent.width/8 : 0
+	property int logoSize : parent ? parent.width/8 : 0
 
-    height:500
+	height:500
 
-    Button{
-        anchors.fill: parent
+	Button{
+		anchors.fill: parent
 
-        onClicked:{
-            root.clicked()
-        }
+		onClicked:{
+			root.clicked()
+		}
 
-        background: Rectangle{
-            id:button_back
+		background: Rectangle{
+			id:button_back
 
-            anchors.fill: parent
-            color:Constant.whiteColor
-            radius: 20
+			anchors.fill: parent
+			color:Constant.whiteColor
+			radius: 20
 
 
 
-            //        RadialGradient  {
-            //            anchors.fill:button_back
+			//        RadialGradient  {
+			//            anchors.fill:button_back
 
-            //            source: button_back
-            //            angle: 45
-            //            verticalRadius: 300
-            //            horizontalRadius: 300
-            //            horizontalOffset:-button_back.width/2
-            //            verticalOffset: -button_back.height/2
-            //            gradient: Gradient {
-            //                GradientStop { position: 0; color: Constant.whiteColor}
-            //                GradientStop { position: 1; color: Constant.whiteColor }
-            //            }
-            //        }
-            layer.enabled: true
-            layer.effect: DropShadow {
-                transparentBorder: true
-                horizontalOffset: 0
-                verticalOffset: 0
-                color: Qt.darker("#608da2")
-                samples: 7
-                radius: 8
-                spread: 0.0
-            }
+			//            source: button_back
+			//            angle: 45
+			//            verticalRadius: 300
+			//            horizontalRadius: 300
+			//            horizontalOffset:-button_back.width/2
+			//            verticalOffset: -button_back.height/2
+			//            gradient: Gradient {
+			//                GradientStop { position: 0; color: Constant.whiteColor}
+			//                GradientStop { position: 1; color: Constant.whiteColor }
+			//            }
+			//        }
+			layer.enabled: true
+			layer.effect: DropShadow {
+				transparentBorder: true
+				horizontalOffset: 0
+				verticalOffset: 0
+				color: Qt.darker("#608da2")
+				samples: 7
+				radius: 8
+				spread: 0.0
+			}
 
-        }
+		}
 
-        ColumnLayout{
-            anchors.fill: parent
+		ColumnLayout{
+			anchors.fill: parent
 
-            spacing:20
+			spacing:20
 
-            Text{
-                text: bookName
+			Text{
+				text: name
 				font.pixelSize: Constant.h2FontSize
-                font.bold: true
-                color: Constant.darkTextColor
+				font.bold: true
+				color: Constant.darkTextColor
 
-                Layout.alignment: Qt.AlignCenter
-                verticalAlignment: Qt.AlignVCenter
-                horizontalAlignment: Qt.AlignHCenter
-            }
+				Layout.alignment: Qt.AlignCenter
+				verticalAlignment: Qt.AlignVCenter
+				horizontalAlignment: Qt.AlignHCenter
+			}
 
-            Row{
-                RotatedHexagon{
-                    edgeSize: logoSize
-                    Layout.rightMargin:10
+			RowLayout
+			{
+				Item
+				{
+					Layout.fillWidth:true
+				}
 
-                    Text{
-						text: operationString
-                        color: Constant.whiteColor
-                        anchors.centerIn: parent
-                        anchors.verticalCenterOffset: 10
-                        font {
-                            bold: true
-							pixelSize: Constant.h2FontSize
-                        }
-                        verticalAlignment: Qt.AlignVCenter
-                        horizontalAlignment: Qt.AlignHCenter
-                    }
-                }
+				Repeater
+				{
 
-                Layout.alignment: Qt.AlignHCenter
+					model: operationList
 
-            }
-            Item{
-                Layout.fillHeight:true
-            }
+					RotatedHexagon
+					{
+						edgeSize: logoSize
+						Layout.rightMargin:10
 
-            IconicLabel{
-				backgroundGradient: achievedScore == 0  ? Constant.whiteGradient  : Constant.blueGradient
-				textColor: achievedScore == 0 ? Constant.darkTextColor : Constant.lightTextColor
-                text: Utilities.thousandSeparator(achievedScore)
-                iconSrc: "qrc:/img/diamond.png"
-                implicitHeight: 100
-                Layout.fillWidth: true
-                Layout.leftMargin: 20
-                Layout.rightMargin: 20
-            }
+						Text{
+							text: modelData
+							color: Constant.whiteColor
+							anchors.centerIn: parent
+							anchors.verticalCenterOffset: 10
+							font {
+								bold: true
+								pixelSize: Constant.h2FontSize
+							}
+							verticalAlignment: Qt.AlignVCenter
+							horizontalAlignment: Qt.AlignHCenter
+						}
+					}
+				}
 
-            IconicLabel{
-                backgroundGradient: achievedStars == totalStars ? Constant.goldGradient : Constant.whiteGradient
-                text: achievedStars +"/"+totalStars
-                iconSrc: "qrc:/img/star.png"
-                implicitHeight: 100
-                Layout.fillWidth: true
-                Layout.leftMargin: 20
-                Layout.rightMargin: 20
-                Layout.bottomMargin: 20
-            }
-        }
-    }
+				Item
+				{
+					Layout.fillWidth:true
+				}
+			}
+
+			Item
+			{
+				Layout.fillHeight:true
+			}
+
+			IconicLabel
+			{
+				backgroundGradient: score == 0  ? Constant.whiteGradient  : Constant.blueGradient
+				textColor: score == 0 ? Constant.darkTextColor : Constant.lightTextColor
+				text: Utilities.thousandSeparator(score)
+				iconSrc: "qrc:/img/diamond.png"
+				implicitHeight: 100
+				Layout.fillWidth: true
+				Layout.leftMargin: 20
+				Layout.rightMargin: 20
+			}
+
+			IconicLabel{
+				backgroundGradient: achievedStars == totalStars ? Constant.goldGradient : Constant.whiteGradient
+				text: achievedStars +"/"+totalStars
+				iconSrc: "qrc:/img/star.png"
+				implicitHeight: 100
+				Layout.fillWidth: true
+				Layout.leftMargin: 20
+				Layout.rightMargin: 20
+				Layout.bottomMargin: 20
+			}
+		}
+	}
 }

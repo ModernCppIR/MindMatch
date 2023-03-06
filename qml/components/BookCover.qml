@@ -1,35 +1,30 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.0
+import QtGraphicalEffects 1.15
 import Constant 1.0
 
 import "../../js/Utilities.js" as Utilities
 
-Item {
+Item
+{
 
 	id:root
 
 	signal clicked
-	property color operationColor : "#222"
-	//    required property int achievedScore
-	//    required property int achievedStars
-	//    required property string operationString
-	//    required property string bookName
-	//    property int totalStars: 27
+	property int logoSize
 
-	property int logoSize : parent ? parent.width/8 : 0
 
-	height:500
-
-	Button{
+	Button
+	{
 		anchors.fill: parent
 
 		onClicked:{
 			root.clicked()
 		}
 
-		background: Rectangle{
+		background: Rectangle
+		{
 			id:button_back
 
 			anchors.fill: parent
@@ -53,7 +48,8 @@ Item {
 			//            }
 			//        }
 			layer.enabled: true
-			layer.effect: DropShadow {
+			layer.effect: DropShadow
+			{
 				transparentBorder: true
 				horizontalOffset: 0
 				verticalOffset: 0
@@ -65,12 +61,14 @@ Item {
 
 		}
 
-		ColumnLayout{
+		ColumnLayout
+		{
 			anchors.fill: parent
 
-			spacing:20
+			spacing:0
 
-			Text{
+			Text
+			{
 				text: name
 				font.pixelSize: Constant.h2FontSize
 				font.bold: true
@@ -136,7 +134,8 @@ Item {
 				Layout.rightMargin: 20
 			}
 
-			IconicLabel{
+			IconicLabel
+			{
 				backgroundGradient: achievedStars == totalStars ? Constant.goldGradient : Constant.whiteGradient
 				text: achievedStars +"/"+totalStars
 				iconSrc: "qrc:/img/star.png"

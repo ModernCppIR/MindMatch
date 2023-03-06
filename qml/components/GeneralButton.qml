@@ -1,6 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.0
+import QtGraphicalEffects 1.15
 import Constant 1.0
 
 Button {
@@ -10,29 +10,17 @@ Button {
     property color secondBackgroundColor: Constant.orange
     property color fontColor: Constant.whiteColor
     property double buttonRadius: 20
-    property int fontPixelSize: 20
 
-    contentItem: Text {
-        id:text
-        anchors.centerIn: parent
-        text:root.text
-        visible: true
-        horizontalAlignment: Qt.AlignHCenter
-        verticalAlignment: Qt.AlignVCenter
-        color:fontColor
-        font.bold:true
-        font.pixelSize: fontPixelSize
-        //        LinearGradient  {
-        //            anchors.fill: text
-        //            source: text
-        //            start: Qt.point(text.width/2, 0)
-        //            end: Qt.point(text.width/2, text.height)
-        //            gradient: Gradient {
-        //                GradientStop { position: 0; color: Constant.whiteColor }
-        //                GradientStop { position: 1; color: "#222" }
-        //            }
-        //        }
-    }
+	contentItem: Text {
+		anchors.centerIn: parent
+		text: root.text
+		visible: true
+		horizontalAlignment: Qt.AlignHCenter
+		verticalAlignment: Qt.AlignVCenter
+		color: fontColor
+		font.bold: true
+		font.pixelSize: root.font.pixelSize
+	}
 
     background: Rectangle{
         id:button_back

@@ -1,8 +1,7 @@
 #include "BookModel.h"
 
-BookModel::BookModel(QVector<BookItem> &books, QObject *parent)
+BookModel::BookModel(QObject *parent)
 	: QAbstractListModel{parent}
-	, m_books{books}
 {
 }
 
@@ -53,4 +52,9 @@ QHash<int, QByteArray> BookModel::roleNames() const
 	myRoleNames[OperationList] = "operationList";
 
 	return myRoleNames;
+}
+
+void BookModel::setBooks(const QVector<BookItem> &newBooks)
+{
+	m_books = newBooks;
 }

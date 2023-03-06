@@ -10,7 +10,7 @@ class BookModel : public QAbstractListModel
 {
 	Q_OBJECT
 public:
-	explicit BookModel(QVector<BookItem> &books, QObject *parent = nullptr);
+	explicit BookModel(QObject *parent = nullptr);
 
 	enum BookRolesEnum
 	{
@@ -27,6 +27,9 @@ public:
 	QVariant data(const QModelIndex &index, int role) const override;
 	QHash<int, QByteArray> roleNames() const override;
 
+	void setBooks(const QVector<BookItem> &newBooks);
+
+private:
 	QVector<BookItem> m_books;
 };
 

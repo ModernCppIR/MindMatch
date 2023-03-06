@@ -48,3 +48,8 @@ QHash<int, QByteArray> ChapterModel::roleNames() const
 
 	return ret;
 }
+
+void ChapterModel::setChapters(const QVector<ChapterItem> &newChapters)
+{
+	m_chapters = newChapters;
+}

@@ -27,6 +27,8 @@ public:
 	QVariant data(const QModelIndex &index, int role) const override;
 	QHash<int, QByteArray> roleNames() const override;
 
+	void setChapters(const QVector<ChapterItem> &newChapters);
+
 private:
 	QVector<ChapterItem> m_chapters;
 };

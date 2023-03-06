@@ -28,5 +28,10 @@
         <file>qml/components/Card.qml</file>
         <file>fonts/ttf/Vazirmatn-VariableFont_wght.ttf</file>
         <file>qml/components/IconicLabel.qml</file>
+        <file>qml/pages/StartCover.qml</file>
+        <file>qml/components/LiquidButton.qml</file>
+        <file>img/background.png</file>
+        <file>qml/components/Blob.qml</file>
+        <file>qml/components/Circle.qml</file>
     </qresource>
 </RCC>

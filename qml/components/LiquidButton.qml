@@ -13,8 +13,6 @@ Button{
 	property int batteryState: 1
 	property real batteryLevel: 100
 
-	text:"شروع"
-
 	width: parent.width * 1.2
 	height: parent.width * 1.2
 	anchors.bottom: parent.bottom

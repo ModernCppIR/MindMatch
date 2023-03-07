@@ -103,7 +103,7 @@ Rectangle {
                 }
 
                 Label{
-                    text:qsTr("آفرین !")
+					text:qsTr("برنده شدی!")
                     font.pixelSize: Constant.h3FontSize
                     font.bold: true
                     color: Constant.whiteColor
@@ -131,7 +131,9 @@ Rectangle {
 
         }
 
-        GeneralButton{
+		GeneralButton
+		{
+			font.pixelSize: Constant.h4FontSize
             text: qsTr("مرحله بعد")
 
             implicitHeight:70
@@ -142,9 +144,10 @@ Rectangle {
 
         GeneralButton{
             text: qsTr("آموزش مرحله بعد")
-            firstBackgroundColor: Constant.whiteColor
-            secondBackgroundColor: Constant.whiteColor
+			backGroundGradient: Constant.whiteGradient
             fontColor: Constant.bluegray
+			font.pixelSize: Constant.h4FontSize
+
 
             implicitHeight:70
             Layout.leftMargin: 50

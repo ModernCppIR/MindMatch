@@ -17,7 +17,7 @@ public:
 	{
 		Name = Qt::UserRole + 1,
 		Stars,
-		Scores,
+		Score,
 		TotalTime
 	};
 
@@ -31,6 +31,7 @@ public:
 
 private:
 	QVector<ChapterItem> m_chapters;
+	QVector<int> m_roleVector;
 };
 
 #endif // CHAPTERMODEL_H

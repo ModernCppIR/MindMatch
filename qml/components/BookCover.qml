@@ -8,45 +8,47 @@ import "../../js/Utilities.js" as Utilities
 
 Item
 {
-
 	id:root
 
-	signal clicked
+	signal selected
 	property int logoSize
-
 
 	Button
 	{
 		anchors.fill: parent
 
-		onClicked:{
-			root.clicked()
+		onClicked:
+		{
+			root.selected()
 		}
 
 		background: Rectangle
 		{
-			id:button_back
+			id: cardBackRect
 
 			anchors.fill: parent
-			color:Constant.whiteColor
+			color: Constant.whiteColor
 			radius: 20
 
 
+			// NOTE workaround for conflicting gradient and shadow
+			Rectangle{
+				id: workaroundRect
+				anchors.fill: parent
+				radius: cardBackRect.radius
+			}
 
-			//        RadialGradient  {
-			//            anchors.fill:button_back
+			RadialGradient  {
+				anchors.fill:workaroundRect
 
-			//            source: button_back
-			//            angle: 45
-			//            verticalRadius: 300
-			//            horizontalRadius: 300
-			//            horizontalOffset:-button_back.width/2
-			//            verticalOffset: -button_back.height/2
-			//            gradient: Gradient {
-			//                GradientStop { position: 0; color: Constant.whiteColor}
-			//                GradientStop { position: 1; color: Constant.whiteColor }
-			//            }
-			//        }
+				source: workaroundRect
+				angle: 45
+				verticalRadius: 300
+				horizontalRadius: 300
+				horizontalOffset:-workaroundRect.width/2
+				verticalOffset: -workaroundRect.height/2
+				gradient: Constant.blueGradient
+			}
 			layer.enabled: true
 			layer.effect: DropShadow
 			{
@@ -67,16 +69,21 @@ Item
 
 			spacing:0
 
-			Text
+			Label
 			{
 				text: name
 				font.pixelSize: Constant.h2FontSize
 				font.bold: true
 				color: Constant.darkTextColor
-
-				Layout.alignment: Qt.AlignCenter
 				verticalAlignment: Qt.AlignVCenter
 				horizontalAlignment: Qt.AlignHCenter
+
+				Layout.fillWidth:true
+				Layout.alignment: Qt.AlignCenter
+				Layout.topMargin: 0
+				Layout.bottomMargin: 10
+
+
 			}
 
 			RowLayout

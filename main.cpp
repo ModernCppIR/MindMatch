@@ -6,7 +6,6 @@
 #include <QTimer>
 
 #include "GameManager.h"
-#include "src/StoryMode/StoryGameSession.h"
 #include "src/components/notchedrectangle.h"
 
 int main(int argc, char *argv[])
@@ -26,7 +25,6 @@ int main(int argc, char *argv[])
 	app.setFont(nokiaFont);
 
 	// NOTE create models
-	StoryGameSession sgs;
 	GameManager gm;
 
 	QQmlApplicationEngine engine;
@@ -44,8 +42,10 @@ int main(int argc, char *argv[])
 
 	qmlRegisterType<NotchedRectangle>("Notched", 1, 0, "NotchedRectangle");
 
-	engine.rootContext()->setContextProperty("storyGameSession", &sgs);
+	engine.rootContext()->setContextProperty("storyGameSession", &gm.storyGameSession());
 	engine.rootContext()->setContextProperty("booksModel", &gm.booksModel());
+	engine.rootContext()->setContextProperty("chaptersModel", &gm.chapterModel());
+	engine.rootContext()->setContextProperty("gameManager", &gm);
 
 	engine.load(url);
 

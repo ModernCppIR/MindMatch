@@ -1,5 +1,7 @@
 #include "GameManager.h"
 
+#include <QDebug>
+
 GameManager::GameManager(QObject *parent)
 	: QObject{parent}
 {
@@ -69,7 +71,7 @@ QVector<StringQuestion> GameManager::createDummyQuestions()
 		for (int i = 0; i < 4; ++i)
 		{
 			StringAnswer a;
-			a.context = "";
+			a.context = QString::number(i + 4);
 			a.isCorrect = i == 0;
 			q.answers[i] = a;
 		}
@@ -99,6 +101,51 @@ QVector<ChapterItem> GameManager::createDummyChapters()
 	}
 
 	return ret;
+}
+
+void GameManager::selectBook(const QString &bookName)
+{
+	auto bookIt = std::find_if(m_books.cbegin(), m_books.cend(),
+							   [bookName](const BookItem &book) { return book.name == bookName; });
+
+	if (bookIt != m_books.cend())
+	{
+		currentBookName = bookName;
+		m_chapterModel.setChapters(bookIt->chapters);
+	}
+	else
+	{
+		// NOTE use error handler to show error message in android ui
+		throw std::runtime_error("book dose not exists!");
+	}
+}
+
+void GameManager::selectChapter(const int &index)
+{
+	auto bookIt = std::find_if(m_books.cbegin(), m_books.cend(),
+							   [this](const BookItem &book)
+							   { return book.name == currentBookName; });
+
+	if (bookIt != m_books.cend())
+	{
+		auto questions = bookIt->chapters[index].questions;
+		m_storyGameSession.setQuestions(questions);
+	}
+	else
+	{
+		// NOTE use error handler to show error message in android ui
+		throw std::runtime_error("book dose not exists!");
+	}
+}
+
+StoryGameSession &GameManager::storyGameSession()
+{
+	return m_storyGameSession;
+}
+
+ChapterModel &GameManager::chapterModel()
+{
+	return m_chapterModel;
 }
 
 BookModel &GameManager::booksModel()

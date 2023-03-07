@@ -6,9 +6,6 @@ StoryGameSession::StoryGameSession(QObject *parent)
 	: QAbstractListModel{parent}
 	, roleVector{CustomRolesEnum::Context, CustomRolesEnum::IsSelected, CustomRolesEnum::IsCorrect}
 {
-
-	createDummyQuestionForTest();
-
 	connect(&sessionTimer, &QTimer::timeout, this,
 			[this]
 			{
@@ -88,7 +85,7 @@ void StoryGameSession::gotoNextQuestion()
 {
 	if (m_currentQuestion < m_questions.size() - 1)
 	{
-		m_currentQuestion++;
+		setCurrentQuestion(currentQuestion() + 1);
 		setQuestionString(m_questions[m_currentQuestion].title);
 	}
 	else
@@ -101,7 +98,6 @@ void StoryGameSession::gotoNextQuestion()
 
 void StoryGameSession::answerSelected(int index)
 {
-	qDebug() << "answer selected: " << index;
 	m_questions[m_currentQuestion].answers[index].isSelected = true;
 
 	if (!m_questions[m_currentQuestion].answers[index].isCorrect)
@@ -116,22 +112,14 @@ void StoryGameSession::answerSelected(int index)
 	emit dataChanged(createIndex(index, 0), createIndex(index, 0), {IsSelected});
 }
 
-void StoryGameSession::createDummyQuestionForTest()
+void StoryGameSession::setQuestions(const QVector<StringQuestion> &newQuestions)
 {
-	// TODO remove it
-	for (int i = 0; i < 10; ++i)
-	{
-		StringQuestion newQUestion;
+	m_questions = newQuestions;
+	setCurrentQuestion(0);
+	setQuestionString(m_questions[0].title);
+	setTotalQuestionsCount(m_questions.size());
 
-		newQUestion.title = QString::number(i) + " Q";
-
-		newQUestion.answers[0] = {QString::number(0) + " A", 1, 0};
-		newQUestion.answers[1] = {QString::number(1) + " A", 0, 0};
-		newQUestion.answers[2] = {QString::number(2) + " A", 0, 0};
-		newQUestion.answers[3] = {QString::number(3) + " A", 0, 0};
-
-		m_questions.push_back(newQUestion);
-	}
+	emit dataChanged(createIndex(0, 0), createIndex(m_questions.size(), 0), roleVector);
 }
 
 void StoryGameSession::start()

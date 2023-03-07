@@ -27,7 +27,7 @@ ApplicationWindow
 	}
 
 	//    flags: Qt.FramelessWindowHint
-	title:"مسابقه ذهن"
+	title:"آقای ریاضی"
 	visible: true
 	width: 420
 	height: 900
@@ -76,6 +76,17 @@ ApplicationWindow
 					verticalOffset: -headerBackgroundRect.height/2
 					gradient: Constant.blueGradient
 				}
+
+				layer.enabled: true
+				layer.effect: DropShadow {
+					transparentBorder: true
+					horizontalOffset: 0
+					verticalOffset: 0
+					color: Constant.shadowColor
+					samples: 8
+					radius: 8
+					spread: 0.0
+				}
 			}
 		}
 	}
@@ -96,18 +107,18 @@ ApplicationWindow
 	StackView {
 		id: stackView
 		anchors.fill: parent
-		initialItem: StartCover{
+		initialItem: StartCover
+		{
 
 		}
 
-
 		pushEnter: Transition {
 			PropertyAnimation {
-						   property: "opacity"
-						   from: 0
-						   to: 1
-						   duration: 50
-					   }
+				property: "opacity"
+				from: 0
+				to: 1
+				duration: 50
+			}
 
 		}
 
@@ -119,14 +130,69 @@ ApplicationWindow
 				duration: 150
 			}
 		}
+	}
 
-		//				initialItem: CountdownPage {
+	Component
+	{
+		id: bookListComponent
 
-		//					onDone:
-		//					{
-		//						console.log("ountdown done");
-		//						stackView.push("qrc:/qml/pages/QuestionPage.qml")
-		//					}
-		//				}
+		BookList
+		{
+
+		}
+	}
+
+	Component
+	{
+		id: chaptersListComponent
+
+		BookChapters
+		{
+
+		}
+	}
+
+	Component
+	{
+		id: countdownComponent
+
+		CountdownPage
+		{
+
+			onDone:
+			{
+				stackView.push(questionPageComponent)
+			}
+		}
+	}
+
+	Component
+	{
+		id: questionPageComponent
+
+		QuestionPage
+		{
+
+		}
+	}
+
+	Component
+	{
+		id: storySuccessPageComponent
+
+		StorySuccessPage
+		{
+
+		}
+	}
+
+	Component
+	{
+		id: storyFailurePageComponent
+
+		StoryFailurePage
+		{
+
+		}
 	}
 }

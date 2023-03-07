@@ -11,15 +11,12 @@ Item
 {
 	id:root
 
-	property int starSize : root.width/12
-
-	property string questionStr : "2 + 3 = ?"
-	property int totoalQuestionsCount : 16
-	property int currentQuestionIndex : 6
-	property bool correctAnswerSelected:false
+	property int starSize : root.width/6
+	property bool correctAnswerSelected: false
 	property bool matchFailed: false
 
-	Component.onCompleted:  {
+	Component.onCompleted:
+	{
 
 		navigationBar.visible = false
 		mainMenuBar.visible = false
@@ -29,7 +26,9 @@ Item
 	Rectangle
 	{
 		id:questuionPageBackRect
+
 		anchors.fill: parent
+
 		RadialGradient
 		{
 			anchors.fill: questuionPageBackRect
@@ -38,13 +37,12 @@ Item
 		}
 	}
 
-
-
 	Label
 	{
 		id: questionCard
 
-		anchors{
+		anchors
+		{
 			top: parent.top
 			left: parent.left
 			right: parent.right
@@ -80,6 +78,7 @@ Item
 				RoundButton
 				{
 					id: backButton
+
 					Layout.leftMargin: 5
 					Layout.topMargin: 5
 
@@ -100,6 +99,7 @@ Item
 						verticalAlignment:Qt.AlignVCenter
 						horizontalAlignment:Qt.AlignHCenter
 					}
+
 					implicitHeight: 50
 					implicitWidth:implicitHeight
 
@@ -118,12 +118,14 @@ Item
 				{
 					Layout.fillWidth: true
 				}
+
 				Label
 				{
 					text: qsTr("جمع / فصل اول")
 					verticalAlignment: Qt.AlignVCenter
 					horizontalAlignment: Qt.AlignHCenter
 				}
+
 				Item
 				{
 					Layout.fillWidth: true
@@ -144,14 +146,13 @@ Item
 						storyGameSession.muted = !storyGameSession.muted;
 					}
 
-					contentItem:
-						Text
+					contentItem: Text
 					{
 						text: storyGameSession.muted? "\uf6a9": "\uf028"
 						font.family: fontLoader.name
 						font.pixelSize: Constant.h5FontSize
 						font.styleName: "Solid"
-						anchors.verticalCenter:parent.verticalCenter
+						anchors.verticalCenter: parent.verticalCenter
 						width: 45
 						height: 45
 						anchors.centerIn: parent
@@ -224,12 +225,15 @@ Item
 
 			Label
 			{
-				text: currentQuestionIndex+"/"+totoalQuestionsCount
+				text: storyGameSession.currentQuestion + "/" + storyGameSession.totalQuestionsCount
 
 				Layout.fillWidth: true
 
 				verticalAlignment: Qt.AlignVCenter
 				horizontalAlignment: Qt.AlignHCenter
+
+				color: Constant.bluegrayTextColor
+				font.pixelSize: Constant.h5FontSize
 			}
 
 			BlueProgressBar
@@ -245,7 +249,7 @@ Item
 
 			Label
 			{
-				text: questionStr
+				text: storyGameSession.questionString
 				font.pixelSize: Constant.h3FontSize
 				font.bold: true
 				color: Constant.darkTextColor
@@ -261,7 +265,8 @@ Item
 
 	ColumnLayout
 	{
-		anchors{
+		anchors
+		{
 			top: parent.verticalCenter
 			left: parent.left
 			right: parent.right
@@ -269,10 +274,14 @@ Item
 			margins: 20
 		}
 
-		Timer{
-			id:nextQuestionTimer
+		Timer
+		{
+			id: nextQuestionTimer
+
 			interval:500
-			onTriggered: {
+
+			onTriggered:
+			{
 				storyGameSession.gotoNextQuestion();
 				correctAnswerSelected = false;
 			}
@@ -281,17 +290,18 @@ Item
 		Timer
 		{
 			id:failedTimer
-			interval:500
-			onTriggered: {
-				stackView.push("qrc:/qml/pages/Story/StoryFailurePage.qml")
-				storyGameSession.leaveMatch();
 
+			interval:500
+
+			onTriggered:
+			{
+				stackView.push(storyFailurePageComponent)
+				storyGameSession.leaveMatch();
 			}
 		}
 
 		Repeater
 		{
-
 			model:storyGameSession
 
 			Button
@@ -301,12 +311,12 @@ Item
 				property bool doneQuestion : isSelected && isCorrect;
 
 				text: context
-
 				Layout.margins: 5
 				Layout.fillWidth:  true
 				Layout.fillHeight: true
 
-				onClicked: {
+				onClicked:
+				{
 					if(!correctAnswerSelected && !matchFailed && !isSelected)
 					{
 						storyGameSession.answerSelected(index);
@@ -315,15 +325,16 @@ Item
 
 				onDoneQuestionChanged:
 				{
-					console.log("onDoneQuestionChanged: ", doneQuestion)
 					if(doneQuestion == true)
 					{
 						correctAnswerSelected = true;
 						nextQuestionTimer.start();
 					}
 				}
+
 				layer.enabled: true
-				layer.effect: DropShadow {
+				layer.effect: DropShadow
+				{
 					transparentBorder: true
 					horizontalOffset: 0
 					verticalOffset: 0
@@ -333,7 +344,8 @@ Item
 					spread: 0.0
 				}
 
-				contentItem:Label{
+				contentItem:Label
+				{
 					text: answerButton.text
 					font.pixelSize: Constant.h3FontSize
 					color: Constant.darkTextColor
@@ -342,42 +354,42 @@ Item
 					horizontalAlignment: Qt.AlignHCenter
 				}
 
-				background:Rectangle{
+				background:Rectangle
+				{
 					id: answerBackRect
 					implicitHeight: 70
 					implicitWidth:root.width - 20
 					radius:10
 					color: isSelected ? isCorrect ? Constant.greenColor : Constant.redColor : Constant.whiteColor
 
-					RadialGradient  {
-						anchors.fill:  answerBackRect
-						source: answerBackRect
-						//                        visible: isSelected && isCorrect
+					RadialGradient
+					{
+						anchors.fill:  parent
+						source: parent
 						angle: 45
 						verticalRadius: 300
 						horizontalRadius: 300
-						horizontalOffset: - answerBackRect.width/2
-						verticalOffset: - answerBackRect.height/2
+						horizontalOffset: - parent.width/2
+						verticalOffset: - parent.height/2
 						gradient: isSelected && isCorrect ? Constant.greenGradient : isSelected ? Constant.redGradient : Constant.whiteGradient
 					}
-
 				}
 			}
-
 		}
 	}
 
 
-	Connections{
+	Connections
+	{
 		target : storyGameSession
+
 		function onSuccessed()
 		{
-			console.log("successed")
-			stackView.push("qrc:/qml/pages/Story/StorySuccessPage.qml")
+			stackView.push(storySuccessPageComponent)
 		}
+
 		function onFailed()
 		{
-			console.log("failed")
 			matchFailed = true;
 			failedTimer.start();
 		}

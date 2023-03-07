@@ -38,41 +38,39 @@ QtObject {
         GradientStop { position: 0; color: Constant.lightblue}
         GradientStop { position: 1; color: Constant.darkblue }
     }
+
     property var darkBlueGradient :  Gradient {
         GradientStop { position: 0; color: "#03A9F4"}
         GradientStop { position: 1; color: "#2196F3"  }
     }
+
     property var goldGradient : Gradient {
         GradientStop { position: 0; color: Constant.gold }
         GradientStop { position: 1; color: Constant.orange }
     }
+
     property var redGradient : Gradient {
         GradientStop { position: 0; color: Constant.orange }
         GradientStop { position: 1; color: Constant.redColor }
     }
+
     property var greenGradient : Gradient {
         GradientStop { position: 0; color:  Constant.lightGreenColor}
         GradientStop { position: 1; color: Constant.greenColor }
     }
+
     property var whiteGradient : Gradient {
         GradientStop { position: 0; color: Constant.whiteColor }
         GradientStop { position: 1; color: Constant.whiteColor }
     }
+
     property var lightBackgroundGradient : Gradient {
         GradientStop { position: 0; color: Constant.lightBackgroundColor }
         GradientStop { position: 1; color: Constant.lightblue }
     }
 
-    // from greenhouse
-    property color primaryColor : "#4CAF50"
-    property color darkPrimaryColor : "#388E3C"
-    property color lightPrimaryColor : "#C8E6C9"
-    property color primaryTextColor : "#212121"
-    property color secondaryTextColor : "#757575"
-    property color accentColor : "#8BC34A"
-    property color textIconColor : "#FFFFFF"
-    property color dividerColor : "#FFFFFF"
-    property color backgroundColor : "#fff"
+	property string trophyIconUnicode: "\uf091"
+	property string gearIconUnicode: "\uf013"
+	property string shareIconUnicode: "\uf1e0"
 
-    property int cornerRadius: 100
 }

@@ -126,27 +126,31 @@ Rectangle {
 
         }
 
-        Item{
+		Item
+		{
             Layout.fillHeight: true
 
 
         }
 
-        GeneralButton{
+		GeneralButton
+		{
             text: qsTr("تلاش مجدد")
 
             implicitHeight:70
             Layout.leftMargin: 50
             Layout.rightMargin: 50
             Layout.fillWidth: true
+			font.pixelSize: Constant.h4FontSize
 
 
         }
+
         GeneralButton{
             text: qsTr("آموزش این مرحله")
-            firstBackgroundColor: Constant.whiteColor
-            secondBackgroundColor: Constant.whiteColor
+			backGroundGradient: Constant.whiteGradient
             fontColor: Constant.bluegray
+			font.pixelSize: Constant.h4FontSize
 
             implicitHeight:70
             Layout.leftMargin: 50

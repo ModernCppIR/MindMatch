@@ -33,6 +33,10 @@ public:
 		IsCorrect
 	};
 
+	int rowCount(const QModelIndex &parent) const override;
+	QVariant data(const QModelIndex &index, int role) const override;
+	QHash<int, QByteArray> roleNames() const override;
+
 	QString sessionName() const;
 	void setSessionName(const QString &newSessionName);
 
@@ -47,6 +51,14 @@ public:
 
 	bool muted() const;
 	void setMuted(bool newMuted);
+
+	QString questionString() const;
+	void setQuestionString(const QString &newQuestionString);
+
+	double remainingTime() const;
+	void setRemainingTime(double newRemainingTime);
+
+	void setQuestions(const QVector<StringQuestion> &newQuestions);
 
 public slots:
 	void start();
@@ -76,9 +88,6 @@ signals:
 	void remainingTimeChanged();
 
 private:
-	void createDummyQuestionForTest();
-
-private:
 	QString m_sessionName;
 	int m_starCount = 3;
 	int m_totalQuestionsCount = 0;
@@ -94,15 +103,6 @@ private:
 	double m_remainingTime = 100;
 
 	QTimer sessionTimer;
-
-public:
-	int rowCount(const QModelIndex &parent) const override;
-	QVariant data(const QModelIndex &index, int role) const override;
-	QHash<int, QByteArray> roleNames() const override;
-	QString questionString() const;
-	void setQuestionString(const QString &newQuestionString);
-	double remainingTime() const;
-	void setRemainingTime(double newRemainingTime);
 };
 
 #endif // STORYGAMESESSION_H

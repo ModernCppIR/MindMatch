@@ -8,7 +8,8 @@ import Constant 1.0
 
 import "../../js/Utilities.js" as Utilities
 
-Page {
+Page
+{
 
     Rectangle
     {
@@ -18,82 +19,30 @@ Page {
         radius: 20
     }
 
-    ListModel{
-        id:booksModel
-        ListElement{
-            chapterName:"فصل اول"
-            achievedStars:3
-            achievedScore:7753
-
-        }
-        ListElement{
-            chapterName:"فصل دوم"
-            achievedStars:2
-            achievedScore:67291
-
-        }
-        ListElement{
-            chapterName:"فصل سوم"
-            achievedStars:1
-            achievedScore:93625
-        }
-		ListElement{
-			chapterName:"فصل چهارم"
-			achievedStars:0
-			achievedScore:0
-		}
-		ListElement{
-			chapterName:"فصل پنجم"
-			achievedStars:0
-			achievedScore:0
-		}
-		ListElement{
-			chapterName:"فصل ششم"
-			achievedStars:0
-			achievedScore:0
-		}
-		ListElement{
-			chapterName:"فصل هفتم"
-			achievedStars:0
-			achievedScore:0
-		}
-		ListElement{
-			chapterName:"فصل هشتم"
-			achievedStars:0
-			achievedScore:0
-		}
-		ListElement{
-			chapterName:"فصل نهم"
-			achievedStars:0
-			achievedScore:0
-		}
-
-
-    }
-
     ListView
     {
         id:bookList
         anchors.fill: parent
-        Component.onCompleted: bookList.model = booksModel
-
         spacing: 20
 
+		model: chaptersModel
 
-
-        delegate: RoundButton{
+		delegate: RoundButton
+		{
 
             id: chapterButton
-            implicitHeight:70
-            text:chapterName
-            //Text.horizontalAlignment: Qt.AlignRight
+			property int starSize : chapterButton.height*0.5
+
+			implicitHeight:70
+			text:name
             width : parent? parent.width - 40 : 0
             anchors.left: parent ? parent.left : undefined
             anchors.leftMargin: 20
             radius: 10
             palette.button:Constant.whiteColor
             layer.enabled: true
-            layer.effect: DropShadow {
+			layer.effect: DropShadow
+			{
                 transparentBorder: true
                 horizontalOffset: 0
                 verticalOffset: 0
@@ -102,58 +51,66 @@ Page {
                 radius: 8
                 spread: 0.0
             }
-            property int starSize : chapterButton.height*0.5
 
 
-            contentItem:
-                RowLayout{
-                //                implicitHeight: chapterButton.implicitHeight
-                //                implicitWidth: chapterButton.implicitWidth
+			contentItem: RowLayout
+			{
                 anchors.fill: parent
 
-                ColumnLayout{
-                    RowLayout{
-                        Repeater{
+				ColumnLayout
+				{
+					RowLayout
+					{
+						Repeater
+						{
                             model:3
-                            Image{
+
+							Image
+							{
                                 Layout.leftMargin: 5
-                                source: achievedStars > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
+								source: stars > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
                                 sourceSize: Qt.size(starSize,starSize)
                             }
 
                         }
                     }
-                    Text{
-                        text: Utilities.thousandSeparator(achievedScore)
-                        Layout.alignment: Qt.AlignCenter
 
+					Text
+					{
+						text: Utilities.thousandSeparator(score)
+                        Layout.alignment: Qt.AlignCenter
                     }
                 }
 
-                Text{
+				Text
+				{
                     text:   chapterButton.text
                     Layout.rightMargin: 10
                     Layout.alignment: Qt.AlignRight
-
                 }
             }
 
-
+			onClicked:
+			{
+				gameManager.selectChapter(index)
+				stackView.push(countdownComponent)
+			}
         }
 
-        header: Rectangle{
+		header: Rectangle
+		{
             height: 50
             anchors.left: parent.left
             anchors.right: parent.right
             color:"transparent"
         }
-        footer: Rectangle{
+
+		footer: Rectangle
+		{
             height: 50
             anchors.left: parent.left
             anchors.right: parent.right
             color:"transparent"
         }
     }
-
-
 }

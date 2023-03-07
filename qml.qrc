@@ -33,5 +33,7 @@
         <file>img/background.png</file>
         <file>qml/components/Blob.qml</file>
         <file>qml/components/Circle.qml</file>
+        <file>fonts/ttf/SOGAND.ttf</file>
+        <file>img/mustache.png</file>
     </qresource>
 </RCC>

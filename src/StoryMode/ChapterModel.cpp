@@ -2,6 +2,7 @@
 
 ChapterModel::ChapterModel(QObject *parent)
 	: QAbstractListModel{parent}
+	, m_roleVector{Name, Stars, Score, TotalTime}
 {
 }
 
@@ -22,7 +23,7 @@ QVariant ChapterModel::data(const QModelIndex &index, int role) const
 
 		returnValue = m_chapters[index.row()].stars;
 		break;
-	case Scores:
+	case Score:
 
 		returnValue = m_chapters[index.row()].score;
 		break;
@@ -43,7 +44,7 @@ QHash<int, QByteArray> ChapterModel::roleNames() const
 
 	ret[Name] = "name";
 	ret[Stars] = "stars";
-	ret[Scores] = "scores";
+	ret[Score] = "score";
 	ret[TotalTime] = "totaltime";
 
 	return ret;
@@ -52,4 +53,5 @@ QHash<int, QByteArray> ChapterModel::roleNames() const
 void ChapterModel::setChapters(const QVector<ChapterItem> &newChapters)
 {
 	m_chapters = newChapters;
+	emit dataChanged(createIndex(0, 0), createIndex(newChapters.size(), 0), m_roleVector);
 }

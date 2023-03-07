@@ -67,6 +67,8 @@ public slots:
 	void gotoNextQuestion();
 	void answerSelected(int index);
 
+	void restartSession();
+
 signals:
 
 	void successed();

@@ -43,7 +43,7 @@ ApplicationWindow
 
 		id: mainMenuBar
 
-		visible: menuVisible
+//		visible: menuVisible
 
 		Button{
 			anchors.fill: parent
@@ -130,6 +130,25 @@ ApplicationWindow
 				duration: 150
 			}
 		}
+
+		popEnter: Transition {
+			PropertyAnimation {
+				property: "opacity"
+				from: 0
+				to: 1
+				duration: 50
+			}
+
+		}
+
+		popExit: Transition {
+			PropertyAnimation {
+				property: "opacity"
+				from: 1
+				to: 0
+				duration: 150
+			}
+		}
 	}
 
 	Component
@@ -161,6 +180,7 @@ ApplicationWindow
 
 			onDone:
 			{
+				stackView.pop()
 				stackView.push(questionPageComponent)
 			}
 		}
@@ -191,6 +211,26 @@ ApplicationWindow
 		id: storyFailurePageComponent
 
 		StoryFailurePage
+		{
+
+		}
+	}
+
+	Component
+	{
+		id: leaderboardComponent
+
+		Leaderboard
+		{
+
+		}
+	}
+
+	Component
+	{
+		id: settingPageComponent
+
+		SettingPage
 		{
 
 		}

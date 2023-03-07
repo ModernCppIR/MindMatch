@@ -66,12 +66,12 @@ QVector<StringQuestion> GameManager::createDummyQuestions()
 	{
 		StringQuestion q;
 
-		q.title = "A + B = ?";
+		q.title = "2 + 3 = ?";
 
 		for (int i = 0; i < 4; ++i)
 		{
 			StringAnswer a;
-			a.context = QString::number(i + 4);
+			a.context = QString::number(i + 5);
 			a.isCorrect = i == 0;
 			q.answers[i] = a;
 		}
@@ -89,7 +89,7 @@ QVector<ChapterItem> GameManager::createDummyChapters()
 	{
 		ChapterItem ci;
 
-		ci.name = "فصل" + QString::number(i + 1);
+		ci.name = "فصل " + QString::number(i + 1);
 		ci.score = (i + 1) * 27003;
 		ci.stars = ((i + 1) % 3);
 
@@ -110,7 +110,7 @@ void GameManager::selectBook(const QString &bookName)
 
 	if (bookIt != m_books.cend())
 	{
-		currentBookName = bookName;
+		setCurrentBookName(bookName);
 		m_chapterModel.setChapters(bookIt->chapters);
 	}
 	else
@@ -124,18 +124,36 @@ void GameManager::selectChapter(const int &index)
 {
 	auto bookIt = std::find_if(m_books.cbegin(), m_books.cend(),
 							   [this](const BookItem &book)
-							   { return book.name == currentBookName; });
+							   { return book.name == currentBookName(); });
 
 	if (bookIt != m_books.cend())
 	{
 		auto questions = bookIt->chapters[index].questions;
 		m_storyGameSession.setQuestions(questions);
+		m_storyGameSession.setSessionName(bookIt->chapters[index].name);
+
+		setCurrentChapter(index);
 	}
 	else
 	{
 		// NOTE use error handler to show error message in android ui
 		throw std::runtime_error("book dose not exists!");
 	}
+}
+
+void GameManager::goToNextCpater()
+{
+	selectChapter(currentChapter() + 1);
+}
+
+int GameManager::currentChapter() const
+{
+	return m_currentChapter;
+}
+
+void GameManager::setCurrentChapter(int newCurrentChapter)
+{
+	m_currentChapter = newCurrentChapter;
 }
 
 StoryGameSession &GameManager::storyGameSession()
@@ -156,4 +174,17 @@ BookModel &GameManager::booksModel()
 QVector<BookItem> GameManager::books() const
 {
 	return m_books;
+}
+
+QString GameManager::currentBookName() const
+{
+	return m_currentBookName;
+}
+
+void GameManager::setCurrentBookName(const QString &newCurrentBookName)
+{
+	if (m_currentBookName == newCurrentBookName)
+		return;
+	m_currentBookName = newCurrentBookName;
+	emit currentBookNameChanged();
 }

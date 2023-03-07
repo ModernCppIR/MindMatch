@@ -24,6 +24,8 @@ Button {
 		color: fontColor
 		font.bold: true
 		font.pixelSize: root.font.pixelSize
+		textFormat: Text.RichText
+
 
 		layer.enabled: enableTextShadow
 		layer.effect: DropShadow {

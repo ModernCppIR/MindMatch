@@ -17,15 +17,17 @@ Item
 
 	Component.onCompleted:
 	{
+//		console.log(" QuestionPage Component.onCompleted")
 
-		navigationBar.visible = false
-		mainMenuBar.visible = false
+		correctAnswerSelected= false
+		matchFailed= false
+		mainWindow.hideMenus()
 		storyGameSession.start()
 	}
 
 	Rectangle
 	{
-		id:questuionPageBackRect
+		id: questuionPageBackRect
 
 		anchors.fill: parent
 
@@ -82,8 +84,6 @@ Item
 					Layout.leftMargin: 5
 					Layout.topMargin: 5
 
-					onClicked: console.log("cliecked")
-
 					contentItem: Text
 					{
 						text: "\uf0d9"
@@ -121,7 +121,7 @@ Item
 
 				Label
 				{
-					text: qsTr("جمع / فصل اول")
+					text: qsTr(gameManager.currentBookName + " / " + storyGameSession.sessionName)
 					verticalAlignment: Qt.AlignVCenter
 					horizontalAlignment: Qt.AlignHCenter
 				}
@@ -295,8 +295,12 @@ Item
 
 			onTriggered:
 			{
+				stackView.pop()
 				stackView.push(storyFailurePageComponent)
 				storyGameSession.leaveMatch();
+
+				console.log("onFailed")
+
 			}
 		}
 
@@ -378,7 +382,6 @@ Item
 		}
 	}
 
-
 	Connections
 	{
 		target : storyGameSession
@@ -390,6 +393,8 @@ Item
 
 		function onFailed()
 		{
+			console.log("onFailed" )
+
 			matchFailed = true;
 			failedTimer.start();
 		}

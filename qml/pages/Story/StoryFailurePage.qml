@@ -8,15 +8,18 @@ import Constant 1.0
 
 
 
-Rectangle {
+Rectangle
+{
 
     id:root
 
     property int starSize : root.width/12
 
-    Component.onCompleted: {
-        navigationBar.visible = true
-        mainMenuBar.visible = true
+	Component.onCompleted:
+	{
+		mainMenuBar.visible = true
+		navigationBar.visible = false
+		console.log(stackView.depth)
     }
 
     color:"transparent"
@@ -26,7 +29,8 @@ Rectangle {
         anchors.fill: parent
         spacing: 15
 
-        Card{
+		Card
+		{
             id: infoCard
 
             Layout.fillHeight: true
@@ -37,12 +41,14 @@ Rectangle {
             Layout.fillWidth: true
 
             // NOTE workaround for conflicting gradient and shadow
-            Rectangle{
+			Rectangle
+			{
                 id: infoRect
                 anchors.fill: parent
                 radius:infoCard.radius
             }
-                    RadialGradient  {
+					RadialGradient
+					{
                         anchors.fill:infoRect
                         source: infoRect
                         angle: 45
@@ -53,11 +59,13 @@ Rectangle {
                         gradient: Constant.blueGradient
                     }
 
-            ColumnLayout{
+			ColumnLayout
+			{
                 anchors.fill: parent
 
                 // NOTE chapter title
-                Label{
+				Label
+				{
                     text:qsTr("فصل اول")
                     font.pixelSize: Constant.h5FontSize
                     font.bold: true
@@ -74,12 +82,18 @@ Rectangle {
                 RowLayout
                 {
                     Layout.fillWidth: true
-                    Item{
+
+					Item
+					{
                         Layout.fillWidth: true
                     }
-                    Repeater{
+
+					Repeater
+					{
                         model:3
-                        Image{
+
+						Image
+						{
                             property double scale : index == 1? 1.3 : 1
                             Layout.leftMargin: 5
                             Layout.bottomMargin: index == 1 ? 10 : 0
@@ -98,13 +112,15 @@ Rectangle {
                             }
                         }
                     }
-                    Item{
-                        Layout.fillWidth: true
 
+					Item
+					{
+                        Layout.fillWidth: true
                     }
                 }
 
-                Label{
+				Label
+				{
                     text:qsTr("متاسفانه باختی")
                     font.pixelSize: Constant.h3FontSize
                     font.bold: true
@@ -117,40 +133,43 @@ Rectangle {
                     horizontalAlignment:Qt.AlignHCenter
                 }
 
-                Item{
+				Item
+				{
                     Layout.fillHeight: true
 
                 }
             }
-
-
         }
 
 		Item
 		{
             Layout.fillHeight: true
-
-
         }
 
 		GeneralButton
 		{
             text: qsTr("تلاش مجدد")
-
             implicitHeight:70
             Layout.leftMargin: 50
             Layout.rightMargin: 50
             Layout.fillWidth: true
 			font.pixelSize: Constant.h4FontSize
 
-
+			onClicked:
+			{
+				console.log("تلاش مجدد کلیک شد ")
+				storyGameSession.restartSession();
+				stackView.pop()
+				stackView.push(countdownComponent)
+			}
         }
 
-        GeneralButton{
-            text: qsTr("آموزش این مرحله")
+		GeneralButton
+		{
+			text: qsTr("بازگشت به منوی اصلی")
 			backGroundGradient: Constant.whiteGradient
             fontColor: Constant.bluegray
-			font.pixelSize: Constant.h4FontSize
+			font.pixelSize: Constant.h5FontSize
 
             implicitHeight:70
             Layout.leftMargin: 50
@@ -168,21 +187,12 @@ Rectangle {
                 radius: 8
                 spread: 0.0
             }
+
+			onClicked:
+			{
+				storyGameSession.restartSession();
+				stackView.pop()
+			}
         }
     }
-
-    //LinearGradient  {
-    //    anchors.fill: root
-    //    source: root
-    ////     angle: 45
-    ////     verticalRadius: 300
-    ////     horizontalRadius: 300
-    ////     horizontalOffset:-root.width/2
-    ////     verticalOffset: -root.height/2
-    //    gradient: Gradient {
-    //        GradientStop { position: 0; color: Constant.redColor }
-    //        GradientStop { position: 1; color: Qt.lighter(Constant.redColor) }
-    //    }
-    //}
-
 }

@@ -112,6 +112,22 @@ void StoryGameSession::answerSelected(int index)
 	emit dataChanged(createIndex(index, 0), createIndex(index, 0), {IsSelected});
 }
 
+void StoryGameSession::restartSession()
+{
+	setCurrentQuestion(0);
+	setQuestionString(m_questions[0].title);
+	setStarCount(3);
+
+	for (auto &q : m_questions)
+	{
+		for (auto &a : q.answers)
+		{
+			a.isSelected = false;
+		}
+	}
+	emit dataChanged(createIndex(0, 0), createIndex(4, 0), {IsSelected});
+}
+
 void StoryGameSession::setQuestions(const QVector<StringQuestion> &newQuestions)
 {
 	m_questions = newQuestions;

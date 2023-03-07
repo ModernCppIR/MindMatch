@@ -21,8 +21,14 @@ Label
 		mainWindow.hideMenus();
 	}
 
+//	Component.onDestruction:
+//	{
+//		lottieAnimation. gotoAndStop(0)
+//	}
+
 	LottieAnimation
 	{
+		id: lottieAnimation
 		anchors.centerIn:parent
 		loops: 1
 		quality: LottieAnimation.HighQuality
@@ -30,14 +36,13 @@ Label
 		onStatusChanged:
 		{
 			if (status === LottieAnimation.Ready) {
-				// any acvities needed before
-				// playing starts go here
 				gotoAndPlay(0);
 			}
 		}
 
 		onFinished:
 		{
+			gotoAndPlay(0);
 			done()
 		}
 	}

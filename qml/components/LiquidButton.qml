@@ -15,8 +15,7 @@ Button{
 
 	width: parent.width * 1.2
 	height: parent.width * 1.2
-	anchors.bottom: parent.bottom
-	anchors.horizontalCenter: parent.horizontalCenter
+
 	font.pixelSize: Constant.h3FontSize
 	contentItem: Text {
 		anchors.centerIn: parent
@@ -29,6 +28,7 @@ Button{
 		font.bold: true
 		font.pixelSize: liquidButton.font.pixelSize
 		font.letterSpacing: liquidButton.font.letterSpacing
+		font.family: liquidButton.font.family
 	}
 
 	background: Item
@@ -80,15 +80,18 @@ Button{
 			}
 		}
 
-		ShaderEffectSource {
+		ShaderEffectSource
+		{
 			id: gradientBlob
 			sourceItem: itemGradient
 		}
 
-		Item {
+		Item
+		{
 			anchors.fill: parent
 
-			layer.effect: InnerShadow {
+			layer.effect: InnerShadow
+			{
 				id: innerShadow
 				opacity: 0.036
 				visible: true

@@ -35,5 +35,7 @@
         <file>qml/components/Circle.qml</file>
         <file>fonts/ttf/SOGAND.ttf</file>
         <file>img/mustache.png</file>
+        <file>qml/pages/Leaderboard.qml</file>
+        <file>qml/pages/SettingPage.qml</file>
     </qresource>
 </RCC>

@@ -142,7 +142,11 @@ Item
 		{
 			id:timer
 			interval: 50
-			onTriggered: stackView.push(bookListComponent)
+			onTriggered:
+			{
+				stackView.pop()
+				stackView.push(bookListComponent)
+			}
 		}
 	}
 
@@ -174,6 +178,11 @@ Item
 			textVerticalCenterOffset: 8
 			enableTextShadow: true
 			backGroundGradient: Constant.blueGradient
+
+			onClicked:
+			{
+				stackView.push(settingPageComponent)
+			}
 		}
 
 		GeneralButton
@@ -188,7 +197,6 @@ Item
 			enableTextShadow: true
 			background: Rectangle
 			{
-				id:button_back
 				radius: parent.implicitWidth
 
 				RadialGradient
@@ -203,6 +211,11 @@ Item
 					gradient: Constant.goldGradient
 				}
 			}
+
+			onClicked:
+			{
+				stackView.push(leaderboardComponent)
+			}
 		}
 
 		GeneralButton
@@ -216,6 +229,12 @@ Item
 			textVerticalCenterOffset: 8
 			enableTextShadow: true
 			backGroundGradient: Constant.blueGradient
+
+			onClicked:
+			{
+				// FIXME add rel share api from jni android
+				console.log("add real share")
+			}
 		}
 
 		Item

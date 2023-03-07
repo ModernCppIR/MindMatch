@@ -72,5 +72,8 @@ QtObject {
 	property string trophyIconUnicode: "\uf091"
 	property string gearIconUnicode: "\uf013"
 	property string shareIconUnicode: "\uf1e0"
+	property string bookIconUnicode: "\uf02d"
+	property string videoIconUnicode: "\uf02d"
+	property string sourceIconUnicode: "\uf15b"
 
 }

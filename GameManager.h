@@ -11,6 +11,10 @@
 class GameManager : public QObject
 {
 	Q_OBJECT
+
+	Q_PROPERTY(QString currentBookName READ currentBookName WRITE setCurrentBookName NOTIFY
+				   currentBookNameChanged)
+
 public:
 	explicit GameManager(QObject *parent = nullptr);
 
@@ -22,7 +26,15 @@ public:
 
 	StoryGameSession &storyGameSession();
 
+	int currentChapter() const;
+	void setCurrentChapter(int newCurrentChapter);
+
+	QString currentBookName() const;
+	void setCurrentBookName(const QString &newCurrentBookName);
+
 signals:
+
+	void currentBookNameChanged();
 
 private:
 	QVector<BookItem> createDummyBooks();
@@ -35,15 +47,18 @@ public slots:
 
 	void selectBook(const QString &bookName);
 	void selectChapter(const int &index);
+	void goToNextCpater();
 
 private:
 	QVector<BookItem> m_books;
 	BookModel m_booksModel;
-	QString currentBookName;
 
 	ChapterModel m_chapterModel;
 
 	StoryGameSession m_storyGameSession;
+
+	int m_currentChapter;
+	QString m_currentBookName;
 };
 
 #endif // GAMEMANAGER_H

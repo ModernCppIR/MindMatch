@@ -140,7 +140,7 @@ Rectangle
 
 		GeneralButton
 		{
-			text: qsTr("مرحله بعد")
+			text: gameManager.currentChapter + 1 == 9 ? qsTr("کتاب بعد"):qsTr("مرحله بعد")
 
             implicitHeight:70
             Layout.leftMargin: 50
@@ -150,8 +150,17 @@ Rectangle
 
 			onClicked:
 			{
-				storyGameSession.goToNextCpater();
-				stackView.pop()
+				if(gameManager.currentChapter + 1 == 9)
+				{
+					gameManager.goToNextChapter();
+					stackView.pop()
+				}
+				else
+				{
+					gameManager.goToNextChapter();
+					stackView.pop()
+					stackView.push(countdownComponent)
+				}
 			}
         }
 
@@ -170,6 +179,7 @@ Rectangle
 			onClicked:
 			{
 				storyGameSession.restartSession();
+				stackView.pop()
 				stackView.pop()
 			}
         }

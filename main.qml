@@ -182,6 +182,8 @@ ApplicationWindow
 			{
 				stackView.pop()
 				stackView.push(questionPageComponent)
+				storyGameSession.restartSession()
+				storyGameSession.start()
 			}
 		}
 	}

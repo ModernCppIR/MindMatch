@@ -192,6 +192,7 @@ Rectangle
 			{
 				storyGameSession.restartSession();
 				stackView.pop()
+				stackView.pop()
 			}
         }
     }

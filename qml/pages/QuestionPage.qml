@@ -22,7 +22,8 @@ Item
 		correctAnswerSelected= false
 		matchFailed= false
 		mainWindow.hideMenus()
-		storyGameSession.start()
+//		storyGameSession.restartSession()
+//		storyGameSession.start()
 	}
 
 	Rectangle
@@ -388,7 +389,9 @@ Item
 
 		function onSuccessed()
 		{
+			stackView.pop()
 			stackView.push(storySuccessPageComponent)
+			storyGameSession.leaveMatch();
 		}
 
 		function onFailed()

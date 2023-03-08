@@ -4,6 +4,7 @@
 
 GameManager::GameManager(QObject *parent)
 	: QObject{parent}
+	, m_bookTotalChapters{9}
 {
 	m_books = createDummyBooks();
 
@@ -141,9 +142,48 @@ void GameManager::selectChapter(const int &index)
 	}
 }
 
-void GameManager::goToNextCpater()
+void GameManager::goToNextChapter()
 {
-	selectChapter(currentChapter() + 1);
+	if (m_bookTotalChapters > currentChapter() + 1)
+	{
+		selectChapter(currentChapter() + 1);
+	}
+	else
+	{
+		gotoNextBook();
+	}
+}
+
+void GameManager::gotoNextBook()
+{
+	// FIXME find next book
+	selectBook(currentBookName());
+
+	auto bookIt = std::find_if(m_books.cbegin(), m_books.cend(),
+							   [this](const BookItem &book)
+							   { return book.name == m_currentBookName; });
+
+	if (bookIt != m_books.cend())
+	{
+
+		bookIt++;
+		if (bookIt != m_books.cend())
+		{
+			setCurrentBookName(bookIt->name);
+			m_chapterModel.setChapters(bookIt->chapters);
+			selectChapter(0);
+		}
+		else
+		{
+			emit finishedAllBooks();
+			qDebug() << "books are done!";
+		}
+	}
+	else
+	{
+		// NOTE use error handler to show error message in android ui
+		throw std::runtime_error("book dose not exists!");
+	}
 }
 
 int GameManager::currentChapter() const
@@ -154,6 +194,11 @@ int GameManager::currentChapter() const
 void GameManager::setCurrentChapter(int newCurrentChapter)
 {
 	m_currentChapter = newCurrentChapter;
+
+	if (m_currentChapter == newCurrentChapter)
+		return;
+	m_currentChapter = newCurrentChapter;
+	emit currentChapterChanged();
 }
 
 StoryGameSession &GameManager::storyGameSession()

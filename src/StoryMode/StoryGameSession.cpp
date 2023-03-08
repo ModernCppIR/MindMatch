@@ -114,6 +114,8 @@ void StoryGameSession::answerSelected(int index)
 
 void StoryGameSession::restartSession()
 {
+	sessionTimer.stop();
+	setRemainingTime(100);
 	setCurrentQuestion(0);
 	setQuestionString(m_questions[0].title);
 	setStarCount(3);

@@ -39,5 +39,6 @@
         <file>qml/pages/SettingPage.qml</file>
         <file>qml/pages/Story/CelebrateAllPagesDone.qml</file>
         <file>img/throphy.png</file>
+        <file>js/Progress.js</file>
     </qresource>
 </RCC>

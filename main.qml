@@ -114,7 +114,7 @@ ApplicationWindow
 	{
 		id: stackView
 		anchors.fill: parent
-		initialItem: StartCover
+		initialItem: CelebrateAllPagesDone
 		{
 
 		}

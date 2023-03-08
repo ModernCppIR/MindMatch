@@ -13,7 +13,7 @@ Rectangle
 {
 	id: root
 
-	property color particleColor: Constant.lightblue
+	property color particleColor: Constant.darkblue
 
 	Component.onCompleted:
 	{
@@ -185,14 +185,14 @@ Rectangle
 				}
 
 
-				ColorAnimation
-				{
-					target: root
-					property: "particleColor"
-					from: Constant.lightblue
-					to: Constant.darkblue
-					duration: 200
-				}
+//				ColorAnimation
+//				{
+//					target: root
+//					property: "particleColor"
+//					from: Constant.lightblue
+//					to: Constant.darkblue
+//					duration: 200
+//				}
 
 
 				property  bool firstTime : true

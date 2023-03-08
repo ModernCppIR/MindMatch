@@ -34,23 +34,25 @@ ApplicationWindow
 
 	color: Constant.whiteColor
 
-	FontLoader {
+	FontLoader
+	{
 		id: fontLoader
 		source: "qrc:/fonts/otfs/Font Awesome 6 Free-Solid-900.otf"
 	}
 
-	header: ToolBar {
-
+	header: ToolBar
+	{
 		id: mainMenuBar
-
 //		visible: menuVisible
 
-		Button{
+		Button
+		{
 			anchors.fill: parent
 			text:"منوی بالا"
 			font.bold:true
 
-			contentItem: Text {
+			contentItem: Text
+			{
 				anchors.centerIn: parent
 				text: parent.text
 				color: Constant.whiteColor
@@ -62,11 +64,12 @@ ApplicationWindow
 				verticalAlignment: Qt.AlignVCenter
 			}
 
-			background:Rectangle
+			background: Rectangle
 			{
 				id: headerBackgroundRect
 				anchors.fill : parent
-				RadialGradient  {
+				RadialGradient
+				{
 					anchors.fill:headerBackgroundRect
 					source: headerBackgroundRect
 					angle: 45
@@ -78,7 +81,8 @@ ApplicationWindow
 				}
 
 				layer.enabled: true
-				layer.effect: DropShadow {
+				layer.effect: DropShadow
+				{
 					transparentBorder: true
 					horizontalOffset: 0
 					verticalOffset: 0
@@ -91,20 +95,23 @@ ApplicationWindow
 		}
 	}
 
-	footer: BottomNavigationBar{
+	footer: BottomNavigationBar
+	{
 		id: navigationBar
 		visible: menuVisible
 
 		height: mainWindow.height / 10
 
-		onCurrentIndexChanged: {
+		onCurrentIndexChanged:
+		{
 			//            stackView.replace(getPage(currentIndex))
 			//            stackView.push("qml/pages/BookChapters.qml")
 			//            stackView.push("qml/pages/QuestionPage.qml")
 		}
 	}
 
-	StackView {
+	StackView
+	{
 		id: stackView
 		anchors.fill: parent
 		initialItem: StartCover
@@ -112,8 +119,10 @@ ApplicationWindow
 
 		}
 
-		pushEnter: Transition {
-			PropertyAnimation {
+		pushEnter: Transition
+		{
+			PropertyAnimation
+			{
 				property: "opacity"
 				from: 0
 				to: 1
@@ -122,8 +131,10 @@ ApplicationWindow
 
 		}
 
-		pushExit: Transition {
-			PropertyAnimation {
+		pushExit: Transition
+		{
+			PropertyAnimation
+			{
 				property: "opacity"
 				from: 1
 				to: 0
@@ -131,8 +142,10 @@ ApplicationWindow
 			}
 		}
 
-		popEnter: Transition {
-			PropertyAnimation {
+		popEnter: Transition
+		{
+			PropertyAnimation
+			{
 				property: "opacity"
 				from: 0
 				to: 1
@@ -141,8 +154,10 @@ ApplicationWindow
 
 		}
 
-		popExit: Transition {
-			PropertyAnimation {
+		popExit: Transition
+		{
+			PropertyAnimation
+			{
 				property: "opacity"
 				from: 1
 				to: 0

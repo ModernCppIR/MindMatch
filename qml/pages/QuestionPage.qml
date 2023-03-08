@@ -17,13 +17,13 @@ Item
 
 	Component.onCompleted:
 	{
-//		console.log(" QuestionPage Component.onCompleted")
+		//		console.log(" QuestionPage Component.onCompleted")
 
 		correctAnswerSelected= false
 		matchFailed= false
 		mainWindow.hideMenus()
-//		storyGameSession.restartSession()
-//		storyGameSession.start()
+		//		storyGameSession.restartSession()
+		//		storyGameSession.start()
 	}
 
 	Rectangle
@@ -305,78 +305,84 @@ Item
 			}
 		}
 
-		Repeater
+		GridLayout
 		{
-			model:storyGameSession
+			columns: 2
+			columnSpacing: 10
 
-			Button
+			Repeater
 			{
-				id: answerButton
+				model:storyGameSession
 
-				property bool doneQuestion : isSelected && isCorrect;
-
-				text: context
-				Layout.margins: 5
-				Layout.fillWidth:  true
-				Layout.fillHeight: true
-
-				onClicked:
+				Button
 				{
-					if(!correctAnswerSelected && !matchFailed && !isSelected)
+					id: answerButton
+
+					property bool doneQuestion : isSelected && isCorrect;
+
+					text: context
+					Layout.margins: 5
+					Layout.fillWidth:  true
+					Layout.fillHeight: true
+
+					onClicked:
 					{
-						storyGameSession.answerSelected(index);
+						if(!correctAnswerSelected && !matchFailed && !isSelected)
+						{
+							storyGameSession.answerSelected(index);
+						}
 					}
-				}
 
-				onDoneQuestionChanged:
-				{
-					if(doneQuestion == true)
+					onDoneQuestionChanged:
 					{
-						correctAnswerSelected = true;
-						nextQuestionTimer.start();
+						if(doneQuestion == true)
+						{
+							correctAnswerSelected = true;
+							nextQuestionTimer.start();
+						}
 					}
-				}
 
-				layer.enabled: true
-				layer.effect: DropShadow
-				{
-					transparentBorder: true
-					horizontalOffset: 0
-					verticalOffset: 0
-					color: Qt.darker("#aa608da2")
-					samples: 8
-					radius: 8
-					spread: 0.0
-				}
-
-				contentItem:Label
-				{
-					text: answerButton.text
-					font.pixelSize: Constant.h3FontSize
-					color: Constant.darkTextColor
-					font.bold: true
-					verticalAlignment: Qt.AlignVCenter
-					horizontalAlignment: Qt.AlignHCenter
-				}
-
-				background:Rectangle
-				{
-					id: answerBackRect
-					implicitHeight: 70
-					implicitWidth:root.width - 20
-					radius:10
-					color: isSelected ? isCorrect ? Constant.greenColor : Constant.redColor : Constant.whiteColor
-
-					RadialGradient
+					layer.enabled: true
+					layer.effect: DropShadow
 					{
-						anchors.fill:  parent
-						source: parent
-						angle: 45
-						verticalRadius: 300
-						horizontalRadius: 300
-						horizontalOffset: - parent.width/2
-						verticalOffset: - parent.height/2
-						gradient: isSelected && isCorrect ? Constant.greenGradient : isSelected ? Constant.redGradient : Constant.whiteGradient
+						transparentBorder: true
+						horizontalOffset: 0
+						verticalOffset: 0
+						color: Qt.darker("#aa608da2")
+						samples: 8
+						radius: 8
+						spread: 0.0
+					}
+
+					contentItem:Label
+					{
+						text: answerButton.text
+						font.pixelSize: Constant.h3FontSize
+						color: Constant.darkTextColor
+						font.bold: true
+						verticalAlignment: Qt.AlignVCenter
+						horizontalAlignment: Qt.AlignHCenter
+					}
+
+					background:Rectangle
+					{
+						id: answerBackRect
+						implicitHeight: 70
+						implicitWidth:root.width - 20
+						radius:10
+						color: isSelected ? isCorrect ? Constant.greenColor : Constant.redColor : Constant.whiteColor
+
+						RadialGradient
+						{
+							anchors.fill:  parent
+							source: parent
+							angle: 45
+							verticalRadius: 300
+							horizontalRadius: 300
+							horizontalOffset: - parent.width/2
+							verticalOffset: - parent.height/2
+							gradient: isSelected && isCorrect ? Constant.greenGradient : isSelected ? Constant.redGradient : Constant.whiteGradient
+						}
 					}
 				}
 			}

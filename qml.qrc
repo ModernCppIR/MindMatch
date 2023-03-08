@@ -37,5 +37,7 @@
         <file>img/mustache.png</file>
         <file>qml/pages/Leaderboard.qml</file>
         <file>qml/pages/SettingPage.qml</file>
+        <file>qml/pages/Story/CelebrateAllPagesDone.qml</file>
+        <file>img/throphy.png</file>
     </qresource>
 </RCC>

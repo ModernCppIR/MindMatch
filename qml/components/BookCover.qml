@@ -30,15 +30,16 @@ Item
 			color: Constant.whiteColor
 			radius: 20
 
-
 			// NOTE workaround for conflicting gradient and shadow
-			Rectangle{
+			Rectangle
+			{
 				id: workaroundRect
 				anchors.fill: parent
 				radius: cardBackRect.radius
 			}
 
-			RadialGradient  {
+			RadialGradient
+			{
 				anchors.fill:workaroundRect
 
 				source: workaroundRect
@@ -49,6 +50,7 @@ Item
 				verticalOffset: -workaroundRect.height/2
 				gradient: Constant.blueGradient
 			}
+
 			layer.enabled: true
 			layer.effect: DropShadow
 			{
@@ -103,12 +105,14 @@ Item
 						edgeSize: logoSize
 						Layout.rightMargin:10
 
-						Text{
+						Text
+						{
 							text: modelData
 							color: Constant.whiteColor
 							anchors.centerIn: parent
 							anchors.verticalCenterOffset: 10
-							font {
+							font
+							{
 								bold: true
 								pixelSize: Constant.h2FontSize
 							}

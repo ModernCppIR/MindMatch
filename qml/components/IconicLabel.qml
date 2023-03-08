@@ -14,6 +14,7 @@ Item{
     property string iconSrc: ""
 	property color textColor: Constant.darkTextColor
     property Gradient backgroundGradient: Constant.blueGradient
+	property int logoSize: backCard.height-10
 
     Card {
         id: backCard

@@ -21,18 +21,16 @@ Label
 		mainWindow.hideMenus();
 	}
 
-//	Component.onDestruction:
-//	{
-//		lottieAnimation. gotoAndStop(0)
-//	}
-
 	LottieAnimation
 	{
 		id: lottieAnimation
 		anchors.centerIn:parent
+		width: parent.width
+		implicitWidth: parent.width
 		loops: 1
 		quality: LottieAnimation.HighQuality
 		source: "qrc:/lottie/countdown.json"
+
 		onStatusChanged:
 		{
 			if (status === LottieAnimation.Ready) {
@@ -47,8 +45,8 @@ Label
 		}
 	}
 
-	verticalAlignment:Qt.AlignVCenter
-	horizontalAlignment:Qt.AlignHCenter
+	verticalAlignment: Qt.AlignVCenter
+	horizontalAlignment: Qt.AlignHCenter
 
 	background: Rectangle
 	{

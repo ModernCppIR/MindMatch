@@ -23,6 +23,9 @@ class StoryGameSession : public QAbstractListModel
 
 	Q_PROPERTY(
 		double remainingTime READ remainingTime WRITE setRemainingTime NOTIFY remainingTimeChanged)
+
+	Q_PROPERTY(int currentLevelScore READ currentLevelScore WRITE setCurrentLevelScore NOTIFY
+				   currentLevelScoreChanged)
 public:
 	explicit StoryGameSession(QObject *parent = nullptr);
 
@@ -60,6 +63,9 @@ public:
 
 	void setQuestions(const QVector<StringQuestion> &newQuestions);
 
+	int currentLevelScore() const;
+	void setCurrentLevelScore(int newCurrentLevelScore);
+
 public slots:
 	void start();
 	void leaveMatch();
@@ -68,6 +74,8 @@ public slots:
 	void answerSelected(int index);
 
 	void restartSession();
+
+	void calculateScore();
 
 signals:
 
@@ -89,20 +97,19 @@ signals:
 
 	void remainingTimeChanged();
 
+	void currentLevelScoreChanged();
+
 private:
 	QString m_sessionName;
 	int m_starCount = 3;
 	int m_totalQuestionsCount = 0;
 	int m_currentQuestion = 0;
 	bool m_muted = false;
-
 	QVector<StringQuestion> m_questions;
-
 	QVector<int> roleVector;
-
 	QString m_questionString;
-
 	double m_remainingTime = 100;
+	int m_currentLevelScore = 0;
 
 	QTimer sessionTimer;
 };

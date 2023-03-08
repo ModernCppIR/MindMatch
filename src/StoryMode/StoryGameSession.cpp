@@ -90,6 +90,7 @@ void StoryGameSession::gotoNextQuestion()
 	}
 	else
 	{
+		calculateScore();
 		emit successed();
 	}
 
@@ -128,6 +129,23 @@ void StoryGameSession::restartSession()
 		}
 	}
 	emit dataChanged(createIndex(0, 0), createIndex(4, 0), {IsSelected});
+}
+
+void StoryGameSession::calculateScore()
+{
+	int currentSessionScore = 0;
+
+	int totalPossibleScore = 1000000;
+
+	auto questionScore = 10000 / totalQuestionsCount();
+
+	int correctQuestionScore = questionScore * totalQuestionsCount() + questionScore % 10000;
+
+	int timeScore = (remainingTime() / 100) * 90000;
+
+	currentSessionScore = correctQuestionScore + timeScore;
+
+	setCurrentLevelScore(currentSessionScore);
 }
 
 void StoryGameSession::setQuestions(const QVector<StringQuestion> &newQuestions)
@@ -217,4 +235,17 @@ void StoryGameSession::setRemainingTime(double newRemainingTime)
 		return;
 	m_remainingTime = newRemainingTime;
 	emit remainingTimeChanged();
+}
+
+int StoryGameSession::currentLevelScore() const
+{
+	return m_currentLevelScore;
+}
+
+void StoryGameSession::setCurrentLevelScore(int newCurrentLevelScore)
+{
+	if (m_currentLevelScore == newCurrentLevelScore)
+		return;
+	m_currentLevelScore = newCurrentLevelScore;
+	emit currentLevelScoreChanged();
 }

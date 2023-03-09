@@ -8,6 +8,8 @@ GameManager::GameManager(QObject *parent)
 {
 	m_books = createDummyBooks();
 
+	m_totalStoryModeStars = m_books.size() * 9 * 3;
+
 	m_booksModel.setBooks(m_books);
 }
 
@@ -63,7 +65,7 @@ QVector<StringQuestion> GameManager::createDummyQuestions()
 {
 	QVector<StringQuestion> retValue;
 
-	for (int i = 0; i < 16; ++i)
+	for (int i = 0; i < 3; ++i)
 	{
 		StringQuestion q;
 
@@ -156,7 +158,6 @@ void GameManager::goToNextChapter()
 
 void GameManager::gotoNextBook()
 {
-	// FIXME find next book
 	selectBook(currentBookName());
 
 	auto bookIt = std::find_if(m_books.cbegin(), m_books.cend(),
@@ -165,7 +166,6 @@ void GameManager::gotoNextBook()
 
 	if (bookIt != m_books.cend())
 	{
-
 		bookIt++;
 		if (bookIt != m_books.cend())
 		{
@@ -184,6 +184,11 @@ void GameManager::gotoNextBook()
 		// NOTE use error handler to show error message in android ui
 		throw std::runtime_error("book dose not exists!");
 	}
+}
+
+bool GameManager::checkIfAllTheStarsAchieved()
+{
+	return totalStoryModeStars() == allAchievedStoryModeStars();
 }
 
 int GameManager::currentChapter() const
@@ -232,4 +237,43 @@ void GameManager::setCurrentBookName(const QString &newCurrentBookName)
 		return;
 	m_currentBookName = newCurrentBookName;
 	emit currentBookNameChanged();
+}
+
+bool GameManager::currentBookIsLast() const
+{
+	return m_currentBookIsLast;
+}
+
+void GameManager::setCurrentBookIsLast(bool newCurrentBookIsLast)
+{
+	if (m_currentBookIsLast == newCurrentBookIsLast)
+		return;
+	m_currentBookIsLast = newCurrentBookIsLast;
+	emit currentBookIsLastChanged();
+}
+
+int GameManager::allAchievedStoryModeStars() const
+{
+	return m_allAchievedStoryModeStars;
+}
+
+void GameManager::setAllAchievedStoryModeStars(int newAllAchievedStoryModeStars)
+{
+	if (m_allAchievedStoryModeStars == newAllAchievedStoryModeStars)
+		return;
+	m_allAchievedStoryModeStars = newAllAchievedStoryModeStars;
+	emit allAchievedStoryModeStarsChanged();
+}
+
+int GameManager::totalStoryModeStars() const
+{
+	return m_totalStoryModeStars;
+}
+
+void GameManager::setTotalStoryModeStars(int newTotalStoryModeStars)
+{
+	if (m_totalStoryModeStars == newTotalStoryModeStars)
+		return;
+	m_totalStoryModeStars = newTotalStoryModeStars;
+	emit totalStoryModeStarsChanged();
 }

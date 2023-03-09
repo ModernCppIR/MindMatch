@@ -21,7 +21,6 @@
         <file>js/Utilities.js</file>
         <file>qml/components/BlueProgressBar.qml</file>
         <file>qml/pages/CountdownPage.qml</file>
-        <file>lottie/countdown.json</file>
         <file>qml/pages/Story/StorySuccessPage.qml</file>
         <file>qml/pages/Story/StoryFailurePage.qml</file>
         <file>qml/pages/Story/BookList.qml</file>
@@ -37,8 +36,10 @@
         <file>img/mustache.png</file>
         <file>qml/pages/Leaderboard.qml</file>
         <file>qml/pages/SettingPage.qml</file>
-        <file>qml/pages/Story/CelebrateAllPagesDone.qml</file>
+        <file>qml/pages/Story/CelebrateAllTheStarsAchieved.qml</file>
         <file>img/throphy.png</file>
         <file>js/Progress.js</file>
+        <file>img/looser.png</file>
+        <file>gif/countdown.gif</file>
     </qresource>
 </RCC>

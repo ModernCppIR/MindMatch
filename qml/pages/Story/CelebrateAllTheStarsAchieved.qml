@@ -121,6 +121,40 @@ Rectangle
 //				}
 
 
+
+
+//				Image
+//				{
+//					Layout.alignment: Qt.AlignCenter
+//					source: "qrc:/img/throphy.png"
+//					sourceSize: Qt.size((infoCard.width/3)*2 - 40,480/400 *((infoCard.width/3)*2 -40))
+
+//					layer.enabled: true
+//					layer.effect: DropShadow {
+//						transparentBorder: true
+//						horizontalOffset: 0
+//						verticalOffset: 0
+//						color: Constant.shadowColor
+//						samples: 8
+//						radius: 8
+//						spread: 0.0
+//					}
+//				}
+
+				Label
+				{
+					text:qsTr("آقای ریاضی")
+					font.pixelSize: Constant.h3FontSize
+					font.bold: true
+					color: Constant.whiteColor
+
+//					Layout.topMargin: 20
+					Layout.fillWidth: true
+
+					verticalAlignment:Qt.AlignVCenter
+					horizontalAlignment:Qt.AlignHCenter
+				}
+
 				Image
 				{
 
@@ -144,44 +178,23 @@ Rectangle
 					}
 				}
 
-				Image
-				{
-					Layout.alignment: Qt.AlignCenter
-					source: "qrc:/img/throphy.png"
-					sourceSize: Qt.size((infoCard.width/3)*2 - 40,480/400 *((infoCard.width/3)*2 -40))
-
-					layer.enabled: true
-					layer.effect: DropShadow {
-						transparentBorder: true
-						horizontalOffset: 0
-						verticalOffset: 0
-						color: Constant.shadowColor
-						samples: 8
-						radius: 8
-						spread: 0.0
-					}
-				}
-
-				Label
-				{
-					text:qsTr("آقای ریاضی")
-					font.pixelSize: Constant.h3FontSize
-					font.bold: true
-					color: Constant.whiteColor
-
-					Layout.topMargin: 20
-					Layout.fillWidth: true
-
-					verticalAlignment:Qt.AlignVCenter
-					horizontalAlignment:Qt.AlignHCenter
-				}
-
 				IconicLabel
 				{
 					backgroundGradient:  Constant.blueGradient
 					textColor:  Constant.lightTextColor
 					text: Utilities.thousandSeparator(storyGameSession.currentLevelScore)
 					iconSrc: "qrc:/img/diamond.png"
+					implicitHeight: 100
+					Layout.fillWidth: true
+					Layout.leftMargin: 20
+					Layout.rightMargin: 20
+				}
+
+				IconicLabel
+				{
+					backgroundGradient: Constant.goldGradient
+					text: 186 +"/"+327
+					iconSrc: "qrc:/img/star.png"
 					implicitHeight: 100
 					Layout.fillWidth: true
 					Layout.leftMargin: 20
@@ -198,32 +211,6 @@ Rectangle
 		Item
 		{
 			Layout.fillHeight: true
-		}
-
-		GeneralButton
-		{
-			text: gameManager.currentChapter + 1 == 9 ? qsTr("کتاب بعد"):qsTr("مرحله بعد")
-
-			implicitHeight:70
-			Layout.leftMargin: 50
-			Layout.rightMargin: 50
-			Layout.fillWidth: true
-			font.pixelSize: Constant.h4FontSize
-
-			onClicked:
-			{
-				if(gameManager.currentChapter + 1 == 9)
-				{
-					gameManager.goToNextChapter();
-					stackView.pop()
-				}
-				else
-				{
-					gameManager.goToNextChapter();
-					stackView.pop()
-					stackView.push(countdownComponent)
-				}
-			}
 		}
 
 		GeneralButton

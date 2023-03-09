@@ -1,58 +1,32 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
-import Qt.labs.lottieqt 1.0
 
 import Constant 1.0
 
-Label
+Item
 {
 	id:root
 
 	signal done()
-
-	property int countNumber: 4
-	property int interval: 1000
-	property int currentNumer: countNumber
-	property int numberSize: 1000
 
 	Component.onCompleted:
 	{
 		mainWindow.hideMenus();
 	}
 
-	LottieAnimation
+	AnimatedImage
 	{
-		id: lottieAnimation
-		anchors.centerIn:parent
-		width: parent.width
-		implicitWidth: parent.width
-		loops: 1
-		quality: LottieAnimation.HighQuality
-		source: "qrc:/lottie/countdown.json"
+		id: animation;
+		anchors.centerIn: parent
 
-		onStatusChanged:
-		{
-			if (status === LottieAnimation.Ready) {
-				gotoAndPlay(0);
+		source: "qrc:/gif/countdown.gif"
+
+		onCurrentFrameChanged: {
+			if(currentFrame == 52 )
+			{
+				animation.paused = true;
+				animation.currentFrame = 0;
+				done();
 			}
 		}
-
-		onFinished:
-		{
-			gotoAndPlay(0);
-			done()
-		}
-	}
-
-	verticalAlignment: Qt.AlignVCenter
-	horizontalAlignment: Qt.AlignHCenter
-
-	background: Rectangle
-	{
-		id:countdownBackRect
-
-		anchors.fill: parent
-		color:Constant.whiteColor
 	}
 }

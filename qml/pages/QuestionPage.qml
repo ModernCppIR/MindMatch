@@ -396,7 +396,16 @@ Item
 		function onSuccessed()
 		{
 			stackView.pop()
-			stackView.push(storySuccessPageComponent)
+
+			if(gameManager.checkIfAllTheStarsAchieved())
+			{
+				stackView.push(celebrateAllTheStarsAchievedComponent)
+			}
+			else
+			{
+				stackView.push(storySuccessPageComponent)
+			}
+
 			storyGameSession.leaveMatch();
 		}
 

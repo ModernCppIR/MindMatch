@@ -176,6 +176,8 @@ Rectangle
 				id: canvas
 				anchors.fill: parent
 
+				property  bool firstTime : true
+
 				Timer
 				{
 					interval: 1000/60
@@ -184,18 +186,6 @@ Rectangle
 					onTriggered: canvas.requestPaint()
 				}
 
-
-//				ColorAnimation
-//				{
-//					target: root
-//					property: "particleColor"
-//					from: Constant.lightblue
-//					to: Constant.darkblue
-//					duration: 200
-//				}
-
-
-				property  bool firstTime : true
 				onWidthChanged:Pro.setSizes(canvas.width , canvas.height)
 				onHeightChanged: Pro.setSizes(canvas.width , canvas.height)
 
@@ -226,6 +216,7 @@ Rectangle
 		GeneralButton
 		{
 			text: gameManager.currentChapter + 1 == 9 ? qsTr("کتاب بعد"):qsTr("مرحله بعد")
+			visible: !gameManager.currentBookIsLast
 
 			implicitHeight:70
 			Layout.leftMargin: 50

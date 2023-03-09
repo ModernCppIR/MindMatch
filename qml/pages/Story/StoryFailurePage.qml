@@ -119,6 +119,24 @@ Rectangle
                     }
                 }
 
+				Image
+				{
+					Layout.alignment: Qt.AlignCenter
+					source: "qrc:/img/looser.png"
+					sourceSize: Qt.size(infoCard.width - 40,infoCard.width - 40)
+
+					layer.enabled: true
+					layer.effect: DropShadow {
+						transparentBorder: true
+						horizontalOffset: 0
+						verticalOffset: 0
+						color: Constant.shadowColor
+						samples: 8
+						radius: 8
+						spread: 0.0
+					}
+				}
+
 				Label
 				{
                     text:qsTr("متاسفانه باختی")

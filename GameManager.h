@@ -18,6 +18,14 @@ class GameManager : public QObject
 	Q_PROPERTY(
 		int currentChapter READ currentChapter WRITE setCurrentChapter NOTIFY currentChapterChanged)
 
+	Q_PROPERTY(bool currentBookIsLast READ currentBookIsLast WRITE setCurrentBookIsLast NOTIFY
+				   currentBookIsLastChanged)
+
+	Q_PROPERTY(int allAchievedStoryModeStars READ allAchievedStoryModeStars WRITE
+				   setAllAchievedStoryModeStars NOTIFY allAchievedStoryModeStarsChanged)
+	Q_PROPERTY(int totalStoryModeStars READ totalStoryModeStars WRITE setTotalStoryModeStars NOTIFY
+				   totalStoryModeStarsChanged)
+
 public:
 	explicit GameManager(QObject *parent = nullptr);
 
@@ -35,6 +43,15 @@ public:
 	QString currentBookName() const;
 	void setCurrentBookName(const QString &newCurrentBookName);
 
+	bool currentBookIsLast() const;
+	void setCurrentBookIsLast(bool newCurrentBookIsLast);
+
+	int allAchievedStoryModeStars() const;
+	void setAllAchievedStoryModeStars(int newAllAchievedStoryModeStars);
+
+	int totalStoryModeStars() const;
+	void setTotalStoryModeStars(int newTotalStoryModeStars);
+
 signals:
 
 	void currentBookNameChanged();
@@ -42,6 +59,12 @@ signals:
 	void currentChapterChanged();
 
 	void finishedAllBooks();
+
+	void currentBookIsLastChanged();
+
+	void allAchievedStoryModeStarsChanged();
+
+	void totalStoryModeStarsChanged();
 
 private:
 	QVector<BookItem> createDummyBooks();
@@ -57,6 +80,8 @@ public slots:
 	void goToNextChapter();
 	void gotoNextBook();
 
+	bool checkIfAllTheStarsAchieved();
+
 private:
 	QVector<BookItem> m_books;
 	BookModel m_booksModel;
@@ -69,6 +94,10 @@ private:
 	QString m_currentBookName;
 
 	const int m_bookTotalChapters;
+	bool m_currentBookIsLast;
+	int m_allAchievedStoryModeStars = 0;
+	;
+	int m_totalStoryModeStars = 0;
 };
 
 #endif // GAMEMANAGER_H

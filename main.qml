@@ -114,7 +114,7 @@ ApplicationWindow
 	{
 		id: stackView
 		anchors.fill: parent
-		initialItem: CelebrateAllPagesDone
+		initialItem: StartCover
 		{
 
 		}
@@ -248,6 +248,16 @@ ApplicationWindow
 		id: settingPageComponent
 
 		SettingPage
+		{
+
+		}
+	}
+
+	Component
+	{
+		id: celebrateAllTheStarsAchievedComponent
+
+		CelebrateAllTheStarsAchieved
 		{
 
 		}

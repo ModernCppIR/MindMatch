@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.14
 import Notched 1.0
 import Constant 1.0
 
-import QtGraphicalEffects 1.14
+import QtGraphicalEffects 1.15
 
 
 Item {
@@ -35,18 +35,7 @@ Item {
         notchCenter: Qt.point(fab.x + fab.width / 2, fab.y + fab.height / 2)
         notchRadius: (fab.width / 2 + buttonMargin) * fab.scale
         cornerRadius: root.cornerRadius * fab.scale
-        color: Constant.darkTextColor
-
-        RadialGradient  {
-            anchors.fill: rect
-            source: rect
-             angle: 45
-             verticalRadius: 300
-             horizontalRadius: 300
-             horizontalOffset:-rect.width/2
-             verticalOffset: -rect.height/2
-            gradient: Constant.blueGradient
-        }
+		color: Constant.darkblue
 
         RoundButton {
             id: fab

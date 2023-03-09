@@ -66,6 +66,8 @@ signals:
 
 	void totalStoryModeStarsChanged();
 
+	void showBanner(const QString &fileSource);
+
 private:
 	QVector<BookItem> createDummyBooks();
 
@@ -94,7 +96,7 @@ private:
 	QString m_currentBookName;
 
 	const int m_bookTotalChapters;
-	bool m_currentBookIsLast;
+	bool m_currentBookIsLast = false;
 	int m_allAchievedStoryModeStars = 0;
 	;
 	int m_totalStoryModeStars = 0;

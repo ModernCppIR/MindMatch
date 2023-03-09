@@ -215,7 +215,7 @@ Rectangle
 
 		GeneralButton
 		{
-			text: qsTr("بازگشت به منوی اصلی")
+			text: qsTr("بستن")
 			backGroundGradient: Constant.whiteGradient
 			fontColor: Constant.bluegray
 			font.pixelSize: Constant.h5FontSize
@@ -227,9 +227,7 @@ Rectangle
 
 			onClicked:
 			{
-				storyGameSession.restartSession();
-				stackView.pop()
-				stackView.pop()
+				bannerpopup.close();
 			}
 		}
 	}

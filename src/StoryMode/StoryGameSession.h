@@ -99,6 +99,8 @@ signals:
 
 	void currentLevelScoreChanged();
 
+	void matchEnded();
+
 private:
 	QString m_sessionName;
 	int m_starCount = 3;

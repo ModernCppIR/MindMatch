@@ -168,6 +168,7 @@ void StoryGameSession::leaveMatch()
 	sessionTimer.stop();
 	setCurrentQuestion(0);
 	setRemainingTime(100);
+	emit matchEnded();
 }
 
 int StoryGameSession::rowCount(const QModelIndex &parent) const

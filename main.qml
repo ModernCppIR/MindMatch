@@ -262,4 +262,43 @@ ApplicationWindow
 
 		}
 	}
+
+	// show banner
+	Connections
+	{
+		target : gameManager
+
+		function onShowBanner(fileSource)
+		{
+			console.log("working : ", fileSource)
+			bannerLoader.source = fileSource;
+			bannerpopup.open();
+		}
+
+	}
+
+
+	Popup
+	{
+		id: bannerpopup
+
+		anchors.centerIn: parent
+		width: parent.width - 20
+		height: parent.height - 20
+		modal: true
+
+		Loader
+		{
+			id: bannerLoader
+			anchors.fill: parent
+		}
+
+		background: Rectangle
+		{
+		color: "transparent"
+		}
+
+	}
+
+
 }

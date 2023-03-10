@@ -11,8 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick Svg QmlImportScanner)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Svg )
 
 
 file(GLOB_RECURSE SRC_AND_HEADERS
@@ -38,20 +38,24 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
-        add_library(MrMath SHARED
+        add_library(${PROJECT_NAME}  SHARED
             ${PROJECT_SOURCES}
         )
     # Define properties for Android with Qt 5 after find_package() calls as:
     set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
 else()
-    add_executable(MrMath
+    add_executable(${PROJECT_NAME}
         ${PROJECT_SOURCES}
     )
 endif()
 endif()
 
-target_link_libraries(MrMath
-    PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::Svg
+)
 
 set_target_properties(MrMath PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -61,11 +65,21 @@ set_target_properties(MrMath PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-install(TARGETS MrMath
+qt5_import_plugins(${PROJECT_NAME}
+    INCLUDE
+    Qt5::QtQuick2Plugin
+    Qt5::QSvgPlugin
+    Qt5::QtQuickControls2Plugin
+)
+
+
+install(TARGETS ${PROJECT_NAME}
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
+find_package(Qt5QmlImportScanner REQUIRED)
+
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_import_qml_plugins(TestSpritedAnimation)
-    qt_finalize_executable(TestSpritedAnimation)
+    qt_import_qml_plugins(${PROJECT_NAME})
+    qt_finalize_executable(${PROJECT_NAME})
 endif()

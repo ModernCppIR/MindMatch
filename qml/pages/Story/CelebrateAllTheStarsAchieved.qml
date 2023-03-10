@@ -98,7 +98,7 @@ Rectangle
 //							property double scale : index == 1 ? 1.3 : 1
 //							Layout.leftMargin: 5
 //							Layout.bottomMargin: index == 1 ? 10 : 0
-//							source: storyGameSession.starCount > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
+//							source: storyGameSession.starCount > index ? "qrc:/img/star.svg": "qrc:/img/star_off.svg"
 //							sourceSize: Qt.size(starSize * scale ,starSize  * scale)
 
 //							layer.enabled: true
@@ -183,7 +183,7 @@ Rectangle
 					backgroundGradient:  Constant.blueGradient
 					textColor:  Constant.lightTextColor
 					text: Utilities.thousandSeparator(storyGameSession.currentLevelScore)
-					iconSrc: "qrc:/img/diamond.png"
+					iconSrc: "qrc:/img/diamond.svg"
 					implicitHeight: 100
 					Layout.fillWidth: true
 					Layout.leftMargin: 20
@@ -194,7 +194,7 @@ Rectangle
 				{
 					backgroundGradient: Constant.goldGradient
 					text: 186 +"/"+327
-					iconSrc: "qrc:/img/star.png"
+					iconSrc: "qrc:/img/star.svg"
 					implicitHeight: 100
 					Layout.fillWidth: true
 					Layout.leftMargin: 20

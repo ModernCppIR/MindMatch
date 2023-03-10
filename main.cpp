@@ -1,5 +1,6 @@
 #include <QFontDatabase>
 #include <QGuiApplication>
+#include <QLoggingCategory>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQmlPropertyMap>
@@ -8,8 +9,13 @@
 #include "GameManager.h"
 #include "src/components/notchedrectangle.h"
 
+#include <QtPlugin>
+
 int main(int argc, char *argv[])
 {
+	//	Q_IMPORT_PLUGIN(QSvgIconPlugin);
+	//	Q_IMPORT_PLUGIN(QSvgPlugin);
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
@@ -46,6 +52,16 @@ int main(int argc, char *argv[])
 	engine.rootContext()->setContextProperty("booksModel", &gm.booksModel());
 	engine.rootContext()->setContextProperty("chaptersModel", &gm.chapterModel());
 	engine.rootContext()->setContextProperty("gameManager", &gm);
+
+	//#ifdef QT_NO_DEBUG
+	//	QLoggingCategory::setFilterRules("*.debug=false\n"
+	//									 "*.info=false\n"
+	//									 "*.warning=true\n"
+	//									 "*.critical=true");
+	//	fprintf(stderr, "Disabling QML logging in release build.\n");
+	//#else
+	//	fprintf(stderr, "QML logging enabled.\n");
+	//#endif
 
 	engine.load(url);
 

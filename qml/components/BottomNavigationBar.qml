@@ -1,7 +1,7 @@
-import QtQuick 2.14
-import QtQuick.Controls 2.14
-import QtQuick.Shapes 1.3
-import QtQuick.Layouts 1.14
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Shapes 1.15
+import QtQuick.Layouts 1.15
 
 import Notched 1.0
 import Constant 1.0
@@ -137,6 +137,17 @@ Item {
                             }
                         }
                     }
+
+					layer.enabled: true
+					layer.effect: DropShadow {
+						transparentBorder: true
+						horizontalOffset: 0
+						verticalOffset: 0
+						color: currentIndex === index ? Constant.gold : Constant.shadowColor
+						samples: 8
+						radius: 8
+						spread: 0.0
+					}
                 }
                 background: Rectangle{
                     color:"transparent"

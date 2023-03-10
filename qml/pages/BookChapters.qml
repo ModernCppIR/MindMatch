@@ -68,10 +68,20 @@ Page
 							Image
 							{
                                 Layout.leftMargin: 5
-								source: stars > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
+								source: stars > index ? "qrc:/img/star.svg": "qrc:/img/star_off.svg"
                                 sourceSize: Qt.size(starSize,starSize)
-                            }
+								layer.enabled: true
 
+								layer.effect: DropShadow {
+									transparentBorder: true
+									horizontalOffset: 0
+									verticalOffset: 0
+									color: Constant.shadowColor
+									samples: 8
+									radius: 8
+									spread: 0.0
+								}
+                            }
                         }
                     }
 

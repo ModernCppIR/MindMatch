@@ -5,6 +5,7 @@ import QtGraphicalEffects 1.15
 
 import Constant 1.0
 
+import "../components/lottie" as Lottie
 import "../components"
 
 Item
@@ -17,13 +18,9 @@ Item
 
 	Component.onCompleted:
 	{
-		//		console.log(" QuestionPage Component.onCompleted")
-
 		correctAnswerSelected= false
 		matchFailed= false
 		mainWindow.hideMenus()
-		//		storyGameSession.restartSession()
-		//		storyGameSession.start()
 	}
 
 	Rectangle
@@ -76,6 +73,26 @@ Item
 		ColumnLayout
 		{
 			anchors.fill: parent
+
+			Item {
+				Layout.alignment: Qt.AlignHCenter
+				Layout.fillWidth: true
+				implicitHeight:  50
+				Lottie.LottieAnimation {
+					id: lottieAnim
+
+					width:  parent.width
+					anchors.verticalCenter: parent.top
+					anchors.verticalCenterOffset: 40
+					source: "qrc:/lottie/ornament-animation.json"
+					running: true
+					clearBeforeRendering: true
+					speed: 2
+					loops: 0
+					fillMode: Image.PreserveAspectFit
+				}
+			}
+
 			RowLayout
 			{
 				RoundButton
@@ -136,7 +153,7 @@ Item
 				{
 					id:voiceButton
 					implicitHeight: 50
-					implicitWidth:implicitHeight
+					implicitWidth: implicitHeight
 					palette.shadow: "#222"
 					palette.button: Constant.lightBackgroundColor
 					Layout.rightMargin: 5
@@ -202,7 +219,7 @@ Item
 						property double scale : index == 1? 1.3 : 1
 						Layout.leftMargin: 5
 						Layout.bottomMargin: index == 1 ? 10 : 0
-						source: storyGameSession.starCount > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
+						source: storyGameSession.starCount > index ? "qrc:/img/star.svg": "qrc:/img/star_off.svg"
 						sourceSize: Qt.size(starSize*scale ,starSize*scale)
 
 						layer.enabled: true
@@ -296,12 +313,8 @@ Item
 
 			onTriggered:
 			{
-				stackView.pop()
-				stackView.push(storyFailurePageComponent)
+				stackView.replace(storyFailurePageComponent)
 				storyGameSession.leaveMatch();
-
-				console.log("onFailed")
-
 			}
 		}
 
@@ -395,15 +408,11 @@ Item
 
 		function onSuccessed()
 		{
-			stackView.pop()
+			stackView.replace(storySuccessPageComponent)
 
 			if(gameManager.checkIfAllTheStarsAchieved())
 			{
-				stackView.push(celebrateAllTheStarsAchievedComponent)
-			}
-			else
-			{
-				stackView.push(storySuccessPageComponent)
+				mainWindow.showBanner(celebrateAllTheStarsAchievedComponent)
 			}
 
 			storyGameSession.leaveMatch();

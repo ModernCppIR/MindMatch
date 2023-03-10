@@ -3,7 +3,7 @@ pragma Singleton
 import QtQuick.Controls.Material 2.15
 import QtQuick 2.15
 QtObject {
-    property color orange: "#FF9800"
+	property color orange: "#FF9800" // FFB802
     property color gold: "#FFEB3B"
 
 //    property color lightblue: "#4DD0E1"
@@ -26,6 +26,7 @@ QtObject {
 
     property color lightblue: "#00BCD4"
     property color darkblue: "#2196F3"
+
     property color bluegray: "#92afc5"
 
     property color darkTextColor: "#454545"

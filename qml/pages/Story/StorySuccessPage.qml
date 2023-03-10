@@ -6,6 +6,8 @@ import QtGraphicalEffects 1.15
 import "../../components"
 import "../../../js/Utilities.js" as Utilities
 import "../../../js/Progress.js" as Pro
+import "../../components/lottie" as Lottie
+
 
 import Constant 1.0
 
@@ -98,9 +100,10 @@ Rectangle
 							property double scale : index == 1 ? 1.3 : 1
 							Layout.leftMargin: 5
 							Layout.bottomMargin: index == 1 ? 10 : 0
-							source: storyGameSession.starCount > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
+							source: storyGameSession.starCount > index ? "qrc:/img/star.svg": "qrc:/img/star_off.svg"
 							sourceSize: Qt.size(starSize * scale ,starSize  * scale)
-
+							antialiasing: true
+							smooth: true
 							layer.enabled: true
 							layer.effect: DropShadow {
 								transparentBorder: true
@@ -120,21 +123,27 @@ Rectangle
 					}
 				}
 
-				Image
-				{
-					Layout.alignment: Qt.AlignCenter
-					source: "qrc:/img/throphy.png"
-					sourceSize: Qt.size((infoCard.width/3)*2 - 40,480/400 *((infoCard.width/3)*2 -40))
+				Item {
+					Layout.fillWidth: true
+					Layout.fillHeight: true
+					Lottie.LottieAnimation
+					{
+						id: lottieAnim
+						width:  parent.width
+						height:  parent.height * 2
+						anchors.centerIn: parent
+						anchors.verticalCenterOffset:  height * 1/10
+						source: "qrc:/lottie/champion.json"
+						running: true
+						clearBeforeRendering: true
+						clip: true
+						loops: 0
+						fillMode: Image.PreserveAspectFit
 
-					layer.enabled: true
-					layer.effect: DropShadow {
-						transparentBorder: true
-						horizontalOffset: 0
-						verticalOffset: 0
-						color: Constant.shadowColor
-						samples: 8
-						radius: 8
-						spread: 0.0
+						onFinished:
+						{
+							console.log("finish is working");
+						}
 					}
 				}
 
@@ -157,54 +166,75 @@ Rectangle
 					backgroundGradient:  Constant.blueGradient
 					textColor:  Constant.lightTextColor
 					text: Utilities.thousandSeparator(storyGameSession.currentLevelScore)
-					iconSrc: "qrc:/img/diamond.png"
+					iconSrc: "qrc:/img/diamond.svg"
 					implicitHeight: 100
 					Layout.fillWidth: true
 					Layout.leftMargin: 20
 					Layout.rightMargin: 20
 				}
 
-				Item
-				{
-					Layout.fillHeight: true
-				}
+				//				Item
+				//				{
+				//					Layout.fillHeight: true
+				//				}
 			}
 
 
-			Canvas
-			{
-				id: canvas
-				anchors.fill: parent
+			//			Canvas
+			//			{
+			//				id: canvas
+			//				anchors.fill: parent
 
-				property  bool firstTime : true
+			//				property  bool firstTime : true
 
-				Timer
-				{
-					interval: 1000/60
-					running: true
-					repeat: true
-					onTriggered: canvas.requestPaint()
-				}
+			//				Timer
+			//				{
+			//					interval: 1000/60
+			//					running: true
+			//					repeat: true
+			//					onTriggered: canvas.requestPaint()
+			//				}
 
-				onWidthChanged:Pro.setSizes(canvas.width , canvas.height)
-				onHeightChanged: Pro.setSizes(canvas.width , canvas.height)
+			//				onWidthChanged:Pro.setSizes(canvas.width , canvas.height)
+			//				onHeightChanged: Pro.setSizes(canvas.width , canvas.height)
 
-				onPaint:
-				{
-					if(firstTime)
-					{
-						Pro.setSizes(canvas.width , canvas.height)
-						Pro.setCtx(canvas.getContext("2d"));
-						Pro.setBar(new Pro.Progressbar())
-						Pro.x = 0;
-						Pro.y = starsRow.y + starsRow.height;
-						Pro.particleColor = root.particleColor
-						firstTime = false
-					}
+			//				onPaint:
+			//				{
+			//					if(firstTime)
+			//					{
+			//						Pro.setSizes(canvas.width , canvas.height)
+			//						Pro.setCtx(canvas.getContext("2d"));
+			//						Pro.setBar(new Pro.Progressbar())
+			//						Pro.x = 0;
+			//						Pro.y = starsRow.y + starsRow.height;
+			//						Pro.particleColor = root.particleColor
+			//						firstTime = false
+			//					}
 
-					Pro.draw();
-				}
-			}
+			//					Pro.draw();
+			//				}
+			//			}
+
+
+			//			Lottie.LottieAnimation {
+			//							anchors.fill: parent
+			//		//		Layout.fillWidth: true
+			//		//		implicitHeight: 200
+			//		//					width:  parent.width
+			//		//					height:  parent.height
+			//				source: "qrc:/lottie/success-particles.json"
+			//				running: true
+			//				clearBeforeRendering: true
+			//				//		speed: speedSlider.value
+			//				loops: 0
+			//				fillMode: Image.PreserveAspectFit
+
+			//				onFinished:
+			//				{
+			//					console.log("finish is working");
+			//		//						done();
+			//				}
+			//			}
 
 		}
 
@@ -234,8 +264,7 @@ Rectangle
 				else
 				{
 					gameManager.goToNextChapter();
-					stackView.pop()
-					stackView.push(countdownComponent)
+					stackView.replace(countdownComponent)
 				}
 			}
 		}
@@ -255,8 +284,13 @@ Rectangle
 			onClicked:
 			{
 				storyGameSession.restartSession();
-				stackView.pop()
-				stackView.pop()
+
+				var item = stackView.find(function(item, index) { return item.objectName === "BookList" })
+				console.log(item)
+				stackView.pop(item);
+
+//				stackView.pop(bookListComponent)
+//				stackView.pop()
 			}
 		}
 	}

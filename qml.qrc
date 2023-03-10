@@ -2,12 +2,9 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>DragTest.qml</file>
-        <file>img/diamond.png</file>
-        <file>img/star.png</file>
         <file>Constant.qml</file>
         <file>qml/components/BottomNavigationBar.qml</file>
         <file>qml/components/GeneralButton.qml</file>
-        <file>qml/components/Hexagon.qml</file>
         <file>qml/components/RotatedHexagon.qml</file>
         <file>qml/components/BookCover.qml</file>
         <file>fonts/otfs/Font Awesome 6 Brands-Regular-400.otf</file>
@@ -17,7 +14,6 @@
         <file>qml/pages/ButtonZoo.qml</file>
         <file>qml/pages/ChapterGameMode.qml</file>
         <file>qml/pages/QuestionPage.qml</file>
-        <file>img/star_off.png</file>
         <file>js/Utilities.js</file>
         <file>qml/components/BlueProgressBar.qml</file>
         <file>qml/pages/CountdownPage.qml</file>
@@ -29,17 +25,28 @@
         <file>qml/components/IconicLabel.qml</file>
         <file>qml/pages/StartCover.qml</file>
         <file>qml/components/LiquidButton.qml</file>
-        <file>img/background.png</file>
-        <file>qml/components/Blob.qml</file>
-        <file>qml/components/Circle.qml</file>
         <file>fonts/ttf/SOGAND.ttf</file>
         <file>img/mustache.png</file>
         <file>qml/pages/Leaderboard.qml</file>
         <file>qml/pages/SettingPage.qml</file>
         <file>qml/pages/Story/CelebrateAllTheStarsAchieved.qml</file>
-        <file>img/throphy.png</file>
         <file>js/Progress.js</file>
         <file>img/looser.png</file>
-        <file>gif/countdown.gif</file>
+        <file>qml/components/lottie/3rdparty/lottie.min.js</file>
+        <file>qml/components/lottie/private/HtmlImg.qml</file>
+        <file>qml/components/lottie/private/lottie_shim.js</file>
+        <file>qml/components/lottie/LottieAnimation.qml</file>
+        <file>lottie/spaceManLove.json</file>
+        <file>lottie/blue-countdown-from-3.json</file>
+        <file>lottie/champion.json</file>
+        <file>lottie/cup-of-tea.json</file>
+        <file>lottie/ornament-animation.json</file>
+        <file>lottie/success-particles.json</file>
+        <file>lottie/win-cup.json</file>
+        <file>lottie/winner-badge-shield.json</file>
+        <file>lottie/liquid-button-background.json</file>
+        <file>img/diamond.svg</file>
+        <file>img/star_off.svg</file>
+        <file>img/star.svg</file>
     </qresource>
 </RCC>

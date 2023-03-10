@@ -3,7 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.2
-import QtGraphicalEffects 1.12
+import QtGraphicalEffects 1.15
 
 import 'qml/components'
 import 'qml/pages'
@@ -24,6 +24,12 @@ ApplicationWindow
 	function hideMenus()
 	{
 		menuVisible = false;
+	}
+
+	function showBanner(fileSource)
+	{
+		bannerLoader.sourceComponent = fileSource;
+		bannerpopup.open();
 	}
 
 	//    flags: Qt.FramelessWindowHint
@@ -195,8 +201,7 @@ ApplicationWindow
 
 			onDone:
 			{
-				stackView.pop()
-				stackView.push(questionPageComponent)
+				stackView.replace(questionPageComponent)
 				storyGameSession.restartSession()
 				storyGameSession.start()
 			}
@@ -270,9 +275,7 @@ ApplicationWindow
 
 		function onShowBanner(fileSource)
 		{
-			console.log("working : ", fileSource)
-			bannerLoader.source = fileSource;
-			bannerpopup.open();
+			showBanner(fileSource);
 		}
 
 	}
@@ -286,6 +289,7 @@ ApplicationWindow
 		width: parent.width - 20
 		height: parent.height - 20
 		modal: true
+		closePolicy: Popup.NoAutoClose
 
 		Loader
 		{

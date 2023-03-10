@@ -97,7 +97,7 @@ Rectangle
                             property double scale : index == 1? 1.3 : 1
                             Layout.leftMargin: 5
                             Layout.bottomMargin: index == 1 ? 10 : 0
-                            source: 0 > index ? "qrc:/img/star.png": "qrc:/img/star_off.png"
+                            source: 0 > index ? "qrc:/img/star.svg": "qrc:/img/star_off.svg"
                             sourceSize: Qt.size(starSize*scale ,starSize*scale)
 
                             layer.enabled: true
@@ -175,10 +175,8 @@ Rectangle
 
 			onClicked:
 			{
-				console.log("تلاش مجدد کلیک شد ")
 				storyGameSession.restartSession();
-				stackView.pop()
-				stackView.push(countdownComponent)
+				stackView.replace(countdownComponent)
 			}
         }
 
@@ -209,8 +207,9 @@ Rectangle
 			onClicked:
 			{
 				storyGameSession.restartSession();
-				stackView.pop()
-				stackView.pop()
+				var item = stackView.find(function(item, index) { return item.objectName === "BookList" })
+				console.log(item)
+				stackView.pop(item);
 			}
         }
     }

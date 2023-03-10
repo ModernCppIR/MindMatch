@@ -138,7 +138,7 @@ Item
 				backgroundGradient: score == 0  ? Constant.whiteGradient  : Constant.blueGradient
 				textColor: score == 0 ? Constant.darkTextColor : Constant.lightTextColor
 				text: Utilities.thousandSeparator(score)
-				iconSrc: "qrc:/img/diamond.png"
+				iconSrc: "qrc:/img/diamond.svg"
 				implicitHeight: 100
 				Layout.fillWidth: true
 				Layout.leftMargin: 20
@@ -149,7 +149,7 @@ Item
 			{
 				backgroundGradient: achievedStars == totalStars ? Constant.goldGradient : Constant.whiteGradient
 				text: achievedStars +"/"+totalStars
-				iconSrc: "qrc:/img/star.png"
+				iconSrc: "qrc:/img/star.svg"
 				implicitHeight: 100
 				Layout.fillWidth: true
 				Layout.leftMargin: 20

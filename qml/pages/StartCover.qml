@@ -1,14 +1,16 @@
 import QtQuick 2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.15
 
 import Constant 1.0
 
+import "../components/lottie" as Lottie
 import '../components'
 
 Item
 {
-	id:root
+	id: root
 
 	Component.onCompleted:
 	{
@@ -74,7 +76,6 @@ Item
 
 	Image
 	{
-
 		sourceSize: Qt.size(root.width , root.width)
 		source: "qrc:/img/mustache.png"
 
@@ -94,7 +95,7 @@ Item
 		}
 	}
 
-	LiquidButton
+	RoundButton
 	{
 		text:"شروع"
 
@@ -103,50 +104,52 @@ Item
 		anchors.bottom: parent.bottom
 		anchors.horizontalCenter: parent.horizontalCenter
 
-		width: parent.width * 1.4
-		height: parent.width * 1.4
+		width: parent.width
+		height: parent.width
 
-		batteryState: 2
-		batteryLevel: 90
+		radius: 200
+
+		contentItem: Text {
+			anchors.centerIn: parent
+			text: parent.text
+			visible: true
+			horizontalAlignment: Qt.AlignHCenter
+			verticalAlignment: Qt.AlignVCenter
+			color: Constant.whiteColor
+			font.bold: true
+			font.pixelSize: parent.font.pixelSize
+
+			layer.enabled: true
+			layer.effect: DropShadow {
+				transparentBorder: true
+				horizontalOffset: 0
+				verticalOffset: 0
+				color: Constant.shadowColor
+				samples: 8
+				radius: 8
+				spread: 0.0
+			}
+		}
 
 		onClicked:
 		{
-			opacityAnim.start()
-			lowAnim.start()
+			lottieAnim.stop()
+			lottieAnim.clear()
+			stackView.replace(bookListComponent)
 		}
 
-		PropertyAnimation on batteryLevel
+		background: Lottie.LottieAnimation
 		{
-			running:false
-			loops:1
-			id: lowAnim
-			from: 90
-			to: 10
-			duration: 200
-			onFinished:
-			{
-				timer.start()
-			}
-		}
-		PropertyAnimation on opacity
-		{
-			running:false
-			loops:1
-			id: opacityAnim
-			from: 1
-			to: 0
-			duration: 200
-		}
+			id: lottieAnim
+			anchors.centerIn: parent
+			width:  parent.width * 1.4
+			height:  parent.height * 1.4
+			source: "qrc:/lottie/liquid-button-background.json"
+			running: true
+			clearBeforeRendering: true
+			loops: Animation.Infinite
+			fillMode: Image.PreserveAspectFit
 
-		Timer
-		{
-			id:timer
-			interval: 50
-			onTriggered:
-			{
-				stackView.pop()
-				stackView.push(bookListComponent)
-			}
 		}
 	}
 

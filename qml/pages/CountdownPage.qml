@@ -2,6 +2,8 @@ import QtQuick 2.15
 
 import Constant 1.0
 
+import "../components/lottie" as Lottie
+
 Item
 {
 	id:root
@@ -13,20 +15,21 @@ Item
 		mainWindow.hideMenus();
 	}
 
-	AnimatedImage
-	{
-		id: animation;
+	Lottie.LottieAnimation {
+		id: lottieAnim
 		anchors.centerIn: parent
+		width:  parent.width * 1.7
+		height:  parent.height * 1.7
+		source: "qrc:/lottie/blue-countdown-from-3.json"
+		running: true
+		clearBeforeRendering: true
+		loops: 0
+		fillMode: Image.PreserveAspectFit
 
-		source: "qrc:/gif/countdown.gif"
-
-		onCurrentFrameChanged: {
-			if(currentFrame == 52 )
-			{
-				animation.paused = true;
-				animation.currentFrame = 0;
-				done();
-			}
+		onFinished:
+		{
+			console.log("finish is working");
+			done();
 		}
 	}
 }

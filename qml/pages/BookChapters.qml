@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Window 2.2
+import QtQuick.Window 2.15
 import QtGraphicalEffects 1.15
 
 import Constant 1.0
@@ -67,9 +67,10 @@ Page
 
 							Image
 							{
-                                Layout.leftMargin: 5
+								Layout.leftMargin: 5
+								Layout.topMargin: 3
 								source: stars > index ? "qrc:/img/star.svg": "qrc:/img/star_off.svg"
-                                sourceSize: Qt.size(starSize,starSize)
+								sourceSize: Qt.size(starSize,starSize)
 								layer.enabled: true
 
 								layer.effect: DropShadow {
@@ -81,7 +82,7 @@ Page
 									radius: 8
 									spread: 0.0
 								}
-                            }
+							}
                         }
                     }
 

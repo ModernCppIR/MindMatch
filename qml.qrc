@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>DragTest.qml</file>
         <file>Constant.qml</file>
         <file>qml/components/BottomNavigationBar.qml</file>
         <file>qml/components/GeneralButton.qml</file>

@@ -1,6 +1,5 @@
 pragma Singleton
 
-import QtQuick.Controls.Material 2.15
 import QtQuick 2.15
 QtObject {
 	property color orange: "#FF9800" // FFB802

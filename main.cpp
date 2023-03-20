@@ -68,9 +68,10 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	dbManager.getChapter("+", 1);
-
 	dbManager.init();
+	dbManager.generateQuestions();
+
+	//	dbManager.getChapter("+", 1);
 
 	// NOTE create models
 	GameManager gm;

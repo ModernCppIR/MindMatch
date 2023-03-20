@@ -17,6 +17,8 @@ public:
 
 	QVector<ChapterItem> getChapter(const QString &operators, int hardnessLevel);
 
+	void generateQuestions();
+
 signals:
 };
 

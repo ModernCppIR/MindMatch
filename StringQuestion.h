@@ -8,6 +8,8 @@
 
 struct StringQuestion
 {
+	int id;
+	int correctIndex;
 	QString title;
 
 	std::array<StringAnswer, 4> answers;

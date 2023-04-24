@@ -1,17 +1,31 @@
 #include "GameManager.h"
 
+#include "DatabaseManager.h"
 #include <QDebug>
 
 GameManager::GameManager(QObject *parent)
 	: QObject{parent}
 	, m_bookTotalChapters{9}
 {
+
+	if (!m_dbManager->open())
+	{
+		// TODO add a message dialog in ui to inform user and exit
+		qDebug() << "can not open databse so nothing to be done ";
+		exit(1);
+	}
+
+	//	m_dbManager->init();
+	//	m_dbManager->generateQuestions();
+
 	m_books = createDummyBooks();
 
 	m_totalStoryModeStars = m_books.size() * 9 * 3;
 
 	m_booksModel.setBooks(m_books);
 }
+
+GameManager::~GameManager() = default;
 
 QVector<BookItem> GameManager::createDummyBooks()
 {
@@ -131,7 +145,11 @@ void GameManager::selectChapter(const int &index)
 
 	if (bookIt != m_books.cend())
 	{
-		auto questions = bookIt->chapters[index].questions;
+		QString operatorStr = bookIt->operationList.join("");
+		qDebug() << operatorStr;
+		int hardnessLevel = index + 1;
+		auto chapter = m_dbManager->getChapter(operatorStr, hardnessLevel);
+		auto questions = chapter.questions;
 		m_storyGameSession.setQuestions(questions);
 		m_storyGameSession.setSessionName(bookIt->chapters[index].name);
 

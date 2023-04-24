@@ -15,7 +15,7 @@ public:
 
 	bool init();
 
-	QVector<ChapterItem> getChapter(const QString &operators, int hardnessLevel);
+	ChapterItem getChapter(const QString &operators, int hardnessLevel);
 
 	void generateQuestions();
 

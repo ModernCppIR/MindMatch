@@ -6,7 +6,6 @@
 #include <QQmlPropertyMap>
 #include <QTimer>
 
-#include "DatabaseManager.h"
 #include "GameManager.h"
 #include "src/components/notchedrectangle.h"
 
@@ -58,20 +57,6 @@ int main(int argc, char *argv[])
 	//					"to build it.\n\n"
 	//					"Click Cancel to exit.";
 	//	}
-
-	DatabaseManager dbManager;
-
-	if (!dbManager.open())
-	{
-		// TODO add a message dialog in ui to inform user and exit
-		qDebug() << "can not open databse so nothing to be done ";
-		exit(1);
-	}
-
-	dbManager.init();
-	dbManager.generateQuestions();
-
-	//	dbManager.getChapter("+", 1);
 
 	// NOTE create models
 	GameManager gm;

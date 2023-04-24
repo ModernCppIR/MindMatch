@@ -48,6 +48,8 @@ bool DatabaseManager::init()
 {
 	bool success{false};
 
+	// check if databse dose not exists
+
 	// NOTE create initial database tables and load questiuon database
 	QSqlQuery query;
 	query.exec("create table questions (id int primary key, "
@@ -65,30 +67,35 @@ bool DatabaseManager::init()
 	return success;
 }
 
-QVector<ChapterItem> DatabaseManager::getChapter(const QString &operators, int hardnessLevel)
+ChapterItem DatabaseManager::getChapter(const QString &operators, int hardnessLevel)
 {
-	QVector<ChapterItem> items;
+	ChapterItem chapterItem;
+	// FIXME compelete chapter ibnfo
+
+	chapterItem.name = "فصل " + QString::number(hardnessLevel + 1);
 
 	QSqlQuery query("SELECT * FROM questions WHERE operators = '" + operators
 					+ "' AND hardness_level = " + QString::number(hardnessLevel)
 					+ " ORDER BY RANDOM() LIMIT 10;");
+	qDebug() << "query.exec: " << query.exec();
 
 	qDebug() << query.lastQuery();
 	qDebug() << query.lastError().text();
 
 	//	"question text, first_answer text, second_answer text, third_answer text, "
 	//	"fourth_answer text, correct_answer int, hardness_level int, operators text
-	int keyId = query.record().indexOf("key");
-	int questionId = query.record().indexOf("question");
-	int first_answerId = query.record().indexOf("first_answer");
-	int second_answerId = query.record().indexOf("second_answer");
-	int third_answerId = query.record().indexOf("third_answer");
-	int fourth_answerId = query.record().indexOf("fourth_answer");
-	int correct_answerId = query.record().indexOf("correct_answer");
-	int operatorsId = query.record().indexOf("operators");
+	const int keyId = query.record().indexOf("id");
+	const int questionId = query.record().indexOf("question");
+	const int first_answerId = query.record().indexOf("first_answer");
+	const int second_answerId = query.record().indexOf("second_answer");
+	const int third_answerId = query.record().indexOf("third_answer");
+	const int fourth_answerId = query.record().indexOf("fourth_answer");
+	const int correct_answerId = query.record().indexOf("correct_answer");
+	const int operatorsId = query.record().indexOf("operators");
 
 	while (query.next())
 	{
+		qDebug() << keyId;
 		auto id = query.value(keyId).toInt();
 		auto question = query.value(questionId).toString();
 		auto first_answer = query.value(first_answerId).toString();
@@ -105,9 +112,21 @@ QVector<ChapterItem> DatabaseManager::getChapter(const QString &operators, int h
 				 << "fourth_answer: " << fourth_answer << "\t"
 				 << "correct_answer: " << correct_answer << "\t"
 				 << "operators: " << operators << "\t";
+		StringQuestion q;
+		q.id = id;
+		q.correctIndex = correct_answer;
+		q.title = question;
+		q.answers[0] = StringAnswer{first_answer, 0 == correct_answer, 0};
+		q.answers[1] = StringAnswer{second_answer, 1 == correct_answer, 0};
+		q.answers[2] = StringAnswer{third_answer, 2 == correct_answer, 0};
+		q.answers[3] = StringAnswer{fourth_answer, 3 == correct_answer, 0};
+
+		chapterItem.questions.push_back(q);
 	}
 
-	return items;
+	chapterItem.totalTime = chapterItem.questions.size() * 5 * 1000;
+
+	return chapterItem;
 }
 
 void DatabaseManager::generateQuestions()
@@ -214,8 +233,7 @@ void DatabaseManager::generateQuestions()
 						answers_vec[0], answers_vec[1], answers_vec[2], answers_vec[3],
 						std::distance(answers_vec.begin(),
 									  std::find(answers_vec.begin(), answers_vec.end(),
-												QString::number(i + j))
-										  + 1),
+												QString::number(i + j))),
 						1, "+");
 		}
 	}
@@ -240,8 +258,7 @@ void DatabaseManager::generateQuestions()
 						answers_vec[0], answers_vec[1], answers_vec[2], answers_vec[3],
 						std::distance(answers_vec.begin(),
 									  std::find(answers_vec.begin(), answers_vec.end(),
-												QString::number(j)))
-							+ 1,
+												QString::number(j))),
 						2, "+");
 		}
 	}
@@ -270,13 +287,12 @@ void DatabaseManager::generateQuestions()
 						answers_vec[0], answers_vec[1], answers_vec[2], answers_vec[3],
 						std::distance(answers_vec.begin(),
 									  std::find(answers_vec.begin(), answers_vec.end(),
-												QString::number(j)))
-							+ 1,
+												QString::number(j))),
 						2, "+");
 		}
 	}
 
-	// NOTE + level three questions
+	// NOTE + level 3 questions
 
 	for (int i{0}; i < 10; ++i)
 	{
@@ -289,6 +305,7 @@ void DatabaseManager::generateQuestions()
 			answers_vec[0] = answer;
 
 			int newJ{0};
+
 			while (newJ == 0)
 			{
 				newJ = QRandomGenerator::global()->generate() % 10;
@@ -340,8 +357,7 @@ void DatabaseManager::generateQuestions()
 			addQuestion(++counter, QString::number(i + j), answers_vec[0], answers_vec[1],
 						answers_vec[2], answers_vec[3],
 						std::distance(answers_vec.begin(),
-									  std::find(answers_vec.begin(), answers_vec.end(), answer))
-							+ 1,
+									  std::find(answers_vec.begin(), answers_vec.end(), answer)),
 						3, "+");
 		}
 	}
@@ -444,8 +460,7 @@ void DatabaseManager::generateQuestions()
 								   });
 
 			addQuestion(++counter, tr("کوچک ترین"), answers_vec[0], answers_vec[1], answers_vec[2],
-						answers_vec[3], std::distance(answers_vec.cbegin(), min_element) + 1, 4,
-						"+");
+						answers_vec[3], std::distance(answers_vec.cbegin(), min_element), 4, "+");
 		}
 	}
 
@@ -473,8 +488,7 @@ void DatabaseManager::generateQuestions()
 							answers_vec[0], answers_vec[1], answers_vec[2], answers_vec[3],
 							std::distance(answers_vec.begin(),
 										  std::find(answers_vec.begin(), answers_vec.end(),
-													QString::number(j)))
-								+ 1,
+													QString::number(i + j + k))),
 							5, "+");
 			}
 		}
@@ -502,8 +516,7 @@ void DatabaseManager::generateQuestions()
 							answers_vec[0], answers_vec[1], answers_vec[2], answers_vec[3],
 							std::distance(answers_vec.begin(),
 										  std::find(answers_vec.begin(), answers_vec.end(),
-													QString::number(i + j))
-											  + 1),
+													QString::number(i + j))),
 							6, "+");
 			}
 		}
@@ -610,8 +623,7 @@ void DatabaseManager::generateQuestions()
 								   });
 
 			addQuestion(++counter, tr("بزرگ ترین"), answers_vec[0], answers_vec[1], answers_vec[2],
-						answers_vec[3], std::distance(answers_vec.cbegin(), max_element) + 1, 7,
-						"+");
+						answers_vec[3], std::distance(answers_vec.cbegin(), max_element), 7, "+");
 		}
 	}
 
@@ -688,8 +700,7 @@ void DatabaseManager::generateQuestions()
 							QString("%1 + %2").arg(QString::number(i), QString::number(j)),
 							answers_vec[0], answers_vec[1], answers_vec[2], answers_vec[3],
 							std::distance(answers_vec.begin(),
-										  std::find(answers_vec.begin(), answers_vec.end(), answer))
-								+ 1,
+										  std::find(answers_vec.begin(), answers_vec.end(), answer)),
 							8, "+");
 			}
 		}

@@ -1,12 +1,16 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
 
-#include <QObject>
-
 #include "src/StoryMode/BookItem.h"
 #include "src/StoryMode/BookModel.h"
 #include "src/StoryMode/ChapterModel.h"
 #include "src/StoryMode/StoryGameSession.h"
+
+#include <QObject>
+
+#include <memory>
+
+class DatabaseManager;
 
 class GameManager : public QObject
 {
@@ -28,6 +32,8 @@ class GameManager : public QObject
 
 public:
 	explicit GameManager(QObject *parent = nullptr);
+
+	~GameManager();
 
 	QVector<BookItem> books() const;
 
@@ -100,6 +106,8 @@ private:
 	int m_allAchievedStoryModeStars = 0;
 	;
 	int m_totalStoryModeStars = 0;
+
+	std::unique_ptr<DatabaseManager> m_dbManager;
 };
 
 #endif // GAMEMANAGER_H
